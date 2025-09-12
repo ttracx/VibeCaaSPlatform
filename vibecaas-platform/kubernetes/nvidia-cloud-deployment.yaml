@@ -1,0 +1,590 @@
+# VibeCaaS Kubernetes Infrastructure for NVIDIA Cloud
+---
+# Namespace for VibeCaaS platform components
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vibecaas-system
+  labels:
+    vibecaas.com/component: system
+
+---
+# ConfigMap for platform configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vibecaas-config
+  namespace: vibecaas-system
+data:
+  DOMAIN_SUFFIX: ".vibecaas.com"
+  NGC_ORG: "vibecaas"
+  NGC_REGISTRY: "nvcr.io"
+  METRICS_ENABLED: "true"
+  DEFAULT_CPU_LIMIT: "1000m"
+  DEFAULT_MEMORY_LIMIT: "2Gi"
+  GPU_POOL_SIZE: "10"
+  
+---
+# Secret for sensitive configuration (base64 encoded)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vibecaas-secrets
+  namespace: vibecaas-system
+type: Opaque
+data:
+  DATABASE_URL: cG9zdGdyZXNxbDovL3VzZXI6cGFzc0Bwb3N0Z3Jlcy12aWJlY2Fhcy5zdmMuY2x1c3Rlci5sb2NhbC92aWJlY2Fhcw==
+  REDIS_URL: cmVkaXM6Ly9yZWRpcy12aWJlY2Fhcy5zdmMuY2x1c3Rlci5sb2NhbDo2Mzc5
+  NGC_API_KEY: eW91ci1uZ2MtYXBpLWtleQ==
+  JWT_SECRET: eW91ci1qd3Qtc2VjcmV0LWtleQ==
+  S3_BUCKET: dmlibmVjYWFzLXVzZXItZGF0YQ==
+
+---
+# PostgreSQL Database
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-vibecaas
+  namespace: vibecaas-system
+spec:
+  serviceName: postgres-vibecaas
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-vibecaas
+  template:
+    metadata:
+      labels:
+        app: postgres-vibecaas
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: vibecaas
+        - name: POSTGRES_USER
+          value: vibecaas_user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: fast-ssd
+      resources:
+        requests:
+          storage: 100Gi
+
+---
+# PostgreSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-vibecaas
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: postgres-vibecaas
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: ClusterIP
+
+---
+# Redis Cache
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-vibecaas
+  namespace: vibecaas-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-vibecaas
+  template:
+    metadata:
+      labels:
+        app: redis-vibecaas
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        command:
+        - redis-server
+        - --maxmemory
+        - "2gb"
+        - --maxmemory-policy
+        - "allkeys-lru"
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+
+---
+# Redis Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-vibecaas
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: redis-vibecaas
+  ports:
+  - port: 6379
+    targetPort: 6379
+  type: ClusterIP
+
+---
+# Backend API Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api
+  namespace: vibecaas-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-api
+  template:
+    metadata:
+      labels:
+        app: backend-api
+    spec:
+      serviceAccountName: vibecaas-backend
+      containers:
+      - name: backend
+        image: nvcr.io/vibecaas/backend:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: DATABASE_URL
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: REDIS_URL
+        - name: NGC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: NGC_API_KEY
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: JWT_SECRET
+        - name: KUBERNETES_CONFIG
+          value: "incluster"
+        envFrom:
+        - configMapRef:
+            name: vibecaas-config
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+---
+# Backend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-api
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: backend-api
+  ports:
+  - port: 80
+    targetPort: 8000
+  type: ClusterIP
+
+---
+# Frontend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: vibecaas-system
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: nvcr.io/vibecaas/frontend:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NEXT_PUBLIC_API_URL
+          value: "https://api.vibecaas.com"
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+
+---
+# Frontend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: ClusterIP
+
+---
+# ServiceAccount for Backend
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vibecaas-backend
+  namespace: vibecaas-system
+
+---
+# ClusterRole for Backend
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vibecaas-backend
+rules:
+- apiGroups: [""]
+  resources: ["namespaces", "resourcequotas", "services", "persistentvolumeclaims", "pods", "pods/log"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "deployments/scale"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses", "networkpolicies"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["metrics.k8s.io"]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+
+---
+# ClusterRoleBinding for Backend
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vibecaas-backend
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vibecaas-backend
+subjects:
+- kind: ServiceAccount
+  name: vibecaas-backend
+  namespace: vibecaas-system
+
+---
+# GPU Time-Slicing ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gpu-sharing-config
+  namespace: vibecaas-system
+data:
+  config.yaml: |
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+        - name: nvidia.com/gpu
+          replicas: 4  # Allow 4 containers per GPU
+
+---
+# NVIDIA Device Plugin DaemonSet
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nvidia-device-plugin-daemonset
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: nvidia-device-plugin-ds
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: nvidia-device-plugin-ds
+    spec:
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+      priorityClassName: "system-node-critical"
+      containers:
+      - image: nvcr.io/nvidia/k8s-device-plugin:v0.14.0
+        name: nvidia-device-plugin-ctr
+        env:
+        - name: FAIL_ON_INIT_ERROR
+          value: "false"
+        - name: CONFIG_FILE
+          value: "/etc/config/config.yaml"
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+        volumeMounts:
+        - name: device-plugin
+          mountPath: /var/lib/kubelet/device-plugins
+        - name: config
+          mountPath: /etc/config
+      volumes:
+      - name: device-plugin
+        hostPath:
+          path: /var/lib/kubelet/device-plugins
+      - name: config
+        configMap:
+          name: gpu-sharing-config
+
+---
+# DCGM Exporter for GPU Metrics
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dcgm-exporter
+  namespace: vibecaas-system
+spec:
+  selector:
+    matchLabels:
+      app: dcgm-exporter
+  template:
+    metadata:
+      labels:
+        app: dcgm-exporter
+    spec:
+      containers:
+      - name: dcgm-exporter
+        image: nvcr.io/nvidia/k8s/dcgm-exporter:3.1.7-3.1.4-ubuntu22.04
+        env:
+        - name: DCGM_EXPORTER_LISTEN
+          value: ":9400"
+        - name: DCGM_EXPORTER_KUBERNETES
+          value: "true"
+        ports:
+        - containerPort: 9400
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: pod-gpu-resources
+          mountPath: /var/lib/kubelet/pod-resources
+      volumes:
+      - name: pod-gpu-resources
+        hostPath:
+          path: /var/lib/kubelet/pod-resources
+      nodeSelector:
+        nvidia.com/gpu: "true"
+
+---
+# Horizontal Pod Autoscaler for Backend
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-api-hpa
+  namespace: vibecaas-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend-api
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+# PriorityClass for User Apps
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: user-app-priority
+value: 100
+globalDefault: false
+description: "Priority for user application pods"
+
+---
+# PriorityClass for System Components
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: system-priority
+value: 1000
+globalDefault: false
+description: "Priority for VibeCaaS system components"
+
+---
+# NetworkPolicy for Platform Isolation
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: platform-isolation
+  namespace: vibecaas-system
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: vibecaas-system
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+  egress:
+  - to:
+    - namespaceSelector: {}
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+
+---
+# Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: database-backup
+  namespace: vibecaas-system
+spec:
+  schedule: "0 */6 * * *"  # Every 6 hours
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: postgres:15-alpine
+            command:
+            - /bin/sh
+            - -c
+            - |
+              TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+              pg_dump $DATABASE_URL > /backup/vibecaas_$TIMESTAMP.sql
+              # Upload to S3 or other storage
+            env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: vibecaas-secrets
+                  key: DATABASE_URL
+            volumeMounts:
+            - name: backup
+              mountPath: /backup
+          volumes:
+          - name: backup
+            emptyDir: {}
+          restartPolicy: OnFailure
+
+---
+# Main Platform Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vibecaas-platform
+  namespace: vibecaas-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+spec:
+  tls:
+  - hosts:
+    - vibecaas.com
+    - api.vibecaas.com
+    - "*.vibecaas.com"
+    secretName: vibecaas-tls
+  rules:
+  - host: vibecaas.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
+  - host: api.vibecaas.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-api
+            port:
+              number: 80
