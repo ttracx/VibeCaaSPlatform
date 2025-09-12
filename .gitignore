@@ -1,0 +1,22 @@
+# Env
+.env
+.env.*
+
+# Node
+node_modules/
+.next/
+out/
+
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# OS/IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Docker volumes (named volumes are fine)
+postgres_data/
+
