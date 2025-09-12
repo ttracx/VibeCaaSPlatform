@@ -55,3 +55,41 @@ export interface ResourceUsage {
   monthlyCost: number
   dailyCost: number
 }
+
+export interface GitHubRepository {
+  id: number
+  name: string
+  fullName: string
+  description: string | null
+  private: boolean
+  htmlUrl: string
+  cloneUrl: string
+  defaultBranch: string
+  language: string | null
+  updatedAt: string
+  stargazersCount: number
+  forksCount: number
+}
+
+export interface RepositoryAnalysis {
+  hasDockerfile: boolean
+  dockerfilePath?: string
+  dockerfileContent?: string
+  detectedLanguage: string | null
+  suggestedPort: number
+  suggestedResources: {
+    cpu: string
+    memory: string
+  }
+  buildCommand?: string
+  startCommand?: string
+  environmentVariables: Record<string, string>
+}
+
+export interface CreateAppFromGitHubRequest extends CreateAppRequest {
+  githubRepository: {
+    owner: string
+    repo: string
+    branch?: string
+  }
+}

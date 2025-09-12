@@ -13,6 +13,7 @@ import { connectRedis } from './config/redis'
 import { logger } from './utils/logger'
 import { errorHandler } from './middleware/errorHandler'
 import { authMiddleware } from './middleware/auth'
+import { GitHubService } from './services/GitHubService'
 
 // Routes
 import authRoutes from './routes/auth'
@@ -20,6 +21,7 @@ import appRoutes from './routes/apps'
 import usageRoutes from './routes/usage'
 import templateRoutes from './routes/templates'
 import webhookRoutes from './routes/webhooks'
+import githubRoutes from './routes/github'
 
 // Load environment variables
 dotenv.config()
@@ -75,6 +77,7 @@ app.use('/apps', authMiddleware, appRoutes)
 app.use('/usage', authMiddleware, usageRoutes)
 app.use('/templates', templateRoutes)
 app.use('/webhooks', webhookRoutes)
+app.use('/github', githubRoutes)
 
 // Socket.IO for real-time updates
 io.on('connection', (socket) => {
@@ -112,6 +115,9 @@ async function startServer() {
     // Connect to databases
     await connectDatabase()
     await connectRedis()
+    
+    // Initialize GitHub service
+    GitHubService.initialize()
     
     server.listen(PORT, () => {
       logger.info(`🚀 VibeCaaS Backend running on port ${PORT}`)
