@@ -21,7 +21,7 @@ export function DashboardHeader() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <VibeCaaSLogo size="md" showText={true} />
+            <img src="/VibeCaaS.png" alt="VibeCaaS Logo" className="h-10 w-auto" />
           </div>
 
           {/* Navigation */}
