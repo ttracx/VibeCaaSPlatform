@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { apiService } from '@/services/api'
+import { demoApiService } from '@/services/demoApi'
 import { CreateAppRequest } from '@/types/app'
 import { toast } from 'react-hot-toast'
 
@@ -22,7 +22,7 @@ const templates = [
     image: 'node:18-alpine',
     port: 3000,
     resources: { cpu: '500m', memory: '512Mi' },
-    environment: { NODE_ENV: 'production' }
+    environment: { NODE_ENV: 'production' } as Record<string, string>
   },
   {
     id: 'nextjs',
@@ -31,7 +31,7 @@ const templates = [
     image: 'node:18-alpine',
     port: 3000,
     resources: { cpu: '500m', memory: '512Mi' },
-    environment: { NODE_ENV: 'production' }
+    environment: { NODE_ENV: 'production' } as Record<string, string>
   },
   {
     id: 'python',
@@ -40,7 +40,7 @@ const templates = [
     image: 'python:3.11-slim',
     port: 5000,
     resources: { cpu: '500m', memory: '512Mi' },
-    environment: { FLASK_ENV: 'production' }
+    environment: { FLASK_ENV: 'production' } as Record<string, string>
   },
   {
     id: 'fastapi',
@@ -49,7 +49,7 @@ const templates = [
     image: 'python:3.11-slim',
     port: 8000,
     resources: { cpu: '500m', memory: '512Mi' },
-    environment: { PYTHONPATH: '/app' }
+    environment: { PYTHONPATH: '/app' } as Record<string, string>
   },
   {
     id: 'golang',
@@ -58,7 +58,7 @@ const templates = [
     image: 'golang:1.21-alpine',
     port: 8080,
     resources: { cpu: '500m', memory: '512Mi' },
-    environment: { CGO_ENABLED: '0' }
+    environment: { CGO_ENABLED: '0' } as Record<string, string>
   },
   {
     id: 'rust',
@@ -67,7 +67,7 @@ const templates = [
     image: 'rust:1.75-alpine',
     port: 8080,
     resources: { cpu: '500m', memory: '512Mi' },
-    environment: { RUST_LOG: 'info' }
+    environment: { RUST_LOG: 'info' } as Record<string, string>
   }
 ]
 
@@ -107,7 +107,7 @@ export function CreateAppModal({ isOpen, onClose, onSuccess }: CreateAppModalPro
     setIsLoading(true)
 
     try {
-      await apiService.createApp(formData)
+      await demoApiService.createApp(formData)
       toast.success('Application created successfully!')
       onSuccess()
       resetForm()

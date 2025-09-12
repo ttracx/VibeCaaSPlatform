@@ -6,7 +6,7 @@ import {
   StopIcon, 
   TrashIcon, 
   Cog6ToothIcon,
-  ExternalLinkIcon,
+  ArrowTopRightOnSquareIcon as ExternalLinkIcon,
   ClockIcon
 } from '@heroicons/react/24/outline'
 import { App } from '@/types/app'
