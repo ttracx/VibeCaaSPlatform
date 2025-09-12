@@ -1,0 +1,666 @@
+# VibeCaaS Kubernetes Infrastructure Manifests
+# Deploy these to set up the core platform on NVIDIA Cloud
+
+---
+# Namespace for VibeCaaS platform components
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vibecaas-system
+  labels:
+    vibecaas.com/component: system
+
+---
+# ConfigMap for platform configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vibecaas-config
+  namespace: vibecaas-system
+data:
+  DOMAIN_SUFFIX: ".vibecaas.com"
+  NGC_ORG: "vibecaas"
+  NGC_REGISTRY: "nvcr.io"
+  METRICS_ENABLED: "true"
+  DEFAULT_CPU_LIMIT: "1000m"
+  DEFAULT_MEMORY_LIMIT: "2Gi"
+  GPU_POOL_SIZE: "10"
+  
+---
+# Secret for sensitive configuration (base64 encoded)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vibecaas-secrets
+  namespace: vibecaas-system
+type: Opaque
+data:
+  DATABASE_URL: cG9zdGdyZXNxbDovL3VzZXI6cGFzc0Bwb3N0Z3Jlcy12aWJlY2Fhcy5zdmMuY2x1c3Rlci5sb2NhbC92aWJlY2Fhcw==
+  REDIS_URL: cmVkaXM6Ly9yZWRpcy12aWJlY2Fhcy5zdmMuY2x1c3Rlci5sb2NhbDo2Mzc5
+  NGC_API_KEY: eW91ci1uZ2MtYXBpLWtleQ==
+  JWT_SECRET: eW91ci1qd3Qtc2VjcmV0LWtleQ==
+  S3_BUCKET: dmlibmVjYWFzLXVzZXItZGF0YQ==
+
+---
+# PostgreSQL Database
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-vibecaas
+  namespace: vibecaas-system
+spec:
+  serviceName: postgres-vibecaas
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-vibecaas
+  template:
+    metadata:
+      labels:
+        app: postgres-vibecaas
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: vibecaas
+        - name: POSTGRES_USER
+          value: vibecaas_user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: fast-ssd
+      resources:
+        requests:
+          storage: 100Gi
+
+---
+# PostgreSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-vibecaas
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: postgres-vibecaas
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: ClusterIP
+
+---
+# Redis Cache
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-vibecaas
+  namespace: vibecaas-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-vibecaas
+  template:
+    metadata:
+      labels:
+        app: redis-vibecaas
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        command:
+        - redis-server
+        - --maxmemory
+        - "2gb"
+        - --maxmemory-policy
+        - "allkeys-lru"
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+
+---
+# Redis Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-vibecaas
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: redis-vibecaas
+  ports:
+  - port: 6379
+    targetPort: 6379
+  type: ClusterIP
+
+---
+# Provisioning Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provisioning-service
+  namespace: vibecaas-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: provisioning-service
+  template:
+    metadata:
+      labels:
+        app: provisioning-service
+    spec:
+      serviceAccountName: vibecaas-provisioner
+      containers:
+      - name: provisioning
+        image: nvcr.io/vibecaas/provisioning-service:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: DATABASE_URL
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: REDIS_URL
+        - name: NGC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: NGC_API_KEY
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: vibecaas-secrets
+              key: JWT_SECRET
+        - name: KUBERNETES_CONFIG
+          value: "incluster"
+        envFrom:
+        - configMapRef:
+            name: vibecaas-config
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+---
+# Provisioning Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: provisioning-service
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: provisioning-service
+  ports:
+  - port: 80
+    targetPort: 8000
+  type: ClusterIP
+
+---
+# ServiceAccount for Provisioning Service
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vibecaas-provisioner
+  namespace: vibecaas-system
+
+---
+# ClusterRole for Provisioning Service
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vibecaas-provisioner
+rules:
+- apiGroups: [""]
+  resources: ["namespaces", "resourcequotas", "services", "persistentvolumeclaims"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "deployments/scale"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses", "networkpolicies"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list"]
+- apiGroups: ["metrics.k8s.io"]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+
+---
+# ClusterRoleBinding for Provisioning Service
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vibecaas-provisioner
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vibecaas-provisioner
+subjects:
+- kind: ServiceAccount
+  name: vibecaas-provisioner
+  namespace: vibecaas-system
+
+---
+# API Gateway (Kong)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: vibecaas-system
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: kong
+        image: kong:3.4-alpine
+        ports:
+        - containerPort: 8000
+          name: proxy
+        - containerPort: 8443
+          name: proxy-ssl
+        - containerPort: 8001
+          name: admin
+        env:
+        - name: KONG_DATABASE
+          value: "off"
+        - name: KONG_DECLARATIVE_CONFIG
+          value: "/kong/declarative/kong.yml"
+        - name: KONG_PROXY_LISTEN
+          value: "0.0.0.0:8000, 0.0.0.0:8443 ssl"
+        - name: KONG_ADMIN_LISTEN
+          value: "0.0.0.0:8001"
+        - name: KONG_PLUGINS
+          value: "bundled,jwt,rate-limiting,cors"
+        volumeMounts:
+        - name: kong-config
+          mountPath: /kong/declarative
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+      volumes:
+      - name: kong-config
+        configMap:
+          name: kong-config
+
+---
+# Kong Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-config
+  namespace: vibecaas-system
+data:
+  kong.yml: |
+    _format_version: "3.0"
+    services:
+    - name: provisioning-api
+      url: http://provisioning-service.vibecaas-system.svc.cluster.local
+      routes:
+      - name: provisioning-route
+        paths:
+        - /api/v1
+      plugins:
+      - name: jwt
+        config:
+          key_claim_name: sub
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+      - name: cors
+        config:
+          origins:
+          - https://vibecaas.com
+          - http://localhost:3000
+
+---
+# API Gateway Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: vibecaas-system
+spec:
+  selector:
+    app: api-gateway
+  ports:
+  - name: proxy
+    port: 80
+    targetPort: 8000
+  - name: proxy-ssl
+    port: 443
+    targetPort: 8443
+  type: LoadBalancer
+
+---
+# GPU Time-Slicing ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gpu-sharing-config
+  namespace: vibecaas-system
+data:
+  config.yaml: |
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+        - name: nvidia.com/gpu
+          replicas: 4  # Allow 4 containers per GPU
+
+---
+# NVIDIA Device Plugin DaemonSet
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nvidia-device-plugin-daemonset
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: nvidia-device-plugin-ds
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: nvidia-device-plugin-ds
+    spec:
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+      priorityClassName: "system-node-critical"
+      containers:
+      - image: nvcr.io/nvidia/k8s-device-plugin:v0.14.0
+        name: nvidia-device-plugin-ctr
+        env:
+        - name: FAIL_ON_INIT_ERROR
+          value: "false"
+        - name: CONFIG_FILE
+          value: "/etc/config/config.yaml"
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+        volumeMounts:
+        - name: device-plugin
+          mountPath: /var/lib/kubelet/device-plugins
+        - name: config
+          mountPath: /etc/config
+      volumes:
+      - name: device-plugin
+        hostPath:
+          path: /var/lib/kubelet/device-plugins
+      - name: config
+        configMap:
+          name: gpu-sharing-config
+
+---
+# DCGM Exporter for GPU Metrics
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dcgm-exporter
+  namespace: vibecaas-system
+spec:
+  selector:
+    matchLabels:
+      app: dcgm-exporter
+  template:
+    metadata:
+      labels:
+        app: dcgm-exporter
+    spec:
+      containers:
+      - name: dcgm-exporter
+        image: nvcr.io/nvidia/k8s/dcgm-exporter:3.1.7-3.1.4-ubuntu22.04
+        env:
+        - name: DCGM_EXPORTER_LISTEN
+          value: ":9400"
+        - name: DCGM_EXPORTER_KUBERNETES
+          value: "true"
+        ports:
+        - containerPort: 9400
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: pod-gpu-resources
+          mountPath: /var/lib/kubelet/pod-resources
+      volumes:
+      - name: pod-gpu-resources
+        hostPath:
+          path: /var/lib/kubelet/pod-resources
+      nodeSelector:
+        nvidia.com/gpu: "true"
+
+---
+# Horizontal Pod Autoscaler for Provisioning Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: provisioning-service-hpa
+  namespace: vibecaas-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: provisioning-service
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+# PriorityClass for User Apps
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: user-app-priority
+value: 100
+globalDefault: false
+description: "Priority for user application pods"
+
+---
+# PriorityClass for System Components
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: system-priority
+value: 1000
+globalDefault: false
+description: "Priority for VibeCaaS system components"
+
+---
+# NetworkPolicy for Platform Isolation
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: platform-isolation
+  namespace: vibecaas-system
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: vibecaas-system
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+  egress:
+  - to:
+    - namespaceSelector: {}
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+
+---
+# Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: database-backup
+  namespace: vibecaas-system
+spec:
+  schedule: "0 */6 * * *"  # Every 6 hours
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: postgres:15-alpine
+            command:
+            - /bin/sh
+            - -c
+            - |
+              TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+              pg_dump $DATABASE_URL > /backup/vibecaas_$TIMESTAMP.sql
+              # Upload to S3 or other storage
+            env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: vibecaas-secrets
+                  key: DATABASE_URL
+            volumeMounts:
+            - name: backup
+              mountPath: /backup
+          volumes:
+          - name: backup
+            emptyDir: {}
+          restartPolicy: OnFailure
+
+---
+# Cert-Manager for SSL Certificates
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@vibecaas.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+
+---
+# Main Platform Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vibecaas-platform
+  namespace: vibecaas-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+spec:
+  tls:
+  - hosts:
+    - api.vibecaas.com
+    - metrics.vibecaas.com
+    secretName: vibecaas-tls
+  rules:
+  - host: api.vibecaas.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway
+            port:
+              number: 80
+  - host: metrics.vibecaas.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
