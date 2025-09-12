@@ -1,18 +1,49 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
 
-echo "VibeCaaS setup"
+# VibeCaaS Platform Setup Script
+echo "🚀 Setting up VibeCaaS Platform..."
 
-if [ ! -f .env ]; then
-  cp .env.example .env
-  echo "Created .env"
+# Check if pnpm is installed
+if ! command -v pnpm &> /dev/null; then
+    echo "❌ pnpm is not installed. Please install pnpm first:"
+    echo "npm install -g pnpm"
+    exit 1
 fi
 
-if ! command -v docker >/dev/null 2>&1; then
-  echo "Docker not found. Please install Docker and Docker Compose."
-  exit 1
+# Check Node.js version
+NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
+if [ "$NODE_VERSION" -lt 18 ]; then
+    echo "❌ Node.js 18+ is required. Current version: $(node -v)"
+    exit 1
 fi
 
-docker compose up -d --build
-echo "UI: http://localhost:3000  API: http://localhost:8000"
+echo "✅ Node.js version: $(node -v)"
+echo "✅ pnpm version: $(pnpm -v)"
 
+# Install dependencies
+echo "📦 Installing dependencies..."
+pnpm install
+
+# Generate placeholder frames
+echo "🎬 Generating placeholder frames..."
+node scripts/generate-frames.js
+
+# Build packages
+echo "🔨 Building packages..."
+pnpm build
+
+echo "✅ Setup complete!"
+echo ""
+echo "🚀 To start development:"
+echo "  pnpm dev"
+echo ""
+echo "🧪 To run tests:"
+echo "  pnpm test"
+echo "  pnpm test:e2e"
+echo ""
+echo "📊 To run Lighthouse:"
+echo "  pnpm lighthouse"
+echo ""
+echo "🌐 Apps will be available at:"
+echo "  Marketing: http://localhost:3000"
+echo "  IDE Shell: http://localhost:3001"

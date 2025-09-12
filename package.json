@@ -1,34 +1,24 @@
 {
-  "name": "vibecaas-platform",
-  "version": "1.0.0",
-  "description": "VibeCaaS.com - Container as a Service Platform on NVIDIA Cloud",
-  "main": "index.js",
+  "name": "vibecaas-monorepo",
+  "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && npm run dev",
-    "build": "npm run build:frontend && npm run build:backend",
-    "build:frontend": "cd frontend && npm run build",
-    "build:backend": "cd backend && npm run build",
-    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "start:frontend": "cd frontend && npm run start",
-    "start:backend": "cd backend && npm run start",
-    "docker:build": "docker-compose build",
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
-    "k8s:deploy": "kubectl apply -f k8s/",
-    "k8s:delete": "kubectl delete -f k8s/"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "lighthouse": "turbo run lighthouse",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean"
   },
-  "keywords": [
-    "container-as-a-service",
-    "nvidia-cloud",
-    "kubernetes",
-    "docker",
-    "web-ide"
-  ],
-  "author": "VibeCaaS Team",
-  "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@turbo/gen": "^1.10.12",
+    "turbo": "^1.10.12",
+    "typescript": "^5.2.2"
+  },
+  "packageManager": "pnpm@8.6.10",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
   }
 }
