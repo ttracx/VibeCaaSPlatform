@@ -47,7 +47,7 @@ A complete infrastructure solution for VibeCaaS.com - a Replit/Lovable-like plat
 
 ## 🚀 Live Demo
 
-**Experience the VibeCaaS platform**: [https://vibecaas-demo.github.io](https://vibecaas-demo.github.io)
+**Experience the VibeCaaS platform**: [https://demo.vibecaas.com](https://demo.vibecaas.com)
 
 The demo showcases the complete frontend interface with:
 - Interactive application management
