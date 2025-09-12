@@ -1,0 +1,69 @@
+# VibeCaaS Git Ignore File
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+
+# JavaScript/TypeScript
+.next/
+out/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.db
+*.sqlite
+postgres_data/
+redis_data/
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Uploads and temporary files
+uploads/
+tmp/
+temp/
+*.tmp
+
+# Production
+*.pem
+*.key
+*.crt
+secrets/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Monitoring
+prometheus_data/
+grafana_data/
