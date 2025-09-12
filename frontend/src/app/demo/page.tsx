@@ -304,6 +304,15 @@ export default function DemoDashboard() {
         onClose={() => setIsAIAssistantOpen(false)}
         onDeploy={handleAIDeploy}
       />
+
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <img src="/VibeCaaS.png" alt="VibeCaaS Logo" className="h-8 w-auto" />
+          <div className="text-sm text-gray-500 dark:text-gray-400 text-center sm:text-right">
+            © 2025 VibeCaaS.com, a division of NeuralQuantum.ai LLC. All rights reserved.
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
