@@ -53,6 +53,13 @@ export default function DemoDashboard() {
 
   const handleAIDeploy = async (suggestion: AppSuggestion) => {
     // Convert AI suggestion to app format and deploy
+    const nowIso = new Date().toISOString()
+    const normalizedResources = {
+      cpu: typeof suggestion.resources.cpu === 'number' ? suggestion.resources.cpu.toString() : String(suggestion.resources.cpu),
+      memory: suggestion.resources.memory,
+      gpu: typeof suggestion.resources.gpu === 'number' ? suggestion.resources.gpu.toString() : suggestion.resources.gpu !== undefined ? String(suggestion.resources.gpu) : undefined,
+    }
+
     const newApp: App = {
       id: `ai-${Date.now()}`,
       name: suggestion.name,
@@ -60,9 +67,12 @@ export default function DemoDashboard() {
       image: suggestion.image,
       port: suggestion.port,
       status: 'creating',
-      resources: suggestion.resources,
-      createdAt: new Date().toISOString(),
-      environment: suggestion.environment
+      url: undefined,
+      resources: normalizedResources,
+      createdAt: nowIso,
+      updatedAt: nowIso,
+      environment: suggestion.environment,
+      volumes: [],
     }
     
     // In a real implementation, this would call the API to create the app
