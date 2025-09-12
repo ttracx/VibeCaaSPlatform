@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeCaaS - Container as a Service Platform</title>
+    <meta name="description" content="Deploy and manage containerized applications on NVIDIA Cloud infrastructure">
+    <meta name="keywords" content="container,cloud,nvidia,kubernetes,deployment">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #fbbf24;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            font-weight: 700;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 0.5rem;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: #fbbf24;
+            color: #1f2937;
+            border-color: #fbbf24;
+        }
+        .btn-primary:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fbbf24;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">VibeCaaS</div>
+        <div class="subtitle">Container as a Service Platform</div>
+        <h1>Welcome to the Future of Container Management</h1>
+        <p>Experience our powerful platform for deploying and managing containerized applications on NVIDIA Cloud infrastructure.</p>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>🚀 Easy Deployment</h3>
+                <p>Deploy applications with a single click</p>
+            </div>
+            <div class="feature">
+                <h3>📊 Real-time Monitoring</h3>
+                <p>Monitor resources and performance</p>
+            </div>
+            <div class="feature">
+                <h3>🔧 Auto-scaling</h3>
+                <p>Automatic resource management</p>
+            </div>
+        </div>
+        
+        <div>
+            <a href="/demo" class="btn btn-primary">Launch Demo</a>
+            <a href="#features" class="btn">Learn More</a>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <div class="spinner"></div>
+            <span>Redirecting to demo...</span>
+        </div>
+    </div>
+    
+    <script>
+        // Redirect to demo after 2 seconds
+        setTimeout(() => {
+            window.location.href = '/demo';
+        }, 2000);
+    </script>
+</body>
+</html>

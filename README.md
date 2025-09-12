@@ -45,6 +45,16 @@ A complete infrastructure solution for VibeCaaS.com - a Replit/Lovable-like plat
 - **Billing Integration**: Usage-based pricing with NVIDIA Cloud
 - **Security**: Namespace isolation and network policies
 
+## 🚀 Live Demo
+
+**Experience the VibeCaaS platform**: [https://vibecaas-demo.github.io](https://vibecaas-demo.github.io)
+
+The demo showcases the complete frontend interface with:
+- Interactive application management
+- Real-time resource monitoring
+- Application creation workflow
+- Responsive design for all devices
+
 ## Quick Start
 
 ### Prerequisites

@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && touch out/.nojekyll && cp public/404.html out/404.html && cp public/index.html out/index.html",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "serve-demo": "npx serve out -p 8080 -s",
+    "build-and-serve": "npm run build && npm run serve-demo"
   },
   "dependencies": {
     "next": "14.0.4",
