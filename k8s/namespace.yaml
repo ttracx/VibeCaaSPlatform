@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vibecaas
+  labels:
+    name: vibecaas
+    vibecaas.com/managed: "true"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vibecaas-system
+  labels:
+    name: vibecaas-system
+    vibecaas.com/managed: "true"
