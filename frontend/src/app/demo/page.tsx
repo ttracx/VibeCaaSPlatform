@@ -2,16 +2,19 @@
 
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import { PlusIcon, PlayIcon, StopIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { PlusIcon, PlayIcon, StopIcon, TrashIcon, SparklesIcon, RocketLaunchIcon } from '@heroicons/react/24/outline'
 import { AppCard } from '@/components/AppCard'
 import { CreateAppModal } from '@/components/CreateAppModal'
 import { DashboardHeader } from '@/components/DashboardHeader'
 import { ResourceUsage } from '@/components/ResourceUsage'
+import { AIAssistant } from '@/components/AIAssistant'
 import { demoApiService } from '@/services/demoApi'
 import { App } from '@/types/app'
+import { AppSuggestion } from '@/services/openaiService'
 
 export default function DemoDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false)
 
   const { data: apps, isLoading, refetch } = useQuery<App[]>(
     'apps',
@@ -48,25 +51,58 @@ export default function DemoDashboard() {
     }
   }
 
+  const handleAIDeploy = async (suggestion: AppSuggestion) => {
+    // Convert AI suggestion to app format and deploy
+    const newApp: App = {
+      id: `ai-${Date.now()}`,
+      name: suggestion.name,
+      description: suggestion.description,
+      image: suggestion.image,
+      port: suggestion.port,
+      status: 'creating',
+      resources: suggestion.resources,
+      createdAt: new Date().toISOString(),
+      environment: suggestion.environment
+    }
+    
+    // In a real implementation, this would call the API to create the app
+    console.log('Deploying AI suggestion:', newApp)
+    refetch()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <DashboardHeader />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Demo Banner */}
-        <div className="mb-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-6 text-white">
+        <div className="mb-8 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 rounded-xl p-6 text-white shadow-xl">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold mb-2">🚀 VibeCaaS Demo</h1>
-              <p className="text-blue-100">
-                This is a live demonstration of the VibeCaaS platform. 
-                All data is simulated for demo purposes.
-              </p>
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-white/20 rounded-xl">
+                <RocketLaunchIcon className="h-8 w-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold mb-2">VibeCaaS Demo</h1>
+                <p className="text-purple-100 text-lg">
+                  Experience the future of containerized app deployment with AI-powered assistance
+                </p>
+                <div className="flex items-center space-x-4 mt-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-purple-100">Platform Online</span>
+                  </div>
+                  <div className="text-sm text-purple-200">
+                    All data is simulated for demo purposes
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="hidden md:block">
-              <div className="bg-white/20 rounded-lg p-4">
-                <div className="text-sm text-blue-100 mb-1">Platform Status</div>
-                <div className="text-lg font-semibold">Online</div>
+            <div className="hidden lg:block">
+              <div className="bg-white/20 rounded-xl p-6 backdrop-blur-sm">
+                <div className="text-sm text-purple-100 mb-2">AI Assistant</div>
+                <div className="text-2xl font-bold mb-1">Ready</div>
+                <div className="text-xs text-purple-200">Powered by GPT-4</div>
               </div>
             </div>
           </div>
@@ -83,16 +119,25 @@ export default function DemoDashboard() {
                 Your Applications
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mt-1">
-                Manage your containerized applications
+                Manage your containerized applications with AI-powered deployment
               </p>
             </div>
-            <button
-              onClick={() => setIsCreateModalOpen(true)}
-              className="btn-primary flex items-center gap-2"
-            >
-              <PlusIcon className="h-5 w-5" />
-              Create New App
-            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setIsAIAssistantOpen(true)}
+                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 flex items-center gap-2 shadow-lg"
+              >
+                <SparklesIcon className="h-5 w-5" />
+                AI Assistant
+              </button>
+              <button
+                onClick={() => setIsCreateModalOpen(true)}
+                className="btn-primary flex items-center gap-2"
+              >
+                <PlusIcon className="h-5 w-5" />
+                Create New App
+              </button>
+            </div>
           </div>
 
           {/* Apps Grid */}
@@ -146,10 +191,24 @@ export default function DemoDashboard() {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
             Platform Features
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="card text-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="card text-center hover:shadow-lg transition-shadow">
               <div className="card-body">
-                <div className="mx-auto h-12 w-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+                <div className="mx-auto h-12 w-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                  <SparklesIcon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  AI-Powered Deployment
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  Get intelligent app deployment suggestions powered by OpenAI GPT-4.
+                </p>
+              </div>
+            </div>
+
+            <div className="card text-center hover:shadow-lg transition-shadow">
+              <div className="card-body">
+                <div className="mx-auto h-12 w-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center mb-4">
                   <svg className="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                   </svg>
@@ -157,15 +216,15 @@ export default function DemoDashboard() {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Container Management
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
                   Deploy and manage containerized applications with ease using Docker and Kubernetes.
                 </p>
               </div>
             </div>
 
-            <div className="card text-center">
+            <div className="card text-center hover:shadow-lg transition-shadow">
               <div className="card-body">
-                <div className="mx-auto h-12 w-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
+                <div className="mx-auto h-12 w-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center mb-4">
                   <svg className="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
@@ -173,15 +232,15 @@ export default function DemoDashboard() {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Resource Monitoring
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
                   Real-time monitoring of CPU, memory, GPU, and storage usage across all applications.
                 </p>
               </div>
             </div>
 
-            <div className="card text-center">
+            <div className="card text-center hover:shadow-lg transition-shadow">
               <div className="card-body">
-                <div className="mx-auto h-12 w-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                <div className="mx-auto h-12 w-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center mb-4">
                   <svg className="h-6 w-6 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -189,11 +248,34 @@ export default function DemoDashboard() {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Auto-scaling
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
                   Automatic scaling based on resource usage and traffic patterns for optimal performance.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* AI Assistant CTA Section */}
+        <div className="mt-16 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl p-8 border border-purple-200 dark:border-purple-800">
+          <div className="text-center">
+            <div className="mx-auto h-16 w-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6">
+              <SparklesIcon className="h-8 w-8 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Ready to Deploy with AI?
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+              Let our AI assistant help you create the perfect deployment configuration. 
+              Just describe your application and get intelligent suggestions for optimal performance.
+            </p>
+            <button
+              onClick={() => setIsAIAssistantOpen(true)}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 flex items-center gap-3 mx-auto shadow-lg"
+            >
+              <SparklesIcon className="h-6 w-6" />
+              Try AI Assistant
+            </button>
           </div>
         </div>
       </main>
@@ -205,6 +287,12 @@ export default function DemoDashboard() {
           setIsCreateModalOpen(false)
           refetch()
         }}
+      />
+
+      <AIAssistant
+        isOpen={isAIAssistantOpen}
+        onClose={() => setIsAIAssistantOpen(false)}
+        onDeploy={handleAIDeploy}
       />
     </div>
   )
