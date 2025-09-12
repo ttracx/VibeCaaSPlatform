@@ -27,7 +27,7 @@
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #fbbf24;
+            color: #6c3aea;
         }
         .subtitle {
             font-size: 1.2rem;
@@ -63,12 +63,12 @@
             transform: translateY(-2px);
         }
         .btn-primary {
-            background: #fbbf24;
-            color: #1f2937;
-            border-color: #fbbf24;
+            background: #6c3aea;
+            color: white;
+            border-color: #6c3aea;
         }
         .btn-primary:hover {
-            background: #f59e0b;
+            background: #5a2dd1;
             transform: translateY(-2px);
         }
         .features {
@@ -95,6 +95,25 @@
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .footer-logo {
+            height: 30px;
+            width: auto;
         }
     </style>
 </head>
@@ -137,5 +156,10 @@
             window.location.href = '/demo';
         }, 2000);
     </script>
+    
+    <footer class="footer">
+        <img src="/VibeCaaS.png" alt="VibeCaaS Logo" class="footer-logo">
+        <span>© 2025 VibeCaaS.com, a division of NeuralQuantum.ai LLC. All rights reserved.</span>
+    </footer>
 </body>
 </html>
