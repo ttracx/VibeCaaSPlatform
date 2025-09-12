@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { BellIcon, UserCircleIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
+import { VibeCaaSLogo } from './VibeCaaSLogo'
 
 export function DashboardHeader() {
   const [notifications] = useState([
@@ -20,14 +21,7 @@ export function DashboardHeader() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                VibeCaaS
-              </h1>
-            </div>
-            <div className="ml-4 text-sm text-gray-500 dark:text-gray-400">
-              Container as a Service Platform
-            </div>
+            <VibeCaaSLogo size="md" showText={true} />
           </div>
 
           {/* Navigation */}
