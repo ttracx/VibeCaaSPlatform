@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: vibecaas-postgres
+    environment:
+      POSTGRES_DB: vibecaas
+      POSTGRES_USER: vibecaas_user
+      POSTGRES_PASSWORD: vibecaas_dev_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vibecaas_user -d vibecaas"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - vibecaas-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: vibecaas-redis
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - vibecaas-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vibecaas-backend
+    environment:
+      DATABASE_URL: postgresql+psycopg2://vibecaas_user:vibecaas_dev_password@postgres:5432/vibecaas
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev-jwt-secret-change-me
+      API_PORT: 8000
+      CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - vibecaas-network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vibecaas-frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - vibecaas-network
+    command: npm run dev
+
+  nginx:
+    image: nginx:alpine
+    container_name: vibecaas-nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - vibecaas-network
+
+volumes:
+  postgres_data:
+
+networks:
+  vibecaas-network:
+    driver: bridge
+

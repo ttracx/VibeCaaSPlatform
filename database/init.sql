@@ -1,0 +1,28 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS users (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  hashed_password VARCHAR(255) NOT NULL,
+  tier VARCHAR(50) DEFAULT 'free',
+  is_active BOOLEAN DEFAULT TRUE,
+  is_superuser BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS apps (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  name VARCHAR(100) NOT NULL,
+  subdomain VARCHAR(100) UNIQUE NOT NULL,
+  framework VARCHAR(50),
+  runtime_version VARCHAR(20),
+  status VARCHAR(50) DEFAULT 'creating',
+  url VARCHAR(500),
+  gpu_enabled BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_apps_user ON apps(user_id);
+
