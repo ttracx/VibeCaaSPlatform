@@ -67,9 +67,12 @@ describe('Support Detection', () => {
 
   describe('detectReducedMotionPreference', () => {
     it('should return false when matchMedia is not available', () => {
+      const originalMatchMedia = window.matchMedia;
       // @ts-ignore
       delete window.matchMedia;
       expect(detectReducedMotionPreference()).toBe(false);
+      // Restore for other tests
+      window.matchMedia = originalMatchMedia;
     });
 
     it('should return true when user prefers reduced motion', () => {

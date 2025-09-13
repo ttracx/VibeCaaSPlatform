@@ -13,7 +13,7 @@ interface ScrollTriggerProps {
   onComplete?: () => void;
   onUpdate?: (progress: number) => void;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements;
 }
 
 export function ScrollTrigger({
@@ -38,8 +38,10 @@ export function ScrollTrigger({
     onUpdate,
   });
 
+  const ComponentElement = Component as any;
+
   return (
-    <Component
+    <ComponentElement
       ref={elementRef}
       className={className}
       data-scroll-trigger
@@ -48,6 +50,6 @@ export function ScrollTrigger({
       {...props}
     >
       {children}
-    </Component>
+    </ComponentElement>
   );
 }

@@ -1,0 +1,33 @@
+
+> @vibecaas/motion@0.1.0 test /workspace/packages/motion
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v1.0.0 /workspace/packages/motion
+
+ ❯ src/test/support.test.ts  (13 tests | 1 failed) 11ms
+   ❯ src/test/support.test.ts > Support Detection > detectReducedMotionPreference > should return false when matchMedia is not available
+     → window.matchMedia is not a function
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/support.test.ts > Support Detection > detectReducedMotionPreference > should return false when matchMedia is not available
+TypeError: window.matchMedia is not a function
+ ❯ Module.detectReducedMotionPreference src/utils/support.ts:38:17
+
+     36|   if (typeof window === 'undefined') return false;
+     37|   
+     38|   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+       |                 ^
+     39| }
+     40| 
+ ❯ src/test/support.test.ts:72:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  23:56:17
+   Duration  1.13s (transform 64ms, setup 114ms, collect 24ms, tests 11ms, environment 351ms, prepare 94ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

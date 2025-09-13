@@ -1,0 +1,33 @@
+
+> @vibecaas/marketing@0.1.0 build /workspace/apps/marketing
+> next build
+
+   ▲ Next.js 14.0.3
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/6) ...
+   Generating static pages (1/6) 
+   Generating static pages (2/6) 
+   Generating static pages (4/6) 
+ ✓ Generating static pages (6/6) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    13.2 kB        97.2 kB
+├ ○ /_not-found                          872 B          84.9 kB
+├ λ /api/assets/presign                  0 B                0 B
+└ ○ /launch                              2.31 kB        86.3 kB
++ First Load JS shared by all            84 kB
+  ├ chunks/3806990a-fc75b089641fea27.js  53.3 kB
+  ├ chunks/381-45e85cec4feb2ddc.js       28.7 kB
+  ├ chunks/main-app-f422b15b4032fbe7.js  220 B
+  └ chunks/webpack-c342614df6e532a5.js   1.77 kB
+
+
+○  (Static)   prerendered as static content
+λ  (Dynamic)  server-rendered on demand using Node.js
+

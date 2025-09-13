@@ -22,7 +22,6 @@ export async function createGSAPFallback(config: GSAPFallbackConfig) {
       scrub: config.scrub || 1,
       pin: config.pin || false,
       onUpdate: config.onUpdate,
-      onComplete: config.onComplete,
     });
     
     return trigger;
@@ -52,7 +51,6 @@ export async function createGSAPTimeline(config: GSAPFallbackConfig) {
         scrub: config.scrub || 1,
         pin: config.pin || false,
         onUpdate: config.onUpdate,
-        onComplete: config.onComplete,
       },
     });
     
@@ -88,7 +86,6 @@ export async function applyGSAPAnimation(
         scrub: config.scrub || 1,
         pin: config.pin || false,
         onUpdate: config.onUpdate,
-        onComplete: config.onComplete,
       },
     });
   } catch (error) {

@@ -39,7 +39,9 @@ export function applyScrollAnimation(
   const timelineValue = timeline === 'root' ? 'scroll()' : `scroll(${timeline})`;
   
   element.style.animationName = animationName;
+  // @ts-ignore - CSS Scroll-Driven Animations are not yet in TypeScript definitions
   element.style.animationTimeline = timelineValue;
+  // @ts-ignore - CSS Scroll-Driven Animations are not yet in TypeScript definitions
   element.style.animationRange = `${range[0] * 100}% ${range[1] * 100}%`;
   element.style.animationFillMode = 'both';
 }
@@ -51,7 +53,9 @@ export function removeScrollAnimation(element: HTMLElement) {
   if (typeof window === 'undefined') return;
   
   element.style.animationName = '';
+  // @ts-ignore - CSS Scroll-Driven Animations are not yet in TypeScript definitions
   element.style.animationTimeline = '';
+  // @ts-ignore - CSS Scroll-Driven Animations are not yet in TypeScript definitions
   element.style.animationRange = '';
   element.style.animationFillMode = '';
 }

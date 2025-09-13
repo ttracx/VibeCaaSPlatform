@@ -1,0 +1,53 @@
+
+> @vibecaas/e2e-tests@0.1.0 test /workspace/tests/e2e
+> playwright test
+
+
+Running 55 tests using 2 workers
+
+[1A[2K[1/55] [chromium] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
+[1A[2K[2/55] [chromium] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly
+[1A[2K  1) [chromium] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ──────────
+
+    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     pnpm exec playwright install                                        ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  2) [chromium] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ──────────
+
+    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     pnpm exec playwright install                                        ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K[3/55] [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible
+[1A[2K  3) [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────────
+
+    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     pnpm exec playwright install                                        ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════�
