@@ -38,6 +38,9 @@ export function DashboardHeader() {
             <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium">
               Support
             </a>
+            <a href="/agent" className="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium">
+              Agent Chat
+            </a>
           </nav>
 
           {/* Right side */}
