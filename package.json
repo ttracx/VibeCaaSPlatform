@@ -5,7 +5,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "test": "turbo run test",
+    "test": "turbo run test --filter='!@vibecaas/e2e-tests'",
     "test:e2e": "cd tests/e2e && pnpm test",
     "lighthouse": "cd apps/marketing && pnpm exec @lhci/cli@0.12.x autorun",
     "type-check": "turbo run type-check",

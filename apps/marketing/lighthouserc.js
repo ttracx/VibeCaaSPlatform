@@ -3,6 +3,9 @@ module.exports = {
     collect: {
       url: ['http://localhost:3000', 'http://localhost:3000/launch'],
       numberOfRuns: 3,
+      settings: {
+        chromeFlags: '--no-sandbox --disable-setuid-sandbox',
+      },
     },
     assert: {
       assertions: {

@@ -1,5 +1,17 @@
 
 > @vibecaas/ui@0.1.0 test /workspace/packages/ui
-> echo 'No tests yet'
+> vitest run --reporter=verbose
 
-No tests yet
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v1.0.0 /workspace/packages/ui
+
+ ✓ src/test/utils.test.ts > Utils > should merge class names correctly
+ ✓ src/test/utils.test.ts > Utils > should handle conditional classes
+ ✓ src/test/utils.test.ts > Utils > should handle empty inputs
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  16:39:48
+   Duration  1.02s (transform 52ms, setup 0ms, collect 28ms, tests 5ms, environment 294ms, prepare 179ms)
+

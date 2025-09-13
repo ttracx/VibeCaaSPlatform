@@ -1,15 +1,27 @@
 
 > @vibecaas/motion@0.1.0 test /workspace/packages/motion
-> vitest run
+> vitest run --reporter=verbose
 
 [33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
 
  RUN  v1.0.0 /workspace/packages/motion
 
- ✓ src/test/support.test.ts  (13 tests) 6ms
+ ✓ src/test/support.test.ts > Support Detection > detectScrollTimelineSupport > should return false when CSS.supports is not available
+ ✓ src/test/support.test.ts > Support Detection > detectScrollTimelineSupport > should return false when CSS.supports is available but scroll timeline is not supported
+ ✓ src/test/support.test.ts > Support Detection > detectScrollTimelineSupport > should return true when scroll timeline is supported
+ ✓ src/test/support.test.ts > Support Detection > detectIntersectionObserverSupport > should return false when IntersectionObserver is not available
+ ✓ src/test/support.test.ts > Support Detection > detectIntersectionObserverSupport > should return true when IntersectionObserver is available
+ ✓ src/test/support.test.ts > Support Detection > detectResizeObserverSupport > should return false when ResizeObserver is not available
+ ✓ src/test/support.test.ts > Support Detection > detectResizeObserverSupport > should return true when ResizeObserver is available
+ ✓ src/test/support.test.ts > Support Detection > detectReducedMotionPreference > should return false when matchMedia is not available
+ ✓ src/test/support.test.ts > Support Detection > detectReducedMotionPreference > should return true when user prefers reduced motion
+ ✓ src/test/support.test.ts > Support Detection > detectReducedMotionPreference > should return false when user does not prefer reduced motion
+ ✓ src/test/support.test.ts > Support Detection > detectGSAPSupport > should return false when GSAP is not available
+ ✓ src/test/support.test.ts > Support Detection > detectGSAPSupport > should return true when gsap is available
+ ✓ src/test/support.test.ts > Support Detection > detectGSAPSupport > should return true when GSAP is available
 
  Test Files  1 passed (1)
       Tests  13 passed (13)
-   Start at  02:00:26
-   Duration  677ms (transform 46ms, setup 77ms, collect 24ms, tests 6ms, environment 261ms, prepare 64ms)
+   Start at  16:39:48
+   Duration  1.04s (transform 85ms, setup 118ms, collect 26ms, tests 3ms, environment 269ms, prepare 66ms)
 

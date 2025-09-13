@@ -140,9 +140,15 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.14
         version: 18.2.14
+      jsdom:
+        specifier: ^23.0.0
+        version: 23.0.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
+      vitest:
+        specifier: ^1.0.0
+        version: 1.0.0(@types/node@20.19.13)(@vitest/ui@1.0.0)(jsdom@23.0.0)
 
   tests/e2e:
     devDependencies:

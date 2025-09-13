@@ -1,957 +1,1441 @@
 
 > @vibecaas/e2e-tests@0.1.0 test /workspace/tests/e2e
-> playwright test
+> playwright test --reporter=line
 
 
 Running 55 tests using 2 workers
 
-[1A[2K[1/55] [chromium] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly
-[1A[2K[2/55] [chromium] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
-[1A[2K  1) [chromium] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  2) [chromium] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K[3/55] [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible
-[1A[2K[4/55] [chromium] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
-[1A[2K  3) [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  4) [chromium] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
+[1A[2K[1/55] [chromium] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
+[1A[2K[2/55] [chromium] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly
+[1A[2K[3/55] [chromium] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
+[1A[2K[4/55] [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible
 [1A[2K[5/55] [chromium] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
 [1A[2K[6/55] [chromium] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
-[1A[2K  5) [chromium] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ───────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  6) [chromium] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ─────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[7/55] [chromium] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K  7) [chromium] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ──────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[8/55] [chromium] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
-[1A[2K  8) [chromium] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ─────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[9/55] [chromium] › ide.spec.ts:34:7 › IDE Shell › should display online users
 [1A[2K[10/55] [chromium] › ide.spec.ts:43:7 › IDE Shell › should show terminal output
-[1A[2K  9) [chromium] › ide.spec.ts:34:7 › IDE Shell › should display online users ───────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  10) [chromium] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ──────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[11/55] [chromium] › ide.spec.ts:51:7 › IDE Shell › should be responsive
 [1A[2K[12/55] [firefox] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly
-[1A[2K  11) [chromium] › ide.spec.ts:51:7 › IDE Shell › should be responsive ─────────────────────────────
+[1A[2K[13/55] [firefox] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
+[1A[2K  1) [firefox] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ───────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  12) [firefox] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
-[1A[2K[13/55] [firefox] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
-[1A[2K[14/55] [firefox] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
-[1A[2K  13) [firefox] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ────────────────
+[1A[2K  2) [firefox] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ───────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  14) [firefox] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
-[1A[2K[15/55] [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
-[1A[2K[16/55] [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible
-[1A[2K  15) [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────────
+[1A[2K[14/55] [firefox] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
+[1A[2K[15/55] [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible
+[1A[2K  3) [firefox] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ─────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  16) [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ───────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
+[1A[2K  4) [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible ───────────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K[16/55] [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
 [1A[2K[17/55] [firefox] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
+[1A[2K  5) [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  6) [firefox] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ──────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[18/55] [firefox] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K  17) [firefox] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ─────────────────────
+[1A[2K[19/55] [firefox] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
+[1A[2K  7) [firefox] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ───────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  18) [firefox] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ──────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
-[1A[2K[19/55] [firefox] › ide.spec.ts:34:7 › IDE Shell › should display online users
-[1A[2K[20/55] [firefox] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
-[1A[2K  19) [firefox] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ─────────────────────
+[1A[2K  8) [firefox] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ──────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  20) [firefox] › ide.spec.ts:34:7 › IDE Shell › should display online users ───────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
+[1A[2K[20/55] [firefox] › ide.spec.ts:34:7 › IDE Shell › should display online users
 [1A[2K[21/55] [firefox] › ide.spec.ts:43:7 › IDE Shell › should show terminal output
+[1A[2K  9) [firefox] › ide.spec.ts:34:7 › IDE Shell › should display online users ────────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  10) [firefox] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ───────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[22/55] [firefox] › ide.spec.ts:51:7 › IDE Shell › should be responsive
-[1A[2K  21) [firefox] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ───────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  22) [firefox] › ide.spec.ts:51:7 › IDE Shell › should be responsive ──────────────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[23/55] [webkit] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly
+[1A[2K  11) [firefox] › ide.spec.ts:51:7 › IDE Shell › should be responsive ──────────────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo pnpm exec playwright install-deps           ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libdbus-glib-1-2            ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  12) [webkit] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ───────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[24/55] [webkit] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
-[1A[2K  23) [webkit] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ───────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  24) [webkit] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ───────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[25/55] [webkit] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
+[1A[2K  13) [webkit] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ───────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  14) [webkit] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ─────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[26/55] [webkit] › hero.spec.ts:44:7 › Hero Section › should be accessible
-[1A[2K  25) [webkit] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ─────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  26) [webkit] › hero.spec.ts:44:7 › Hero Section › should be accessible ───────────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[27/55] [webkit] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
-[1A[2K  27) [webkit] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ────────
+[1A[2K  15) [webkit] › hero.spec.ts:44:7 › Hero Section › should be accessible ───────────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  16) [webkit] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
 [1A[2K[28/55] [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
-[1A[2K  28) [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ──────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[29/55] [webkit] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K  29) [webkit] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ───────────────────────
+[1A[2K  17) [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ──────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  18) [webkit] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ───────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
 [1A[2K[30/55] [webkit] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
-[1A[2K  30) [webkit] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ──────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[31/55] [webkit] › ide.spec.ts:34:7 › IDE Shell › should display online users
-[1A[2K  31) [webkit] › ide.spec.ts:34:7 › IDE Shell › should display online users ────────────────────────
+[1A[2K  19) [webkit] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ──────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  20) [webkit] › ide.spec.ts:34:7 › IDE Shell › should display online users ────────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
 [1A[2K[32/55] [webkit] › ide.spec.ts:43:7 › IDE Shell › should show terminal output
-[1A[2K  32) [webkit] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ────────────────────────
+[1A[2K  21) [webkit] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ────────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
 [1A[2K[33/55] [webkit] › ide.spec.ts:51:7 › IDE Shell › should be responsive
+[1A[2K  22) [webkit] › ide.spec.ts:51:7 › IDE Shell › should be responsive ───────────────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[34/55] [Mobile Chrome] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly
-[1A[2K  33) [webkit] › ide.spec.ts:51:7 › IDE Shell › should be responsive ───────────────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  34) [Mobile Chrome] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[35/55] [Mobile Chrome] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
 [1A[2K[36/55] [Mobile Chrome] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
-[1A[2K  35) [Mobile Chrome] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  36) [Mobile Chrome] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[37/55] [Mobile Chrome] › hero.spec.ts:44:7 › Hero Section › should be accessible
 [1A[2K[38/55] [Mobile Chrome] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
-[1A[2K  37) [Mobile Chrome] › hero.spec.ts:44:7 › Hero Section › should be accessible ────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  38) [Mobile Chrome] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ─
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[39/55] [Mobile Chrome] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
 [1A[2K[40/55] [Mobile Chrome] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K  39) [Mobile Chrome] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ───────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  40) [Mobile Chrome] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[41/55] [Mobile Chrome] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
 [1A[2K[42/55] [Mobile Chrome] › ide.spec.ts:34:7 › IDE Shell › should display online users
-[1A[2K  41) [Mobile Chrome] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ───────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  42) [Mobile Chrome] › ide.spec.ts:34:7 › IDE Shell › should display online users ─────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[43/55] [Mobile Chrome] › ide.spec.ts:43:7 › IDE Shell › should show terminal output
 [1A[2K[44/55] [Mobile Chrome] › ide.spec.ts:51:7 › IDE Shell › should be responsive
-[1A[2K  43) [Mobile Chrome] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ─────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  44) [Mobile Chrome] › ide.spec.ts:51:7 › IDE Shell › should be responsive ────────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[45/55] [Mobile Safari] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly
+[1A[2K  23) [Mobile Safari] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[46/55] [Mobile Safari] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator
-[1A[2K  45) [Mobile Safari] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  46) [Mobile Safari] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[47/55] [Mobile Safari] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
+[1A[2K  24) [Mobile Safari] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  25) [Mobile Safari] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ──────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[48/55] [Mobile Safari] › hero.spec.ts:44:7 › Hero Section › should be accessible
-[1A[2K  47) [Mobile Safari] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ──────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  48) [Mobile Safari] › hero.spec.ts:44:7 › Hero Section › should be accessible ────────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[49/55] [Mobile Safari] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
+[1A[2K  26) [Mobile Safari] › hero.spec.ts:44:7 › Hero Section › should be accessible ────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  27) [Mobile Safari] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ─
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[50/55] [Mobile Safari] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
-[1A[2K  49) [Mobile Safari] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ───────────────
+[1A[2K[51/55] [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
+[1A[2K  28) [Mobile Safari] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ───────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  50) [Mobile Safari] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ─
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K[51/55] [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
-[1A[2K[52/55] [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K  51) [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  52) [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ───────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
+[1A[2K  29) [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K[52/55] [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
 [1A[2K[53/55] [Mobile Safari] › ide.spec.ts:34:7 › IDE Shell › should display online users
+[1A[2K  30) [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ───────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  31) [Mobile Safari] › ide.spec.ts:34:7 › IDE Shell › should display online users ─────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
 [1A[2K[54/55] [Mobile Safari] › ide.spec.ts:43:7 › IDE Shell › should show terminal output
-[1A[2K  53) [Mobile Safari] › ide.spec.ts:34:7 › IDE Shell › should display online users ─────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
-[1A[2K  54) [Mobile Safari] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ─────────────────
-
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
-
-
-
-
-
 [1A[2K[55/55] [Mobile Safari] › ide.spec.ts:51:7 › IDE Shell › should be responsive
-[1A[2K  55) [Mobile Safari] › ide.spec.ts:51:7 › IDE Shell › should be responsive ────────────────────────
+[1A[2K  32) [Mobile Safari] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ─────────────────
 
-    Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     pnpm exec playwright install                                        ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
 
 
 
 
 
-[1A[2K  55 failed
-    [chromium] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ───────────
-    [chromium] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ───────────
-    [chromium] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ─────────────────
-    [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible ───────────────────────────
-    [chromium] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ────────
-    [chromium] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ──────────────────────
-    [chromium] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ───────────────────────
-    [chromium] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ──────────────────────
-    [chromium] › ide.spec.ts:34:7 › IDE Shell › should display online users ────────────────────────
-    [chromium] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ────────────────────────
-    [chromium] › ide.spec.ts:51:7 › IDE Shell › should be responsive ───────────────────────────────
+[1A[2K  33) [Mobile Safari] › ide.spec.ts:51:7 › IDE Shell › should be responsive ────────────────────────
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libsoup-3.0.so.0                                 ║
+    ║     libgstreamer-1.0.so.0                            ║
+    ║     libicudata.so.70                                 ║
+    ║     libicui18n.so.70                                 ║
+    ║     libicuuc.so.70                                   ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.7                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstbase-1.0.so.0                              ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libopenjp2.so.7                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libGLESv2.so.2                                   ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[1A[2K  33 failed
     [firefox] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ────────────
     [firefox] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ────────────
     [firefox] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ──────────────────
@@ -968,4 +1452,22 @@ Running 55 tests using 2 workers
     [webkit] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ───────────────────
     [webkit] › hero.spec.ts:44:7 › Hero Section › should be accessible ─────────────────────────────
     [webkit] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ──────────
-    [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ───�
+    [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ────────────────────────
+    [webkit] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ─────────────────────────
+    [webkit] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ────────────────────────
+    [webkit] › ide.spec.ts:34:7 › IDE Shell › should display online users ──────────────────────────
+    [webkit] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ──────────────────────────
+    [webkit] › ide.spec.ts:51:7 › IDE Shell › should be responsive ─────────────────────────────────
+    [Mobile Safari] › hero.spec.ts:4:7 › Hero Section › should display hero content correctly ──────
+    [Mobile Safari] › hero.spec.ts:18:7 › Hero Section › should have working scroll indicator ──────
+    [Mobile Safari] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ────────────
+    [Mobile Safari] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────
+    [Mobile Safari] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ───
+    [Mobile Safari] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ─────────────────
+    [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ──────────────────
+    [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ─────────────────
+    [Mobile Safari] › ide.spec.ts:34:7 › IDE Shell › should display online users ───────────────────
+    [Mobile Safari] › ide.spec.ts:43:7 › IDE Shell › should show terminal output ───────────────────
+    [Mobile Safari] › ide.spec.ts:51:7 › IDE Shell › should be responsive ──────────────────────────
+  22 passed (19.1s)
+ ELIFECYCLE  Test failed. See above for more details.

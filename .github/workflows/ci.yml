@@ -88,7 +88,9 @@ jobs:
         run: cd tests/e2e && pnpm exec playwright install
 
       - name: Run E2E tests
-        run: pnpm test:e2e
+        run: cd tests/e2e && CI=true pnpm test
+        env:
+          CI: true
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -124,19 +126,33 @@ jobs:
         run: cd apps/marketing && pnpm build
 
       - name: Start marketing app
-        run: cd apps/marketing && pnpm start &
+        run: |
+          cd apps/marketing
+          pnpm start &
+          echo $! > server.pid
         env:
           PORT: 3000
 
       - name: Wait for app to start
-        run: pnpm exec wait-on http://localhost:3000
+        run: |
+          pnpm exec wait-on http://localhost:3000 --timeout 60000
+          sleep 5
 
       - name: Run Lighthouse CI
         run: |
           cd apps/marketing
+          mkdir -p .lighthouseci
           pnpm exec @lhci/cli@0.12.x autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Stop marketing app
+        if: always()
+        run: |
+          if [ -f apps/marketing/server.pid ]; then
+            kill $(cat apps/marketing/server.pid) || true
+            rm -f apps/marketing/server.pid
+          fi
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4
@@ -145,3 +161,4 @@ jobs:
           name: lighthouse-results
           path: apps/marketing/.lighthouseci/
           retention-days: 30
+          if-no-files-found: warn

@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit",
-    "test": "echo 'No tests yet'",
+    "test": "vitest run --reporter=verbose",
     "clean": "rm -rf dist"
   },
   "dependencies": {
@@ -17,7 +17,9 @@
   "devDependencies": {
     "typescript": "^5.2.2",
     "@types/react": "^18.2.33",
-    "@types/react-dom": "^18.2.14"
+    "@types/react-dom": "^18.2.14",
+    "vitest": "^1.0.0",
+    "jsdom": "^23.0.0"
   },
   "peerDependencies": {
     "react": "^18.2.0"

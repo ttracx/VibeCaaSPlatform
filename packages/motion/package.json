@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --reporter=verbose",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
