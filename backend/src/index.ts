@@ -22,6 +22,7 @@ import usageRoutes from './routes/usage'
 import templateRoutes from './routes/templates'
 import webhookRoutes from './routes/webhooks'
 import githubRoutes from './routes/github'
+import agentRoutes from './routes/agent'
 
 // Load environment variables
 dotenv.config()
@@ -78,6 +79,7 @@ app.use('/usage', authMiddleware, usageRoutes)
 app.use('/templates', templateRoutes)
 app.use('/webhooks', webhookRoutes)
 app.use('/github', githubRoutes)
+app.use('/agent', agentRoutes)
 
 // Socket.IO for real-time updates
 io.on('connection', (socket) => {

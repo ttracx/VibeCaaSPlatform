@@ -35,6 +35,20 @@ The following packages have been added:
 - `react-markdown`: For rendering AI responses
 - `remark-gfm`: GitHub Flavored Markdown support
 
+### 3. NVIDIA Kimi K2 Agent (Server-Side)
+Add a server-side agent that streams responses from NVIDIA Integrate API.
+
+Env variables required:
+
+```
+# Backend
+NVIDIA_API_KEY=nvapi-REPLACE_ME
+FRONTEND_URL=http://localhost:3000
+
+# Frontend
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
 ## Usage
 
 ### Basic Usage
@@ -43,6 +57,10 @@ The following packages have been added:
 3. Add any specific requirements
 4. Click "Generate AI Suggestions"
 5. Review and deploy the suggested configuration
+
+### NeuralQuantum SWE Agent Chat
+- Navigate to `/agent` for the agentic coding assistant chat.
+- Messages stream from the backend proxy at `POST /agent/chat`.
 
 ### Advanced Configuration
 - **Language Selection**: Choose from JavaScript, Python, Java, Go, Rust
