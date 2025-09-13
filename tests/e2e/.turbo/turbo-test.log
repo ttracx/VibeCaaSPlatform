@@ -41,7 +41,7 @@ Running 55 tests using 2 workers
 
 [1A[2K[3/55] [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible
 [1A[2K[4/55] [chromium] › hero.spec.ts:30:7 › Hero Section › should display stats correctly
-[1A[2K  3) [chromium] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ────────────────
+[1A[2K  3) [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -57,7 +57,7 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K  4) [chromium] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────────
+[1A[2K  4) [chromium] › hero.spec.ts:30:7 › Hero Section › should display stats correctly ────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -73,9 +73,9 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K[5/55] [chromium] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
-[1A[2K[6/55] [chromium] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
-[1A[2K  5) [chromium] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ─────────────────────
+[1A[2K[5/55] [chromium] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
+[1A[2K[6/55] [chromium] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
+[1A[2K  5) [chromium] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ───────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -91,7 +91,7 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K  6) [chromium] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ───────
+[1A[2K  6) [chromium] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ─────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -108,7 +108,6 @@ Running 55 tests using 2 workers
 
 
 [1A[2K[7/55] [chromium] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K[8/55] [chromium] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
 [1A[2K  7) [chromium] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ──────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
@@ -125,6 +124,7 @@ Running 55 tests using 2 workers
 
 
 
+[1A[2K[8/55] [chromium] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
 [1A[2K  8) [chromium] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ─────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
@@ -243,9 +243,9 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K[15/55] [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible
-[1A[2K[16/55] [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
-[1A[2K  15) [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ───────
+[1A[2K[15/55] [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
+[1A[2K[16/55] [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible
+[1A[2K  15) [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -261,7 +261,7 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K  16) [firefox] › hero.spec.ts:44:7 › Hero Section › should be accessible ──────────────────────────
+[1A[2K  16) [firefox] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ───────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -313,7 +313,7 @@ Running 55 tests using 2 workers
 
 [1A[2K[19/55] [firefox] › ide.spec.ts:34:7 › IDE Shell › should display online users
 [1A[2K[20/55] [firefox] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
-[1A[2K  19) [firefox] › ide.spec.ts:34:7 › IDE Shell › should display online users ───────────────────────
+[1A[2K  19) [firefox] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ─────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -329,7 +329,7 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K  20) [firefox] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ─────────────────────
+[1A[2K  20) [firefox] › ide.spec.ts:34:7 › IDE Shell › should display online users ───────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/firefox-1429/firefox/firefox
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -448,7 +448,6 @@ Running 55 tests using 2 workers
 
 
 [1A[2K[27/55] [webkit] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
-[1A[2K[28/55] [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
 [1A[2K  27) [webkit] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
@@ -465,6 +464,7 @@ Running 55 tests using 2 workers
 
 
 
+[1A[2K[28/55] [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
 [1A[2K  28) [webkit] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ──────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
@@ -482,7 +482,6 @@ Running 55 tests using 2 workers
 
 
 [1A[2K[29/55] [webkit] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K[30/55] [webkit] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
 [1A[2K  29) [webkit] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ───────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
@@ -499,6 +498,7 @@ Running 55 tests using 2 workers
 
 
 
+[1A[2K[30/55] [webkit] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
 [1A[2K  30) [webkit] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ──────────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
@@ -685,8 +685,8 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K[41/55] [Mobile Chrome] › ide.spec.ts:34:7 › IDE Shell › should display online users
-[1A[2K[42/55] [Mobile Chrome] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
+[1A[2K[41/55] [Mobile Chrome] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
+[1A[2K[42/55] [Mobile Chrome] › ide.spec.ts:34:7 › IDE Shell › should display online users
 [1A[2K  41) [Mobile Chrome] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ───────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/chromium-1091/chrome-linux/chrome
@@ -823,7 +823,7 @@ Running 55 tests using 2 workers
 
 [1A[2K[49/55] [Mobile Safari] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference
 [1A[2K[50/55] [Mobile Safari] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly
-[1A[2K  49) [Mobile Safari] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ─
+[1A[2K  49) [Mobile Safari] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ───────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -839,7 +839,7 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K  50) [Mobile Safari] › ide.spec.ts:4:7 › IDE Shell › should load IDE page correctly ───────────────
+[1A[2K  50) [Mobile Safari] › hero.spec.ts:64:7 › Hero Section › should handle reduced motion preference ─
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -855,9 +855,9 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K[51/55] [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
-[1A[2K[52/55] [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
-[1A[2K  51) [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ───────────────
+[1A[2K[51/55] [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section
+[1A[2K[52/55] [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer
+[1A[2K  51) [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ────────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
     ╔═════════════════════════════════════════════════════════════════════════╗
@@ -873,7 +873,7 @@ Running 55 tests using 2 workers
 
 
 
-[1A[2K  52) [Mobile Safari] › ide.spec.ts:16:7 › IDE Shell › should display file explorer ────────────────
+[1A[2K  52) [Mobile Safari] › ide.spec.ts:25:7 › IDE Shell › should show AI agents section ───────────────
 
     Error: browserType.launch: Executable doesn't exist at /home/ubuntu/.cache/ms-playwright/webkit-1944/pw_run.sh
     ╔═════════════════════════════════════════════════════════════════════════╗
