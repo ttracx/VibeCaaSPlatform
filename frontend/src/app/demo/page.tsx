@@ -11,6 +11,7 @@ import { AIAssistant } from '@/components/AIAssistant'
 import { demoApiService } from '@/services/demoApi'
 import { App } from '@/types/app'
 import { AppSuggestion } from '@/services/openaiService'
+import { toast } from 'react-hot-toast'
 
 export default function DemoDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
@@ -141,7 +142,14 @@ export default function DemoDashboard() {
                 AI Assistant
               </button>
               <button
-                onClick={() => setIsCreateModalOpen(true)}
+                onClick={() => {
+                  try {
+                    setIsCreateModalOpen(true)
+                  } catch (error) {
+                    console.error('Error opening Create App modal:', error)
+                    toast.error('Failed to open Create App modal. Please try again.')
+                  }
+                }}
                 className="btn-primary flex items-center gap-2"
               >
                 <PlusIcon className="h-5 w-5" />
@@ -187,7 +195,14 @@ export default function DemoDashboard() {
                 Get started by creating your first containerized application.
               </p>
               <button
-                onClick={() => setIsCreateModalOpen(true)}
+                onClick={() => {
+                  try {
+                    setIsCreateModalOpen(true)
+                  } catch (error) {
+                    console.error('Error opening Create App modal:', error)
+                    toast.error('Failed to open Create App modal. Please try again.')
+                  }
+                }}
                 className="mt-4 btn-primary"
               >
                 Create Your First App
