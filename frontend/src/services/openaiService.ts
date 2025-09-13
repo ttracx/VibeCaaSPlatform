@@ -1,9 +1,22 @@
 import OpenAI from 'openai'
 
-const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || '',
-  dangerouslyAllowBrowser: true // Only for demo purposes
-})
+// Lazy initialization to avoid errors at module load time
+let openai: OpenAI | null = null
+
+const getOpenAI = () => {
+  if (!openai) {
+    try {
+      openai = new OpenAI({
+        apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || '',
+        dangerouslyAllowBrowser: true // Only for demo purposes
+      })
+    } catch (error) {
+      console.warn('Failed to initialize OpenAI client:', error)
+      return null
+    }
+  }
+  return openai
+}
 
 export interface AppSuggestion {
   name: string
@@ -31,9 +44,15 @@ export interface DeploymentRequest {
 export class OpenAIService {
   static async generateAppSuggestions(request: DeploymentRequest): Promise<AppSuggestion[]> {
     try {
+      const openaiClient = getOpenAI()
+      if (!openaiClient) {
+        console.warn('OpenAI client not available, using fallback suggestions')
+        return this.getFallbackSuggestions(request)
+      }
+
       const prompt = this.buildPrompt(request)
       
-      const completion = await openai.chat.completions.create({
+      const completion = await openaiClient.chat.completions.create({
         model: "gpt-4",
         messages: [
           {
@@ -67,7 +86,13 @@ export class OpenAIService {
 
   static async generateDockerfile(appType: string, requirements: string[]): Promise<string> {
     try {
-      const completion = await openai.chat.completions.create({
+      const openaiClient = getOpenAI()
+      if (!openaiClient) {
+        console.warn('OpenAI client not available, using fallback Dockerfile')
+        return this.getFallbackDockerfile(appType)
+      }
+
+      const completion = await openaiClient.chat.completions.create({
         model: "gpt-4",
         messages: [
           {
