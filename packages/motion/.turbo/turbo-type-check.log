@@ -1,0 +1,4 @@
+
+> @vibecaas/motion@0.1.0 type-check /workspace/packages/motion
+> tsc --noEmit
+

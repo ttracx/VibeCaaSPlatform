@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { useScrollAnimation } from '@vibecaas/motion';
 import { Container, Section } from '@vibecaas/ui';
 
@@ -39,29 +39,41 @@ export function HighlightsSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   // Create scroll animations for each highlight
-  const highlightRefs = highlights.map(() => useRef<HTMLDivElement>(null));
+  const highlightRef1 = useRef<HTMLDivElement>(null);
+  const highlightRef2 = useRef<HTMLDivElement>(null);
+  const highlightRef3 = useRef<HTMLDivElement>(null);
+  const highlightRef4 = useRef<HTMLDivElement>(null);
+  
+  const highlightRefs = useMemo(() => [
+    highlightRef1,
+    highlightRef2,
+    highlightRef3,
+    highlightRef4,
+  ], []);
 
   useEffect(() => {
     highlightRefs.forEach((ref, index) => {
       if (ref.current) {
-        useScrollAnimation({
-          element: ref.current,
-          animation: 'fadeInUp',
-          timeline: 'self',
-          range: [0, 1],
-          onUpdate: (progress) => {
-            const element = ref.current;
-            if (element) {
+        // Apply scroll animation directly without using the hook
+        const element = ref.current;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const progress = entry.intersectionRatio;
               const opacity = Math.min(1, progress * 2);
               const translateY = (1 - progress) * 50;
               element.style.opacity = opacity.toString();
               element.style.transform = `translateY(${translateY}px)`;
-            }
+            });
           },
-        });
+          { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] }
+        );
+        observer.observe(element);
+        
+        return () => observer.disconnect();
       }
     });
-  }, []);
+  }, [highlightRefs]);
 
   return (
     <Section ref={sectionRef} className="relative" background="gray">

@@ -1,0 +1,5 @@
+
+> @vibecaas/marketing@0.1.0 lint /workspace/apps/marketing
+> next lint
+
+✔ No ESLint warnings or errors

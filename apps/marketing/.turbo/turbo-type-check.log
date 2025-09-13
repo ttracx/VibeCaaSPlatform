@@ -1,0 +1,4 @@
+
+> @vibecaas/marketing@0.1.0 type-check /workspace/apps/marketing
+> tsc --noEmit
+

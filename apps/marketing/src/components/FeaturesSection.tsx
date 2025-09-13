@@ -2,7 +2,7 @@
 
 import { Container, Section } from '@vibecaas/ui';
 import { useScrollAnimation } from '@vibecaas/motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 
 const features = [
   {
@@ -33,29 +33,41 @@ const features = [
 
 export function FeaturesSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const featureRefs = features.map(() => useRef<HTMLDivElement>(null));
+  const featureRef1 = useRef<HTMLDivElement>(null);
+  const featureRef2 = useRef<HTMLDivElement>(null);
+  const featureRef3 = useRef<HTMLDivElement>(null);
+  const featureRef4 = useRef<HTMLDivElement>(null);
+  
+  const featureRefs = useMemo(() => [
+    featureRef1,
+    featureRef2,
+    featureRef3,
+    featureRef4,
+  ], []);
 
   useEffect(() => {
     featureRefs.forEach((ref, index) => {
       if (ref.current) {
-        useScrollAnimation({
-          element: ref.current,
-          animation: 'slideInFromLeft',
-          timeline: 'self',
-          range: [0, 1],
-          onUpdate: (progress) => {
-            const element = ref.current;
-            if (element) {
+        // Apply scroll animation directly without using the hook
+        const element = ref.current;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const progress = entry.intersectionRatio;
               const opacity = Math.min(1, progress * 2);
               const translateX = (1 - progress) * 100;
               element.style.opacity = opacity.toString();
               element.style.transform = `translateX(${translateX}px)`;
-            }
+            });
           },
-        });
+          { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] }
+        );
+        observer.observe(element);
+        
+        return () => observer.disconnect();
       }
     });
-  }, []);
+  }, [featureRefs]);
 
   return (
     <Section className="py-20" background="white">
