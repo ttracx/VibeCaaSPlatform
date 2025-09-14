@@ -1,6 +1,6 @@
 # 🎵 VibeCaaS.com
 
-**Powered by AI**
+**Powered by AI - Multi-Agent Development Platform**
 
 # Code at the Speed of Thought
 
