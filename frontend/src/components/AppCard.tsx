@@ -7,7 +7,8 @@ import {
   TrashIcon, 
   Cog6ToothIcon,
   ArrowTopRightOnSquareIcon as ExternalLinkIcon,
-  ClockIcon
+  ClockIcon,
+  EyeIcon
 } from '@heroicons/react/24/outline'
 import { App } from '@/types/app'
 import { formatDistanceToNow } from 'date-fns'
@@ -15,9 +16,10 @@ import { formatDistanceToNow } from 'date-fns'
 interface AppCardProps {
   app: App
   onAction: (appId: string, action: 'start' | 'stop' | 'delete') => void
+  onPreview?: (app: App) => void
 }
 
-export function AppCard({ app, onAction }: AppCardProps) {
+export function AppCard({ app, onAction, onPreview }: AppCardProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleAction = async (action: 'start' | 'stop' | 'delete') => {
@@ -160,6 +162,15 @@ export function AppCard({ app, onAction }: AppCardProps) {
           </div>
           
           <div className="flex space-x-1">
+            {app.status === 'running' && onPreview && (
+              <button
+                onClick={() => onPreview(app)}
+                className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                title="Live Preview"
+              >
+                <EyeIcon className="h-4 w-4" />
+              </button>
+            )}
             <button
               onClick={() => {/* TODO: Open settings modal */}}
               className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
