@@ -1,0 +1,57 @@
+{
+  "name": "VibeCaaS - Container as a Service Platform",
+  "short_name": "VibeCaaS",
+  "description": "Deploy and manage containerized applications with AI-powered assistance",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#6c3aea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/VibeCaaS.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/VibeCaaS.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["developer", "productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "/screenshots/dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Dashboard view"
+    },
+    {
+      "src": "/screenshots/deployment.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Deployment interface"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Launch Demo",
+      "short_name": "Demo",
+      "description": "Try our interactive demo",
+      "url": "/demo",
+      "icons": [{ "src": "/VibeCaaS.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "View Pricing",
+      "short_name": "Pricing",
+      "description": "View our pricing plans",
+      "url": "/#pricing",
+      "icons": [{ "src": "/VibeCaaS.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": []
+}

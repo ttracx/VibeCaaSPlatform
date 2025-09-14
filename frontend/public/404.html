@@ -2,77 +2,522 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeCaaS Demo - Page Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>404 - Page Not Found | VibeCaaS</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Explore our container platform demo instead!">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/png" href="/VibeCaaS.png">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
+        
         .container {
             text-align: center;
             max-width: 600px;
             padding: 2rem;
+            z-index: 10;
+            animation: fadeInUp 1s ease;
         }
-        h1 {
-            font-size: 4rem;
-            margin: 0;
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .error-code {
+            font-size: clamp(6rem, 15vw, 10rem);
             font-weight: 700;
+            margin: 0;
+            background: linear-gradient(45deg, #6c3aea, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+            line-height: 1;
         }
-        h2 {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            font-weight: 400;
+        
+        @keyframes glow {
+            from { 
+                filter: drop-shadow(0 0 20px rgba(108, 58, 234, 0.5));
+                transform: scale(1);
+            }
+            to { 
+                filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.8));
+                transform: scale(1.05);
+            }
         }
-        p {
-            font-size: 1.1rem;
-            margin: 1.5rem 0;
-            opacity: 0.9;
-        }
-        .btn {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
+        
         .logo {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 2rem;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #6c3aea, #a855f7);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(108, 58, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 8px 25px rgba(108, 58, 234, 0.6);
+        }
+        
+        .countdown {
+            margin-top: 2rem;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .countdown-number {
+            font-weight: bold;
             color: #fbbf24;
+            font-size: 1.2rem;
+        }
+        
+        /* Floating elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+        
+        .floating-element:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 15s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-30px) translateX(30px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(30px) translateX(-30px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-30px) translateX(-30px) rotate(270deg);
+            }
+        }
+        
+        /* Glitch effect for 404 */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: '404';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #6c3aea, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #00ffff;
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #ff00ff;
+            z-index: -2;
+        }
+        
+        @keyframes glitch {
+            0%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+        }
+        
+        @keyframes glitch-1 {
+            0%, 100% {
+                clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+                transform: translate(0);
+            }
+            25% {
+                clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+                transform: translate(-5px);
+            }
+            50% {
+                clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%);
+                transform: translate(5px);
+            }
+            75% {
+                clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+                transform: translate(-3px);
+            }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 100% {
+                clip-path: polygon(0 35%, 100% 35%, 100% 60%, 0 60%);
+                transform: translate(0);
+            }
+            25% {
+                clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+                transform: translate(3px);
+            }
+            50% {
+                clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+                transform: translate(-3px);
+            }
+            75% {
+                clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%);
+                transform: translate(5px);
+            }
+        }
+        
+        /* Search suggestions */
+        .suggestions {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .suggestions h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .suggestion-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+        
+        .suggestion-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .suggestion-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 0.875rem 1.75rem;
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Floating elements for visual effect -->
+    <div class="floating-elements" aria-hidden="true">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
     <div class="container">
         <div class="logo">VibeCaaS</div>
-        <h1>404</h1>
-        <h2>Page Not Found</h2>
-        <p>The page you're looking for doesn't exist. But don't worry, you can still explore our amazing container platform demo!</p>
-        <a href="/demo" class="btn">Go to Demo</a>
+        <div class="error-code glitch">404</div>
+        <h1>Oops! Page Not Found</h1>
+        <p>
+            The page you're looking for seems to have vanished into the cloud. 
+            But don't worry, you can still explore our amazing container platform!
+        </p>
+        
+        <div class="btn-group">
+            <a href="/" class="btn btn-primary">
+                <span>🏠</span>
+                <span>Go Home</span>
+            </a>
+            <a href="/demo" class="btn">
+                <span>🚀</span>
+                <span>Try Demo</span>
+            </a>
+            <a href="javascript:history.back()" class="btn">
+                <span>⬅️</span>
+                <span>Go Back</span>
+            </a>
+        </div>
+        
+        <div class="countdown">
+            Redirecting to demo in <span class="countdown-number" id="countdown">10</span> seconds...
+        </div>
+        
+        <div class="suggestions">
+            <h2>Popular Pages</h2>
+            <div class="suggestion-links">
+                <a href="/#features" class="suggestion-link">Features</a>
+                <a href="/#pricing" class="suggestion-link">Pricing</a>
+                <a href="/#testimonials" class="suggestion-link">Reviews</a>
+                <a href="/#contact" class="suggestion-link">Contact</a>
+                <a href="/docs" class="suggestion-link">Documentation</a>
+                <a href="/api" class="suggestion-link">API</a>
+            </div>
+        </div>
     </div>
     
     <script>
-        // Redirect to demo after 3 seconds
-        setTimeout(() => {
-            window.location.href = '/demo';
-        }, 3000);
+        // Countdown timer
+        let countdown = 10;
+        const countdownElement = document.getElementById('countdown');
+        let redirectTimer;
+        
+        function updateCountdown() {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                window.location.href = '/demo';
+            } else {
+                redirectTimer = setTimeout(updateCountdown, 1000);
+            }
+        }
+        
+        // Start countdown
+        redirectTimer = setTimeout(updateCountdown, 1000);
+        
+        // Cancel redirect if user interacts
+        document.addEventListener('click', (e) => {
+            // Don't cancel if clicking on a link
+            if (e.target.tagName !== 'A' && !e.target.closest('a')) {
+                clearTimeout(redirectTimer);
+                document.querySelector('.countdown').style.display = 'none';
+            }
+        });
+        
+        // Add some interactive easter eggs
+        const errorCode = document.querySelector('.error-code');
+        let clickCount = 0;
+        
+        errorCode.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 3) {
+                errorCode.style.animation = 'glitch 0.5s infinite, spin 1s ease-in-out';
+                setTimeout(() => {
+                    errorCode.style.animation = 'glitch 2s infinite, glow 2s ease-in-out infinite alternate';
+                }, 1000);
+            }
+            if (clickCount === 5) {
+                errorCode.textContent = '🎉';
+                setTimeout(() => {
+                    errorCode.textContent = '404';
+                    clickCount = 0;
+                }, 2000);
+            }
+        });
+        
+        // Add parallax effect for floating elements
+        document.addEventListener('mousemove', (e) => {
+            const floatingElements = document.querySelectorAll('.floating-element');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            floatingElements.forEach((element, index) => {
+                const speed = (index + 1) * 20;
+                element.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                window.location.href = '/';
+            }
+            if (e.key === 'Enter') {
+                window.location.href = '/demo';
+            }
+        });
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </script>
 </body>
 </html>
