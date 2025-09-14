@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - VibeCaaS Platform</title>
+    <meta name="description" content="Complete API reference for VibeCaaS platform. RESTful API documentation for developers.">
+    <link rel="icon" type="image/png" href="/VibeCaaS.png">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-color: #6c3aea;
+            --secondary-color: #a855f7;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        
+        .api-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .api-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .endpoint {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .method {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .method-get {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .method-post {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+        
+        .method-put {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        
+        .method-delete {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .endpoint-path {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        
+        .endpoint-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #10b981;
+        }
+        
+        .parameters {
+            margin-top: 1rem;
+        }
+        
+        .parameters h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .param-table {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        
+        .param-table th,
+        .param-table td {
+            text-align: left;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .param-table th {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .param-required {
+            color: #ef4444;
+            font-size: 0.85rem;
+        }
+        
+        .param-optional {
+            color: #10b981;
+            font-size: 0.85rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .auth-section {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .response-example {
+            margin-top: 1rem;
+        }
+        
+        .response-example h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tab {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .endpoint-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .param-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">VibeCaaS</a>
+            <nav>
+                <a href="/docs" class="btn">Documentation</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>API Reference</h1>
+        <p class="intro">
+            The VibeCaaS API is a RESTful API that allows you to programmatically manage your containerized applications. 
+            All API requests must be authenticated using your API key.
+        </p>
+        
+        <div class="auth-section">
+            <h3>🔐 Authentication</h3>
+            <p>Include your API key in the Authorization header:</p>
+            <div class="code-block">
+                <pre>Authorization: Bearer YOUR_API_KEY</pre>
+            </div>
+            <p style="margin-top: 1rem;">Get your API key from the <a href="/demo" style="color: var(--secondary-color);">dashboard</a>.</p>
+        </div>
+        
+        <!-- Deployments API -->
+        <div class="api-section">
+            <h2>Deployments</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <span class="method method-get">GET</span>
+                    <span class="endpoint-path">/api/v1/deployments</span>
+                </div>
+                <p class="endpoint-description">List all deployments in your account.</p>
+                
+                <div class="parameters">
+                    <h4>Query Parameters</h4>
+                    <table class="param-table">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>limit</td>
+                            <td>integer</td>
+                            <td>Number of results to return <span class="param-optional">(optional)</span></td>
+                        </tr>
+                        <tr>
+                            <td>offset</td>
+                            <td>integer</td>
+                            <td>Offset for pagination <span class="param-optional">(optional)</span></td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>string</td>
+                            <td>Filter by status: running, stopped, failed <span class="param-optional">(optional)</span></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="response-example">
+                    <h4>Response Example</h4>
+                    <div class="code-block">
+                        <pre>{
+  "deployments": [
+    {
+      "id": "dep_123abc",
+      "name": "my-app",
+      "status": "running",
+      "created_at": "2025-01-15T10:00:00Z",
+      "repository": "username/repo",
+      "url": "https://my-app.vibecaas.com"
+    }
+  ],
+  "total": 1
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <span class="method method-post">POST</span>
+                    <span class="endpoint-path">/api/v1/deployments</span>
+                </div>
+                <p class="endpoint-description">Create a new deployment from a GitHub repository or Docker image.</p>
+                
+                <div class="parameters">
+                    <h4>Request Body</h4>
+                    <table class="param-table">
+                        <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>string</td>
+                            <td>Deployment name <span class="param-required">(required)</span></td>
+                        </tr>
+                        <tr>
+                            <td>source</td>
+                            <td>object</td>
+                            <td>Source configuration <span class="param-required">(required)</span></td>
+                        </tr>
+                        <tr>
+                            <td>environment</td>
+                            <td>object</td>
+                            <td>Environment variables <span class="param-optional">(optional)</span></td>
+                        </tr>
+                        <tr>
+                            <td>resources</td>
+                            <td>object</td>
+                            <td>Resource limits <span class="param-optional">(optional)</span></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="response-example">
+                    <h4>Request Example</h4>
+                    <div class="code-block">
+                        <pre>{
+  "name": "my-app",
+  "source": {
+    "type": "github",
+    "repository": "username/repo",
+    "branch": "main"
+  },
+  "environment": {
+    "NODE_ENV": "production",
+    "PORT": "3000"
+  },
+  "resources": {
+    "cpu": "1",
+    "memory": "512Mi"
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <span class="method method-delete">DELETE</span>
+                    <span class="endpoint-path">/api/v1/deployments/{id}</span>
+                </div>
+                <p class="endpoint-description">Delete a deployment and all associated resources.</p>
+                
+                <div class="response-example">
+                    <h4>Response Example</h4>
+                    <div class="code-block">
+                        <pre>{
+  "message": "Deployment deleted successfully",
+  "id": "dep_123abc"
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Containers API -->
+        <div class="api-section">
+            <h2>Containers</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <span class="method method-get">GET</span>
+                    <span class="endpoint-path">/api/v1/containers/{id}/logs</span>
+                </div>
+                <p class="endpoint-description">Get logs from a container.</p>
+                
+                <div class="parameters">
+                    <h4>Query Parameters</h4>
+                    <table class="param-table">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>lines</td>
+                            <td>integer</td>
+                            <td>Number of lines to return <span class="param-optional">(optional, default: 100)</span></td>
+                        </tr>
+                        <tr>
+                            <td>follow</td>
+                            <td>boolean</td>
+                            <td>Stream logs in real-time <span class="param-optional">(optional)</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <span class="method method-post">POST</span>
+                    <span class="endpoint-path">/api/v1/containers/{id}/restart</span>
+                </div>
+                <p class="endpoint-description">Restart a container.</p>
+                
+                <div class="response-example">
+                    <h4>Response Example</h4>
+                    <div class="code-block">
+                        <pre>{
+  "message": "Container restarted successfully",
+  "id": "cnt_456def",
+  "status": "running"
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <span class="method method-put">PUT</span>
+                    <span class="endpoint-path">/api/v1/containers/{id}/scale</span>
+                </div>
+                <p class="endpoint-description">Scale container replicas.</p>
+                
+                <div class="parameters">
+                    <h4>Request Body</h4>
+                    <table class="param-table">
+                        <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>replicas</td>
+                            <td>integer</td>
+                            <td>Number of replicas <span class="param-required">(required)</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Metrics API -->
+        <div class="api-section">
+            <h2>Metrics</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-header">
+                    <span class="method method-get">GET</span>
+                    <span class="endpoint-path">/api/v1/metrics/{deployment_id}</span>
+                </div>
+                <p class="endpoint-description">Get real-time metrics for a deployment.</p>
+                
+                <div class="parameters">
+                    <h4>Query Parameters</h4>
+                    <table class="param-table">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>period</td>
+                            <td>string</td>
+                            <td>Time period: 1h, 24h, 7d, 30d <span class="param-optional">(optional, default: 1h)</span></td>
+                        </tr>
+                        <tr>
+                            <td>metrics</td>
+                            <td>array</td>
+                            <td>Specific metrics to return <span class="param-optional">(optional)</span></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="response-example">
+                    <h4>Response Example</h4>
+                    <div class="code-block">
+                        <pre>{
+  "deployment_id": "dep_123abc",
+  "period": "1h",
+  "metrics": {
+    "cpu": {
+      "current": 45.2,
+      "average": 38.5,
+      "max": 78.3,
+      "unit": "percent"
+    },
+    "memory": {
+      "current": 256,
+      "average": 245,
+      "max": 412,
+      "unit": "MB"
+    },
+    "requests": {
+      "total": 15234,
+      "rate": 42.3,
+      "unit": "req/s"
+    }
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rate Limits -->
+        <div class="api-section">
+            <h2>Rate Limits</h2>
+            <p style="margin-bottom: 1rem;">API requests are rate limited based on your plan:</p>
+            <ul style="margin-left: 2rem; color: var(--text-secondary); line-height: 1.8;">
+                <li><strong>Free:</strong> 100 requests per hour</li>
+                <li><strong>Professional:</strong> 1,000 requests per hour</li>
+                <li><strong>Enterprise:</strong> Unlimited requests</li>
+            </ul>
+            <p style="margin-top: 1rem;">Rate limit information is included in response headers:</p>
+            <div class="code-block">
+                <pre>X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1642248000</pre>
+            </div>
+        </div>
+        
+        <!-- Error Codes -->
+        <div class="api-section">
+            <h2>Error Codes</h2>
+            <p style="margin-bottom: 1rem;">The API uses standard HTTP status codes:</p>
+            <table class="param-table">
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>200</td>
+                    <td>Success</td>
+                </tr>
+                <tr>
+                    <td>201</td>
+                    <td>Created</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>Bad Request - Invalid parameters</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>Unauthorized - Invalid API key</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>Forbidden - Access denied</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>Not Found - Resource doesn't exist</td>
+                </tr>
+                <tr>
+                    <td>429</td>
+                    <td>Too Many Requests - Rate limit exceeded</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>Internal Server Error</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div style="margin-top: 3rem; padding: 2rem; background: var(--bg-card); border-radius: 20px; text-align: center;">
+            <h3 style="margin-bottom: 1rem;">Ready to get started?</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                Create your account and get your API key to start deploying.
+            </p>
+            <a href="/demo" class="btn">Get API Key</a>
+        </div>
+    </div>
+    
+    <script>
+        // Add syntax highlighting for code blocks
+        document.querySelectorAll('.code-block pre').forEach(block => {
+            // Simple syntax highlighting
+            let html = block.innerHTML;
+            html = html.replace(/"([^"]*)"/g, '<span style="color: #fbbf24">"$1"</span>');
+            html = html.replace(/(\d+)/g, '<span style="color: #3b82f6">$1</span>');
+            html = html.replace(/(true|false|null)/g, '<span style="color: #ef4444">$1</span>');
+            block.innerHTML = html;
+        });
+    </script>
+</body>
+</html>

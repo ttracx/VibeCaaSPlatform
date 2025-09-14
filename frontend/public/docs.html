@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - VibeCaaS Platform</title>
+    <meta name="description" content="Complete documentation for VibeCaaS platform. Learn how to deploy and manage containerized applications.">
+    <link rel="icon" type="image/png" href="/VibeCaaS.png">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-color: #6c3aea;
+            --secondary-color: #a855f7;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+        }
+        
+        .sidebar {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .sidebar h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .sidebar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .sidebar a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar a.active {
+            color: var(--secondary-color);
+            background: rgba(168, 85, 247, 0.2);
+        }
+        
+        .content {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--secondary-color);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            color: #10b981;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .feature-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .alert {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .alert-info {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+        
+        .alert-success {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">VibeCaaS</a>
+            <nav>
+                <a href="/demo" class="btn">Try Demo</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Documentation</h3>
+            <ul>
+                <li><a href="#getting-started" class="active">Getting Started</a></li>
+                <li><a href="#deployment">Deployment Guide</a></li>
+                <li><a href="#containers">Container Management</a></li>
+                <li><a href="#ai-features">AI Features</a></li>
+                <li><a href="#monitoring">Monitoring</a></li>
+                <li><a href="#scaling">Auto-Scaling</a></li>
+                <li><a href="#github">GitHub Integration</a></li>
+                <li><a href="#api">API Reference</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </aside>
+        
+        <main class="content">
+            <h1>Documentation</h1>
+            <p>Welcome to the VibeCaaS documentation. Here you'll find everything you need to deploy and manage your containerized applications.</p>
+            
+            <div class="alert alert-info">
+                <strong>Quick Start:</strong> New to VibeCaaS? Check out our <a href="#getting-started" style="color: #3b82f6;">Getting Started Guide</a> to deploy your first container in minutes.
+            </div>
+            
+            <section id="getting-started">
+                <h2>Getting Started</h2>
+                <p>VibeCaaS makes it easy to deploy containerized applications with just a few clicks. Follow these steps to get started:</p>
+                
+                <h3>1. Create Your Account</h3>
+                <p>Sign up for a free VibeCaaS account to access the platform. You'll get 3 free deployments to start with.</p>
+                
+                <h3>2. Connect Your GitHub</h3>
+                <p>Link your GitHub account to deploy directly from your repositories. VibeCaaS will automatically detect your Dockerfile and configuration.</p>
+                
+                <h3>3. Deploy Your First Container</h3>
+                <p>Select a repository and click "Deploy". Our AI assistant will help you configure the optimal settings.</p>
+                
+                <div class="code-block">
+                    <code>
+# Example: Deploy from GitHub<br>
+$ vibecaas deploy --repo username/repository<br>
+$ vibecaas status deployment-id<br>
+$ vibecaas logs deployment-id
+                    </code>
+                </div>
+            </section>
+            
+            <section id="deployment">
+                <h2>Deployment Guide</h2>
+                <p>VibeCaaS supports multiple deployment methods to fit your workflow:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>GitHub Integration</h4>
+                        <p>Deploy directly from GitHub repositories with automatic builds.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Docker Registry</h4>
+                        <p>Pull images from Docker Hub or private registries.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>CLI Deployment</h4>
+                        <p>Use our CLI tool for automated deployments in CI/CD pipelines.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Web Interface</h4>
+                        <p>Deploy through our intuitive web dashboard with drag-and-drop.</p>
+                    </div>
+                </div>
+                
+                <h3>Configuration Options</h3>
+                <p>Customize your deployment with these configuration options:</p>
+                <ul style="margin-left: 2rem; color: var(--text-secondary);">
+                    <li>Environment variables</li>
+                    <li>Resource limits (CPU, Memory, GPU)</li>
+                    <li>Scaling policies</li>
+                    <li>Health checks</li>
+                    <li>Custom domains</li>
+                    <li>SSL certificates</li>
+                </ul>
+            </section>
+            
+            <section id="containers">
+                <h2>Container Management</h2>
+                <p>Manage your containers efficiently with our comprehensive tools:</p>
+                
+                <h3>Container Lifecycle</h3>
+                <p>Control every aspect of your container's lifecycle:</p>
+                <div class="code-block">
+                    <code>
+# Container commands<br>
+$ vibecaas start container-id<br>
+$ vibecaas stop container-id<br>
+$ vibecaas restart container-id<br>
+$ vibecaas scale container-id --replicas 3
+                    </code>
+                </div>
+                
+                <h3>Version Control</h3>
+                <p>Track changes and rollback deployments when needed. VibeCaaS maintains a complete history of your deployments.</p>
+                
+                <div class="alert alert-success">
+                    <strong>Pro Tip:</strong> Enable automatic rollback on failed health checks to maintain high availability.
+                </div>
+            </section>
+            
+            <section id="ai-features">
+                <h2>AI-Powered Features</h2>
+                <p>Leverage our AI assistant powered by GPT-4 for intelligent deployment assistance:</p>
+                
+                <ul style="margin-left: 2rem; color: var(--text-secondary);">
+                    <li><strong>Configuration Optimization:</strong> Get recommendations for optimal resource allocation</li>
+                    <li><strong>Error Diagnosis:</strong> Automatic error detection and solution suggestions</li>
+                    <li><strong>Performance Tuning:</strong> AI-driven performance optimization</li>
+                    <li><strong>Security Scanning:</strong> Automated vulnerability detection</li>
+                    <li><strong>Cost Optimization:</strong> Recommendations to reduce infrastructure costs</li>
+                </ul>
+            </section>
+            
+            <section id="monitoring">
+                <h2>Monitoring & Metrics</h2>
+                <p>Real-time monitoring with comprehensive metrics and beautiful dashboards:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>Resource Metrics</h4>
+                        <p>CPU, Memory, Disk, and Network usage in real-time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Application Metrics</h4>
+                        <p>Request rates, response times, and error rates.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Custom Metrics</h4>
+                        <p>Define and track your own custom metrics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Alerts</h4>
+                        <p>Set up alerts for critical events and thresholds.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="faq">
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>What is VibeCaaS?</h3>
+                <p>VibeCaaS is a Container as a Service platform that simplifies deploying and managing containerized applications with AI-powered assistance.</p>
+                
+                <h3>How does pricing work?</h3>
+                <p>We offer a free tier with 3 deployments. Professional plans start at $49/month for unlimited deployments. Check our <a href="/#pricing" style="color: var(--secondary-color);">pricing page</a> for details.</p>
+                
+                <h3>Can I use my own domain?</h3>
+                <p>Yes! Professional and Enterprise plans support custom domains with automatic SSL certificates.</p>
+                
+                <h3>What cloud infrastructure do you use?</h3>
+                <p>VibeCaaS runs on NVIDIA Cloud infrastructure, providing high-performance computing with GPU support for AI workloads.</p>
+            </section>
+            
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                <p style="text-align: center;">
+                    Need more help? <a href="/help" style="color: var(--secondary-color);">Visit our Help Center</a> or <a href="/#contact" style="color: var(--secondary-color);">Contact Support</a>
+                </p>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Smooth scrolling for sidebar links
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        
+                        // Update active state
+                        document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Update active link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.scrollY;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                const id = section.getAttribute('id');
+                
+                if (scrollY >= sectionTop && scrollY < sectionBottom) {
+                    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+                    document.querySelector(`.sidebar a[href="#${id}"]`)?.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
