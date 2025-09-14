@@ -54,16 +54,6 @@ async def scale_resources(
     success = await resource_service.scale_project_resources(
         project_id, current_user.id, cpu_limit, memory_limit
     )
-<<<<<<< Current (Your changes)
-    count, total_cpu, total_mem = result.first() or (0, 0, 0)
-    return {
-        "apps": int(count or 0),
-        "cpu": float(total_cpu or 0),
-        "memory": int(total_mem or 0),
-        "tier": current_user.tier.value,
-    }
-
-=======
     if not success:
         raise HTTPException(status_code=404, detail="Project not found")
     return {"message": "Resources scaled successfully"}
@@ -95,4 +85,3 @@ async def request_gpu(
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     # This would be imported from auth router
     pass
->>>>>>> Incoming (Background Agent changes)

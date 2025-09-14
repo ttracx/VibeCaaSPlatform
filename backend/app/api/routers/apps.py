@@ -135,14 +135,8 @@ async def get_app_metrics(
     metrics = await app_service.get_app_metrics(app_id, current_user.id)
     if metrics is None:
         raise HTTPException(status_code=404, detail="App not found")
-<<<<<<< Current (Your changes)
-    stats = await container_service.get_stats(app)
-    return stats
-
-=======
     return metrics
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     # This would be imported from auth router
     pass
->>>>>>> Incoming (Background Agent changes)
