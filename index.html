@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeCaaS - Multi-Agent AI Development Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@monaco-editor/react@latest/dist/umd/monaco-editor.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .code-editor {
+            height: 400px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .agent-card {
+            transition: all 0.3s ease;
+        }
+        .agent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid #667eea;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #667eea; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-purple-600">🎵 VibeCaaS</h1>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#features" class="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                        <a href="#demo" class="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Demo</a>
+                        <a href="#pricing" class="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
+                        <a href="#docs" class="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Docs</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700">
+                        Get Started Free
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Multi-Agent AI Development Platform
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 typing-animation">
+                Watch AI agents plan, code, test, and deploy your applications in real-time
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Start Building Now
+                </button>
+                <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                    Watch Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Powered by AI Agents
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Six specialized AI agents work together to build your applications
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Planning Agent -->
+                <div class="agent-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-brain text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Planning Agent</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Analyzes requirements and breaks down tasks for other agents</p>
+                    <div class="bg-white p-3 rounded-lg">
+                        <div class="text-sm text-gray-500 mb-2">Current Task:</div>
+                        <div class="text-sm font-medium">Analyzing project requirements...</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-blue-500 h-2 rounded-full pulse-animation" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend Agent -->
+                <div class="agent-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-paint-brush text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Frontend Agent</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Builds React/Next.js components and UI interfaces</p>
+                    <div class="bg-white p-3 rounded-lg">
+                        <div class="text-sm text-gray-500 mb-2">Current Task:</div>
+                        <div class="text-sm font-medium">Creating dashboard components...</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-green-500 h-2 rounded-full pulse-animation" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Agent -->
+                <div class="agent-card bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-server text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Backend Agent</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Develops FastAPI endpoints and database models</p>
+                    <div class="bg-white p-3 rounded-lg">
+                        <div class="text-sm text-gray-500 mb-2">Current Task:</div>
+                        <div class="text-sm font-medium">Implementing API endpoints...</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-purple-500 h-2 rounded-full pulse-animation" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integration Agent -->
+                <div class="agent-card bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-plug text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Integration Agent</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Connects systems and handles deployment</p>
+                    <div class="bg-white p-3 rounded-lg">
+                        <div class="text-sm text-gray-500 mb-2">Current Task:</div>
+                        <div class="text-sm font-medium">Configuring Docker containers...</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-orange-500 h-2 rounded-full pulse-animation" style="width: 30%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testing Agent -->
+                <div class="agent-card bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-bug text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Testing Agent</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Runs tests and ensures code quality</p>
+                    <div class="bg-white p-3 rounded-lg">
+                        <div class="text-sm text-gray-500 mb-2">Current Task:</div>
+                        <div class="text-sm font-medium">Running unit tests...</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-red-500 h-2 rounded-full pulse-animation" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Feature Agent -->
+                <div class="agent-card bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-magic text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">AI Feature Agent</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Implements intelligent features and optimizations</p>
+                    <div class="bg-white p-3 rounded-lg">
+                        <div class="text-sm text-gray-500 mb-2">Current Task:</div>
+                        <div class="text-sm font-medium">Adding smart suggestions...</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-indigo-500 h-2 rounded-full pulse-animation" style="width: 55%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section id="demo" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Live Development Environment
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Experience the full VibeCaaS platform in action
+                </p>
+            </div>
+
+            <!-- IDE Interface -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+                <!-- IDE Header -->
+                <div class="bg-gray-800 text-white px-6 py-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span class="text-sm font-medium">VibeCaaS IDE - React Dashboard</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full pulse-animation"></div>
+                            <span class="text-sm">Live Preview</span>
+                        </div>
+                        <button class="bg-green-600 px-4 py-2 rounded text-sm font-medium hover:bg-green-700">
+                            Deploy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IDE Content -->
+                <div class="flex h-96">
+                    <!-- File Tree -->
+                    <div class="w-64 bg-gray-100 border-r border-gray-200 p-4">
+                        <div class="text-sm font-medium text-gray-700 mb-3">Project Files</div>
+                        <div class="space-y-1">
+                            <div class="flex items-center text-sm text-gray-600 hover:bg-gray-200 p-1 rounded">
+                                <i class="fas fa-folder text-blue-500 mr-2"></i>
+                                src/
+                            </div>
+                            <div class="ml-4 space-y-1">
+                                <div class="flex items-center text-sm text-gray-600 hover:bg-gray-200 p-1 rounded">
+                                    <i class="fas fa-file-code text-green-500 mr-2"></i>
+                                    App.jsx
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600 hover:bg-gray-200 p-1 rounded">
+                                    <i class="fas fa-file-code text-green-500 mr-2"></i>
+                                    Dashboard.jsx
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600 hover:bg-gray-200 p-1 rounded">
+                                    <i class="fas fa-file-code text-green-500 mr-2"></i>
+                                    components/
+                                </div>
+                            </div>
+                            <div class="flex items-center text-sm text-gray-600 hover:bg-gray-200 p-1 rounded">
+                                <i class="fas fa-file-code text-yellow-500 mr-2"></i>
+                                package.json
+                            </div>
+                            <div class="flex items-center text-sm text-gray-600 hover:bg-gray-200 p-1 rounded">
+                                <i class="fas fa-file-code text-yellow-500 mr-2"></i>
+                                Dockerfile
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Editor -->
+                    <div class="flex-1 flex flex-col">
+                        <!-- Editor Tabs -->
+                        <div class="bg-gray-50 border-b border-gray-200 flex">
+                            <div class="px-4 py-2 bg-white border-b-2 border-blue-500 text-sm font-medium text-gray-900">
+                                Dashboard.jsx
+                            </div>
+                            <div class="px-4 py-2 text-sm text-gray-500 hover:text-gray-700">
+                                App.jsx
+                            </div>
+                        </div>
+
+                        <!-- Monaco Editor -->
+                        <div class="flex-1 p-4">
+                            <div id="monaco-editor" class="code-editor"></div>
+                        </div>
+                    </div>
+
+                    <!-- Live Preview -->
+                    <div class="w-96 border-l border-gray-200">
+                        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+                            <div class="text-sm font-medium text-gray-700">Live Preview</div>
+                        </div>
+                        <div class="p-4 bg-white h-full">
+                            <div class="bg-gray-50 rounded-lg p-4 h-full">
+                                <div class="text-center text-gray-500">
+                                    <i class="fas fa-eye text-2xl mb-2"></i>
+                                    <div class="text-sm">Live preview will appear here</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent Activity Feed -->
+            <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Agent Activity Feed</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-brain text-white text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-gray-900">Planning Agent</div>
+                            <div class="text-sm text-gray-600">Analyzed requirements and created task breakdown</div>
+                            <div class="text-xs text-gray-500">2 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-paint-brush text-white text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-gray-900">Frontend Agent</div>
+                            <div class="text-sm text-gray-600">Created Dashboard component with responsive design</div>
+                            <div class="text-xs text-gray-500">1 minute ago</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-bug text-white text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-gray-900">Testing Agent</div>
+                            <div class="text-sm text-gray-600">Ran 15 unit tests - all passed ✅</div>
+                            <div class="text-xs text-gray-500">30 seconds ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Simple, Transparent Pricing
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Pay only for what you use with our usage-based pricing
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Starter Plan -->
+                <div class="bg-white border border-gray-200 rounded-xl p-8">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-4">$9<span class="text-lg text-gray-500">/month</span></div>
+                        <p class="text-gray-600 mb-6">Perfect for individual developers</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>10 projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>50 hours compute/month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>5GB storage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Basic AI agents</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="bg-purple-50 border-2 border-purple-500 rounded-xl p-8 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium">Most Popular</span>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-4">$29<span class="text-lg text-gray-500">/month</span></div>
+                        <p class="text-gray-600 mb-6">For growing teams and projects</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>50 projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>200 hours compute/month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>50GB storage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Advanced AI agents</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Custom domains</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Team Plan -->
+                <div class="bg-white border border-gray-200 rounded-xl p-8">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Team</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-4">$99<span class="text-lg text-gray-500">/month</span></div>
+                        <p class="text-gray-600 mb-6">For enterprise teams</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Unlimited projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>1000 hours compute/month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>500GB storage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>All AI agents</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Priority support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Team collaboration</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Features Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Platform Features
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Everything you need to build, deploy, and manage applications
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-brain text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">AI Agent Orchestration</h3>
+                    <p class="text-gray-600 mb-4">
+                        Multi-agent system with specialized agents for planning, coding, testing, and deployment
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Firecracker MicroVMs</h3>
+                    <p class="text-gray-600 mb-4">
+                        Lightning-fast isolated microVMs that boot in under 45 seconds with custom runtimes
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-globe text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Domain Management</h3>
+                    <p class="text-gray-600 mb-4">
+                        Search, purchase, and connect custom domains with Name.com integration and auto SSL
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-cube text-orange-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Container as a Service</h3>
+                    <p class="text-gray-600 mb-4">
+                        Isolated Docker containers for each project with GPU support
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-eye text-yellow-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Live Preview</h3>
+                    <p class="text-gray-600 mb-4">
+                        Real-time preview with custom subdomains (project.vibecaas.com)
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-credit-card text-red-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Usage-Based Billing</h3>
+                    <p class="text-gray-600 mb-4">
+                        Stripe integration with transparent pricing
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-indigo-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Enterprise Security</h3>
+                    <p class="text-gray-600 mb-4">
+                        Multi-tenant RBAC, secrets vault, and audit logging
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line text-pink-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Full Observability</h3>
+                    <p class="text-gray-600 mb-4">
+                        Prometheus, Grafana, and OpenTelemetry integration
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-rocket text-teal-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">One-Click Deploy</h3>
+                    <p class="text-gray-600 mb-4">
+                        Deploy to production with automatic SSL and CDN
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Build with AI Agents?
+            </h2>
+            <p class="text-xl mb-8">
+                Join thousands of developers who are building faster with VibeCaaS
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Start Free Trial
+                </button>
+                <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                    View Documentation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">🎵 VibeCaaS</h3>
+                    <p class="text-gray-400">
+                        Multi-agent AI development platform for the modern developer.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Features</a></li>
+                        <li><a href="#" class="hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white">API Reference</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About</a></li>
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Careers</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white">Community</a></li>
+                        <li><a href="#" class="hover:text-white">Status</a></li>
+                        <li><a href="#" class="hover:text-white">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 VibeCaaS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Monaco Editor
+        require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
+        require(['vs/editor/editor.main'], function () {
+            const editor = monaco.editor.create(document.getElementById('monaco-editor'), {
+                value: `import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
+import { Button } from './components/ui/button';
+
+const Dashboard = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch projects from API
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch('/api/v1/projects');
+      const data = await response.json();
+      setProjects(data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">My Projects</h1>
+          <p className="text-gray-600">Manage your AI-powered development projects</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <Card key={project.id} className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle>{project.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4">{project.description}</p>
+                <div className="flex space-x-2">
+                  <Button size="sm">Open</Button>
+                  <Button size="sm" variant="outline">Settings</Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;`,
+                language: 'javascript',
+                theme: 'vs-dark',
+                automaticLayout: true,
+                minimap: { enabled: false },
+                scrollBeyondLastLine: false,
+                fontSize: 14,
+                lineNumbers: 'on',
+                roundedSelection: false,
+                scrollbar: {
+                    vertical: 'auto',
+                    horizontal: 'auto'
+                }
+            });
+        });
+
+        // Simulate real-time agent activity
+        function simulateAgentActivity() {
+            const activities = [
+                { agent: 'Planning Agent', action: 'Analyzed user requirements', icon: 'fas fa-brain', color: 'bg-blue-500' },
+                { agent: 'Frontend Agent', action: 'Created responsive components', icon: 'fas fa-paint-brush', color: 'bg-green-500' },
+                { agent: 'Backend Agent', action: 'Implemented API endpoints', icon: 'fas fa-server', color: 'bg-purple-500' },
+                { agent: 'Testing Agent', action: 'Ran automated tests', icon: 'fas fa-bug', color: 'bg-red-500' },
+                { agent: 'Integration Agent', action: 'Deployed to staging', icon: 'fas fa-plug', color: 'bg-orange-500' },
+                { agent: 'AI Feature Agent', action: 'Added smart suggestions', icon: 'fas fa-magic', color: 'bg-indigo-500' }
+            ];
+
+            setInterval(() => {
+                const activity = activities[Math.floor(Math.random() * activities.length)];
+                addAgentActivity(activity);
+            }, 5000);
+        }
+
+        function addAgentActivity(activity) {
+            const feed = document.querySelector('.space-y-4');
+            if (feed) {
+                const activityElement = document.createElement('div');
+                activityElement.className = 'flex items-start space-x-3';
+                activityElement.innerHTML = `
+                    <div class="w-8 h-8 ${activity.color} rounded-full flex items-center justify-center">
+                        <i class="${activity.icon} text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-sm font-medium text-gray-900">${activity.agent}</div>
+                        <div class="text-sm text-gray-600">${activity.action}</div>
+                        <div class="text-xs text-gray-500">Just now</div>
+                    </div>
+                `;
+                feed.insertBefore(activityElement, feed.firstChild);
+                
+                // Remove old activities (keep only last 5)
+                const activities = feed.querySelectorAll('.flex.items-start.space-x-3');
+                if (activities.length > 5) {
+                    activities[activities.length - 1].remove();
+                }
+            }
+        }
+
+        // Start simulation
+        simulateAgentActivity();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

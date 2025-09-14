@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from .config import settings
-from .api.routers import auth, apps, resources, tenants, projects, agents, billing, secrets, observability
+from .api.routers import auth, apps, resources, tenants, projects, agents, billing, secrets, observability, microvm, domains
 
 app = FastAPI(
     title="VibeCaaS API",
@@ -37,6 +37,8 @@ app.include_router(agents.router, prefix="/api/v1/agents", tags=["agents"])
 app.include_router(billing.router, prefix="/api/v1/billing", tags=["billing"])
 app.include_router(secrets.router, prefix="/api/v1/secrets", tags=["secrets"])
 app.include_router(observability.router, prefix="/api/v1/observability", tags=["observability"])
+app.include_router(microvm.router, prefix="/api/v1", tags=["microvm"])
+app.include_router(domains.router, prefix="/api/v1", tags=["domains"])
 
 @app.get("/")
 async def root():

@@ -51,6 +51,24 @@ class Settings(BaseSettings):
     namecom_prod_api_token: str = os.getenv("PROD_NAMECOM_API_TOKEN", "")
     namecom_prod_base_url: str = os.getenv("PROD_NAMECOM_BASE_URL", "https://api.name.com")
 
+    # MicroVM Control API
+    vm_control_url: str = os.getenv("VM_CONTROL_URL", "")
+    vm_control_token: str = os.getenv("VM_CONTROL_TOKEN", "")
+    vm_default_region: str = os.getenv("VM_DEFAULT_REGION", "us-east-1")
+    vm_default_cpu: int = int(os.getenv("VM_DEFAULT_CPU", "2"))
+    vm_default_memory_mb: int = int(os.getenv("VM_DEFAULT_MEMORY_MB", "2048"))
+    
+    # Feature flags
+    feature_microvm: bool = os.getenv("FEATURE_MICROVM", "false").lower() == "true"
+    feature_domains_flow: bool = os.getenv("FEATURE_DOMAINS_FLOW", "false").lower() == "true"
+    
+    # Domain service configuration
+    platform_edge_ipv4: str = os.getenv("PLATFORM_EDGE_IPv4", "")
+    platform_edge_ipv6: str = os.getenv("PLATFORM_EDGE_IPv6", "")
+    platform_canonical_cname: str = os.getenv("PLATFORM_CANONICAL_CNAME", "apps.vibecaas.com")
+    public_callback_base: str = os.getenv("PUBLIC_CALLBACK_BASE", "https://api.vibecaas.com")
+    domains_public_search_enabled: bool = os.getenv("DOMAINS_PUBLIC_SEARCH_ENABLED", "true").lower() == "true"
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]

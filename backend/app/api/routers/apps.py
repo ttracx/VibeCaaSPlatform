@@ -1,106 +1,148 @@
-from __future__ import annotations
-
-import uuid
-from typing import List
-
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List, Optional
 from ...db import get_db
-from ...models.app import App, AppStatus
 from ...models.user import User
-from ...schemas.apps import AppActionRequest, AppCreateRequest, AppOut
-from ..routers.auth import get_current_user
-from ...services.containers import container_service
-
+from ...models.project import Project
+from ...schemas.app import AppCreate, AppUpdate, AppResponse
+from ...services.app_service import AppService
 
 router = APIRouter()
 
+@router.get("/apps", response_model=List[AppResponse])
+async def list_apps(
+    skip: int = 0,
+    limit: int = 100,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """List all apps for the current user"""
+    app_service = AppService(db)
+    apps = await app_service.get_user_apps(current_user.id, skip=skip, limit=limit)
+    return apps
 
-@router.get("/apps", response_model=List[AppOut])
-async def list_apps(db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)) -> List[AppOut]:
-    result = await db.execute(select(App).where(App.user_id == current_user.id))
-    apps = result.scalars().all()
-    return [AppOut.from_orm(a) for a in apps]
-
-
-@router.post("/apps", response_model=AppOut)
+@router.post("/apps", response_model=AppResponse)
 async def create_app(
-    payload: AppCreateRequest,
-    background: BackgroundTasks,
-    db: AsyncSession = Depends(get_db),
+    app: AppCreate,
     current_user: User = Depends(get_current_user),
-) -> AppOut:
-    app = App(
-        user_id=current_user.id,
-        name=payload.name,
-        framework=payload.framework,
-        gpu_enabled=payload.gpu_enabled or False,
-        cpu_limit=payload.cpu_limit,
-        memory_limit=payload.memory_limit,
-    )
-    app.subdomain = f"{app.name}-{current_user.username}.localhost".lower()
-    app.status = AppStatus.CREATING
-    db.add(app)
-    await db.commit()
-    await db.refresh(app)
+    db: Session = Depends(get_db)
+):
+    """Create a new app"""
+    app_service = AppService(db)
+    return await app_service.create_app(app, current_user.id)
 
-    background.add_task(container_service.create_container_for_app, app.id)
-
-    return AppOut.from_orm(app)
-
-
-@router.get("/apps/{app_id}", response_model=AppOut)
-async def get_app(app_id: uuid.UUID, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)) -> AppOut:
-    result = await db.execute(select(App).where(App.id == app_id, App.user_id == current_user.id))
-    app = result.scalar_one_or_none()
+@router.get("/apps/{app_id}", response_model=AppResponse)
+async def get_app(
+    app_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get a specific app"""
+    app_service = AppService(db)
+    app = await app_service.get_app(app_id, current_user.id)
     if not app:
         raise HTTPException(status_code=404, detail="App not found")
-    return AppOut.from_orm(app)
+    return app
 
-
-@router.post("/apps/{app_id}/action")
-async def app_action(
-    app_id: uuid.UUID,
-    payload: AppActionRequest,
-    db: AsyncSession = Depends(get_db),
+@router.put("/apps/{app_id}", response_model=AppResponse)
+async def update_app(
+    app_id: int,
+    app: AppUpdate,
     current_user: User = Depends(get_current_user),
-) -> dict:
-    result = await db.execute(select(App).where(App.id == app_id, App.user_id == current_user.id))
-    app = result.scalar_one_or_none()
-    if not app:
+    db: Session = Depends(get_db)
+):
+    """Update an app"""
+    app_service = AppService(db)
+    updated_app = await app_service.update_app(app_id, app, current_user.id)
+    if not updated_app:
         raise HTTPException(status_code=404, detail="App not found")
-    action = payload.action.lower()
-    if action == "start":
-        await container_service.start_container(app)
-    elif action == "stop":
-        await container_service.stop_container(app)
-    elif action == "restart":
-        await container_service.restart_container(app)
-    elif action == "delete":
-        await container_service.delete_container(app)
-    else:
-        raise HTTPException(status_code=400, detail="Unknown action")
-    return {"status": "ok"}
+    return updated_app
 
+@router.delete("/apps/{app_id}")
+async def delete_app(
+    app_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete an app"""
+    app_service = AppService(db)
+    success = await app_service.delete_app(app_id, current_user.id)
+    if not success:
+        raise HTTPException(status_code=404, detail="App not found")
+    return {"message": "App deleted successfully"}
+
+@router.post("/apps/{app_id}/start")
+async def start_app(
+    app_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Start an app"""
+    app_service = AppService(db)
+    success = await app_service.start_app(app_id, current_user.id)
+    if not success:
+        raise HTTPException(status_code=404, detail="App not found")
+    return {"message": "App started successfully"}
+
+@router.post("/apps/{app_id}/stop")
+async def stop_app(
+    app_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Stop an app"""
+    app_service = AppService(db)
+    success = await app_service.stop_app(app_id, current_user.id)
+    if not success:
+        raise HTTPException(status_code=404, detail="App not found")
+    return {"message": "App stopped successfully"}
+
+@router.post("/apps/{app_id}/restart")
+async def restart_app(
+    app_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Restart an app"""
+    app_service = AppService(db)
+    success = await app_service.restart_app(app_id, current_user.id)
+    if not success:
+        raise HTTPException(status_code=404, detail="App not found")
+    return {"message": "App restarted successfully"}
 
 @router.get("/apps/{app_id}/logs")
-async def app_logs(app_id: uuid.UUID, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)) -> dict:
-    result = await db.execute(select(App).where(App.id == app_id, App.user_id == current_user.id))
-    app = result.scalar_one_or_none()
-    if not app:
+async def get_app_logs(
+    app_id: int,
+    lines: int = 100,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get app logs"""
+    app_service = AppService(db)
+    logs = await app_service.get_app_logs(app_id, current_user.id, lines)
+    if logs is None:
         raise HTTPException(status_code=404, detail="App not found")
-    logs = await container_service.get_logs(app)
     return {"logs": logs}
 
-
-@router.get("/apps/{app_id}/stats")
-async def app_stats(app_id: uuid.UUID, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)) -> dict:
-    result = await db.execute(select(App).where(App.id == app_id, App.user_id == current_user.id))
-    app = result.scalar_one_or_none()
-    if not app:
+@router.get("/apps/{app_id}/metrics")
+async def get_app_metrics(
+    app_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get app metrics"""
+    app_service = AppService(db)
+    metrics = await app_service.get_app_metrics(app_id, current_user.id)
+    if metrics is None:
         raise HTTPException(status_code=404, detail="App not found")
+<<<<<<< Current (Your changes)
     stats = await container_service.get_stats(app)
     return stats
 
+=======
+    return metrics
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    # This would be imported from auth router
+    pass
+>>>>>>> Incoming (Background Agent changes)

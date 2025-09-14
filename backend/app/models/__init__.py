@@ -4,6 +4,8 @@ from .project import Project
 from .agent import Agent, AgentTask, AgentExecution
 from .billing import BillingRecord, UsageRecord
 from .secrets import Secret
+from .microvm import MicroVM, MicroVMEvent, MicroVMQuota
+from .domain import Domain, DomainOrder, DNSRecord, URLForwarding, WebhookSubscription, DomainSearch
 
 __all__ = [
     "User",
@@ -15,5 +17,14 @@ __all__ = [
     "AgentExecution",
     "BillingRecord",
     "UsageRecord",
-    "Secret"
+    "Secret",
+    "MicroVM",
+    "MicroVMEvent",
+    "MicroVMQuota",
+    "Domain",
+    "DomainOrder",
+    "DNSRecord",
+    "URLForwarding",
+    "WebhookSubscription",
+    "DomainSearch"
 ]
