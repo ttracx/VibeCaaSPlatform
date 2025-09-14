@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - VibeCaaS Platform</title>
+    <meta name="description" content="Manage your VibeCaaS account settings, preferences, and configurations.">
+    <link rel="icon" type="image/png" href="/VibeCaaS.png">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-color: #6c3aea;
+            --secondary-color: #a855f7;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --success-color: #10b981;
+            --warning-color: #fbbf24;
+            --error-color: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link.active {
+            color: var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-secondary);
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-item.active {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .sidebar-icon {
+            font-size: 1.2rem;
+        }
+        
+        .main-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .settings-section {
+            display: none;
+        }
+        
+        .settings-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-description {
+            color: var(--text-secondary);
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-info {
+            flex: 1;
+            margin-right: 2rem;
+        }
+        
+        .setting-label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .setting-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: var(--secondary-color);
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .form-select option {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-danger {
+            background: var(--error-color);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .alert {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-warning {
+            background: rgba(251, 191, 36, 0.2);
+            border-color: var(--warning-color);
+        }
+        
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--error-color);
+        }
+        
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .integration-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .integration-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+        }
+        
+        .integration-card.connected {
+            border-color: var(--success-color);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .integration-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .integration-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .integration-status {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .integration-status.connected {
+            color: var(--success-color);
+        }
+        
+        .webhook-list {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .webhook-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .webhook-item:last-child {
+            border-bottom: none;
+        }
+        
+        .webhook-url {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1001;
+            min-width: 300px;
+        }
+        
+        .toast.show {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .toast.success {
+            border-color: var(--success-color);
+        }
+        
+        .toast.error {
+            border-color: var(--error-color);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .two-factor-setup {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: white;
+            margin: 1rem auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .verification-code {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        
+        .code-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .setting-info {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">VibeCaaS</a>
+            <nav class="nav-menu">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/profile" class="nav-link">Profile</a>
+                <a href="/settings" class="nav-link active">Settings</a>
+                <a href="/" class="nav-link">Logout</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-item active" onclick="showSection('general')">
+                <span class="sidebar-icon">⚙️</span>
+                <span>General</span>
+            </div>
+            <div class="sidebar-item" onclick="showSection('security')">
+                <span class="sidebar-icon">🔒</span>
+                <span>Security</span>
+            </div>
+            <div class="sidebar-item" onclick="showSection('notifications')">
+                <span class="sidebar-icon">🔔</span>
+                <span>Notifications</span>
+            </div>
+            <div class="sidebar-item" onclick="showSection('integrations')">
+                <span class="sidebar-icon">🔗</span>
+                <span>Integrations</span>
+            </div>
+            <div class="sidebar-item" onclick="showSection('api')">
+                <span class="sidebar-icon">🔑</span>
+                <span>API & Webhooks</span>
+            </div>
+            <div class="sidebar-item" onclick="showSection('billing')">
+                <span class="sidebar-icon">💳</span>
+                <span>Billing</span>
+            </div>
+            <div class="sidebar-item" onclick="showSection('advanced')">
+                <span class="sidebar-icon">🚀</span>
+                <span>Advanced</span>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- General Settings -->
+            <div id="general" class="settings-section active">
+                <div class="section-header">
+                    <h1 class="section-title">General Settings</h1>
+                    <p class="section-description">Manage your account preferences and basic information</p>
+                </div>
+                
+                <form onsubmit="saveGeneralSettings(event)">
+                    <div class="form-group">
+                        <label class="form-label">Display Name</label>
+                        <input type="text" class="form-input" id="displayName" value="John Doe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="email" value="john.doe@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="username" value="johndoe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Timezone</label>
+                        <select class="form-select" id="timezone">
+                            <option value="UTC">UTC</option>
+                            <option value="America/New_York" selected>Eastern Time (US & Canada)</option>
+                            <option value="America/Chicago">Central Time (US & Canada)</option>
+                            <option value="America/Denver">Mountain Time (US & Canada)</option>
+                            <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
+                            <option value="Europe/London">London</option>
+                            <option value="Europe/Paris">Paris</option>
+                            <option value="Asia/Tokyo">Tokyo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Language</label>
+                        <select class="form-select" id="language">
+                            <option value="en" selected>English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="ja">Japanese</option>
+                            <option value="zh">Chinese</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Date Format</label>
+                        <select class="form-select" id="dateFormat">
+                            <option value="MM/DD/YYYY" selected>MM/DD/YYYY</option>
+                            <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm('general')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Security Settings -->
+            <div id="security" class="settings-section">
+                <div class="section-header">
+                    <h1 class="section-title">Security Settings</h1>
+                    <p class="section-description">Manage your account security and authentication methods</p>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Two-Factor Authentication</div>
+                        <div class="setting-description">Add an extra layer of security to your account</div>
+                    </div>
+                    <div class="toggle-switch" id="2faToggle" onclick="toggle2FA()">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Session Timeout</div>
+                        <div class="setting-description">Automatically log out after period of inactivity</div>
+                    </div>
+                    <select class="form-select" style="width: 150px;" id="sessionTimeout">
+                        <option value="15">15 minutes</option>
+                        <option value="30" selected>30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="120">2 hours</option>
+                        <option value="0">Never</option>
+                    </select>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Login Notifications</div>
+                        <div class="setting-description">Get notified when someone logs into your account</div>
+                    </div>
+                    <div class="toggle-switch active" id="loginNotifications" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">API Key Expiration</div>
+                        <div class="setting-description">Automatically expire API keys after specified period</div>
+                    </div>
+                    <select class="form-select" style="width: 150px;" id="apiKeyExpiration">
+                        <option value="30">30 days</option>
+                        <option value="60">60 days</option>
+                        <option value="90" selected>90 days</option>
+                        <option value="365">1 year</option>
+                        <option value="0">Never</option>
+                    </select>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Change Password</h3>
+                    <form onsubmit="changePassword(event)">
+                        <div class="form-group">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" class="form-input" id="currentPassword">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-input" id="newPassword">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-input" id="confirmPassword">
+                        </div>
+                        <button type="submit" class="btn">Update Password</button>
+                    </form>
+                </div>
+                
+                <div class="alert alert-warning" style="margin-top: 2rem;">
+                    <strong>Active Sessions:</strong> You are currently logged in from 2 devices. 
+                    <a href="#" onclick="showActiveSessions()" style="color: var(--warning-color);">View all sessions</a>
+                </div>
+            </div>
+            
+            <!-- Notifications Settings -->
+            <div id="notifications" class="settings-section">
+                <div class="section-header">
+                    <h1 class="section-title">Notification Preferences</h1>
+                    <p class="section-description">Choose how you want to be notified about important events</p>
+                </div>
+                
+                <h3 style="margin-bottom: 1rem;">Email Notifications</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Deployment Status</div>
+                        <div class="setting-description">Receive emails when deployments succeed or fail</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Resource Alerts</div>
+                        <div class="setting-description">Get notified when resources exceed thresholds</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Security Alerts</div>
+                        <div class="setting-description">Important security notifications and warnings</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Weekly Reports</div>
+                        <div class="setting-description">Receive weekly summary of your usage and activity</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Product Updates</div>
+                        <div class="setting-description">Stay informed about new features and updates</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 2rem 0 1rem;">Push Notifications</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Browser Notifications</div>
+                        <div class="setting-description">Show desktop notifications in your browser</div>
+                    </div>
+                    <div class="toggle-switch" onclick="requestNotificationPermission(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Mobile Push</div>
+                        <div class="setting-description">Receive notifications on your mobile device</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Integrations -->
+            <div id="integrations" class="settings-section">
+                <div class="section-header">
+                    <h1 class="section-title">Integrations</h1>
+                    <p class="section-description">Connect your favorite tools and services</p>
+                </div>
+                
+                <div class="integration-grid">
+                    <div class="integration-card connected" onclick="configureIntegration('github')">
+                        <div class="integration-icon">🐙</div>
+                        <div class="integration-name">GitHub</div>
+                        <div class="integration-status connected">Connected</div>
+                    </div>
+                    
+                    <div class="integration-card" onclick="configureIntegration('gitlab')">
+                        <div class="integration-icon">🦊</div>
+                        <div class="integration-name">GitLab</div>
+                        <div class="integration-status">Not Connected</div>
+                    </div>
+                    
+                    <div class="integration-card" onclick="configureIntegration('docker')">
+                        <div class="integration-icon">🐳</div>
+                        <div class="integration-name">Docker Hub</div>
+                        <div class="integration-status">Not Connected</div>
+                    </div>
+                    
+                    <div class="integration-card connected" onclick="configureIntegration('slack')">
+                        <div class="integration-icon">💬</div>
+                        <div class="integration-name">Slack</div>
+                        <div class="integration-status connected">Connected</div>
+                    </div>
+                    
+                    <div class="integration-card" onclick="configureIntegration('discord')">
+                        <div class="integration-icon">🎮</div>
+                        <div class="integration-name">Discord</div>
+                        <div class="integration-status">Not Connected</div>
+                    </div>
+                    
+                    <div class="integration-card" onclick="configureIntegration('datadog')">
+                        <div class="integration-icon">📊</div>
+                        <div class="integration-name">Datadog</div>
+                        <div class="integration-status">Not Connected</div>
+                    </div>
+                    
+                    <div class="integration-card" onclick="configureIntegration('pagerduty')">
+                        <div class="integration-icon">🚨</div>
+                        <div class="integration-name">PagerDuty</div>
+                        <div class="integration-status">Not Connected</div>
+                    </div>
+                    
+                    <div class="integration-card" onclick="configureIntegration('aws')">
+                        <div class="integration-icon">☁️</div>
+                        <div class="integration-name">AWS</div>
+                        <div class="integration-status">Not Connected</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- API & Webhooks -->
+            <div id="api" class="settings-section">
+                <div class="section-header">
+                    <h1 class="section-title">API & Webhooks</h1>
+                    <p class="section-description">Manage API access and webhook configurations</p>
+                </div>
+                
+                <h3 style="margin-bottom: 1rem;">Webhooks</h3>
+                <button class="btn" onclick="addWebhook()">Add Webhook</button>
+                
+                <div class="webhook-list" id="webhookList">
+                    <div class="webhook-item">
+                        <div>
+                            <div class="webhook-url">https://example.com/webhook/deploy</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary);">Deployment events</div>
+                        </div>
+                        <button class="btn btn-small btn-danger" onclick="removeWebhook(this)">Remove</button>
+                    </div>
+                    <div class="webhook-item">
+                        <div>
+                            <div class="webhook-url">https://slack.com/api/webhook/xyz</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary);">All events</div>
+                        </div>
+                        <button class="btn btn-small btn-danger" onclick="removeWebhook(this)">Remove</button>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 2rem 0 1rem;">API Settings</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Rate Limiting</div>
+                        <div class="setting-description">Current limit: 1000 requests per hour</div>
+                    </div>
+                    <button class="btn btn-secondary">Upgrade Plan</button>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">IP Whitelist</div>
+                        <div class="setting-description">Restrict API access to specific IP addresses</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">CORS Origins</div>
+                        <div class="setting-description">Allowed origins for cross-origin requests</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="configureCORS()">Configure</button>
+                </div>
+            </div>
+            
+            <!-- Billing Settings -->
+            <div id="billing" class="settings-section">
+                <div class="section-header">
+                    <h1 class="section-title">Billing & Subscription</h1>
+                    <p class="section-description">Manage your subscription and payment methods</p>
+                </div>
+                
+                <div class="alert" style="background: rgba(16, 185, 129, 0.2); border-color: var(--success-color);">
+                    <strong>Current Plan:</strong> Professional ($49/month) - Next billing date: February 15, 2025
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Payment Method</div>
+                        <div class="setting-description">Visa ending in 4242</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="updatePaymentMethod()">Update</button>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Billing Email</div>
+                        <div class="setting-description">billing@example.com</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="updateBillingEmail()">Change</button>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Auto-renewal</div>
+                        <div class="setting-description">Automatically renew subscription</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Usage Alerts</div>
+                        <div class="setting-description">Alert when usage exceeds 80% of limits</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Billing History</h3>
+                    <div class="webhook-list">
+                        <div class="webhook-item">
+                            <div>
+                                <div>January 15, 2025</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Professional Plan</div>
+                            </div>
+                            <div style="color: var(--success-color); font-weight: 600;">$49.00</div>
+                        </div>
+                        <div class="webhook-item">
+                            <div>
+                                <div>December 15, 2024</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Professional Plan</div>
+                            </div>
+                            <div style="color: var(--success-color); font-weight: 600;">$49.00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn">Upgrade Plan</button>
+                    <button class="btn btn-secondary">Download Invoices</button>
+                </div>
+            </div>
+            
+            <!-- Advanced Settings -->
+            <div id="advanced" class="settings-section">
+                <div class="section-header">
+                    <h1 class="section-title">Advanced Settings</h1>
+                    <p class="section-description">Advanced configuration and danger zone</p>
+                </div>
+                
+                <h3 style="margin-bottom: 1rem;">Developer Options</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Debug Mode</div>
+                        <div class="setting-description">Show detailed error messages and logs</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Beta Features</div>
+                        <div class="setting-description">Enable experimental features</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Export Data</div>
+                        <div class="setting-description">Download all your data in JSON format</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="exportData()">Export</button>
+                </div>
+                
+                <div class="alert alert-danger" style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">⚠️ Danger Zone</h3>
+                    <div class="setting-item" style="border: none; padding-bottom: 0;">
+                        <div class="setting-info">
+                            <div class="setting-label">Delete Account</div>
+                            <div class="setting-description">Permanently delete your account and all data</div>
+                        </div>
+                        <button class="btn btn-danger" onclick="confirmDeleteAccount()">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 2FA Setup Modal -->
+    <div id="twoFactorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Setup Two-Factor Authentication</h2>
+                <button class="modal-close" onclick="closeModal('twoFactorModal')">×</button>
+            </div>
+            <div class="two-factor-setup">
+                <p>Scan this QR code with your authenticator app:</p>
+                <div class="qr-code">📱</div>
+                <p style="margin-top: 1rem;">Or enter this code manually:</p>
+                <div style="font-family: monospace; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
+                    JBSWY3DPEHPK3PXP
+                </div>
+                <p>Enter verification code:</p>
+                <div class="verification-code">
+                    <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 0)">
+                    <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 1)">
+                    <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 2)">
+                    <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 3)">
+                    <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 4)">
+                    <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 5)">
+                </div>
+                <button class="btn" onclick="verify2FA()">Verify & Enable</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage">Settings saved successfully</span>
+    </div>
+    
+    <script>
+        // Show section
+        function showSection(sectionName) {
+            // Update sidebar
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.settings-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionName).classList.add('active');
+        }
+        
+        // Toggle switch
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            showToast(`Setting ${isActive ? 'enabled' : 'disabled'}`, 'success');
+        }
+        
+        // Save general settings
+        function saveGeneralSettings(event) {
+            event.preventDefault();
+            
+            // Simulate saving
+            showToast('General settings saved successfully', 'success');
+        }
+        
+        // Change password
+        function changePassword(event) {
+            event.preventDefault();
+            
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                showToast('Passwords do not match', 'error');
+                return;
+            }
+            
+            // Simulate password change
+            showToast('Password updated successfully', 'success');
+            
+            // Clear form
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+        
+        // 2FA Setup
+        function toggle2FA() {
+            const toggle = document.getElementById('2faToggle');
+            if (!toggle.classList.contains('active')) {
+                document.getElementById('twoFactorModal').classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+                showToast('Two-factor authentication disabled', 'success');
+            }
+        }
+        
+        function verify2FA() {
+            // Get all code inputs
+            const inputs = document.querySelectorAll('.code-input');
+            const code = Array.from(inputs).map(input => input.value).join('');
+            
+            if (code.length === 6) {
+                document.getElementById('2faToggle').classList.add('active');
+                closeModal('twoFactorModal');
+                showToast('Two-factor authentication enabled successfully', 'success');
+                
+                // Clear inputs
+                inputs.forEach(input => input.value = '');
+            } else {
+                showToast('Please enter a valid 6-digit code', 'error');
+            }
+        }
+        
+        function moveToNext(input, index) {
+            if (input.value.length === 1) {
+                const inputs = document.querySelectorAll('.code-input');
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            }
+        }
+        
+        // Request notification permission
+        function requestNotificationPermission(toggle) {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        toggle.classList.add('active');
+                        showToast('Browser notifications enabled', 'success');
+                        
+                        // Show test notification
+                        new Notification('VibeCaaS', {
+                            body: 'Browser notifications are now enabled!',
+                            icon: '/VibeCaaS.png'
+                        });
+                    } else {
+                        showToast('Browser notifications permission denied', 'error');
+                    }
+                });
+            }
+        }
+        
+        // Integration configuration
+        function configureIntegration(service) {
+            const card = event.currentTarget;
+            const isConnected = card.classList.contains('connected');
+            
+            if (isConnected) {
+                if (confirm(`Disconnect ${service}?`)) {
+                    card.classList.remove('connected');
+                    card.querySelector('.integration-status').classList.remove('connected');
+                    card.querySelector('.integration-status').textContent = 'Not Connected';
+                    showToast(`${service} disconnected`, 'success');
+                }
+            } else {
+                // Simulate OAuth flow
+                card.classList.add('connected');
+                card.querySelector('.integration-status').classList.add('connected');
+                card.querySelector('.integration-status').textContent = 'Connected';
+                showToast(`${service} connected successfully`, 'success');
+            }
+        }
+        
+        // Webhook management
+        function addWebhook() {
+            const url = prompt('Enter webhook URL:');
+            if (url) {
+                const webhookList = document.getElementById('webhookList');
+                const newWebhook = document.createElement('div');
+                newWebhook.className = 'webhook-item';
+                newWebhook.innerHTML = `
+                    <div>
+                        <div class="webhook-url">${url}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">All events</div>
+                    </div>
+                    <button class="btn btn-small btn-danger" onclick="removeWebhook(this)">Remove</button>
+                `;
+                webhookList.appendChild(newWebhook);
+                showToast('Webhook added successfully', 'success');
+            }
+        }
+        
+        function removeWebhook(button) {
+            if (confirm('Remove this webhook?')) {
+                button.closest('.webhook-item').remove();
+                showToast('Webhook removed', 'success');
+            }
+        }
+        
+        // Export data
+        function exportData() {
+            // Simulate data export
+            const data = {
+                user: {
+                    name: document.getElementById('displayName').value,
+                    email: document.getElementById('email').value,
+                    username: document.getElementById('username').value
+                },
+                settings: {
+                    timezone: document.getElementById('timezone').value,
+                    language: document.getElementById('language').value
+                },
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vibecaas-export.json';
+            a.click();
+            
+            showToast('Data exported successfully', 'success');
+        }
+        
+        // Delete account
+        function confirmDeleteAccount() {
+            const confirmation = prompt('Type "DELETE" to confirm account deletion:');
+            if (confirmation === 'DELETE') {
+                alert('Account deletion initiated. You will receive a confirmation email.');
+                window.location.href = '/';
+            }
+        }
+        
+        // Modal management
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+        
+        // Toast notifications
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.className = 'toast show ' + type;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Reset form
+        function resetForm(section) {
+            if (confirm('Discard unsaved changes?')) {
+                // Reset to original values
+                if (section === 'general') {
+                    document.getElementById('displayName').value = 'John Doe';
+                    document.getElementById('email').value = 'john.doe@example.com';
+                    document.getElementById('username').value = 'johndoe';
+                }
+                showToast('Changes discarded', 'success');
+            }
+        }
+        
+        // Close modal on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+        
+        // Save settings on change (auto-save simulation)
+        document.querySelectorAll('.form-select').forEach(select => {
+            select.addEventListener('change', function() {
+                setTimeout(() => {
+                    showToast('Setting saved automatically', 'success');
+                }, 500);
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                showToast('Settings saved', 'success');
+            }
+            
+            // ESC to close modals
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check notification permission
+            if ('Notification' in window && Notification.permission === 'granted') {
+                const notifToggle = document.querySelector('[onclick*="requestNotificationPermission"]');
+                if (notifToggle) {
+                    notifToggle.classList.add('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

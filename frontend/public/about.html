@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - VibeCaaS Platform</title>
+    <meta name="description" content="Learn about VibeCaaS, our mission, team, and vision for the future of container deployment.">
+    <link rel="icon" type="image/png" href="/VibeCaaS.png">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-color: #6c3aea;
+            --secondary-color: #a855f7;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+        
+        .section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .mission-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .mission-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .team-member {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .member-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-role {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-color);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin: 0 2rem;
+        }
+        
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                padding-left: 40px;
+            }
+            
+            .timeline-date {
+                left: 20px;
+                transform: translateX(0);
+            }
+            
+            .timeline-content {
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">VibeCaaS</a>
+            <nav>
+                <a href="/demo" class="btn">Try Demo</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="hero-section">
+            <h1>About VibeCaaS</h1>
+            <p class="subtitle">Revolutionizing container deployment with AI-powered intelligence</p>
+        </div>
+        
+        <div class="section">
+            <h2>Our Story</h2>
+            <p>
+                Founded in 2024, VibeCaaS emerged from a simple observation: deploying and managing containerized applications 
+                was unnecessarily complex. Our founders, experienced developers and DevOps engineers, envisioned a platform 
+                that would make container deployment as simple as pushing code to GitHub.
+            </p>
+            <p>
+                Today, VibeCaaS serves thousands of developers and companies worldwide, helping them deploy, scale, and 
+                manage their applications with unprecedented ease. Our AI-powered platform leverages cutting-edge technology 
+                to automate complex deployment tasks, optimize resource usage, and provide intelligent insights.
+            </p>
+        </div>
+        
+        <div class="section">
+            <h2>Our Mission</h2>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">🎯</div>
+                    <h3>Simplify Deployment</h3>
+                    <p>Make container deployment accessible to developers of all skill levels.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">🤖</div>
+                    <h3>AI-Powered Innovation</h3>
+                    <p>Leverage artificial intelligence to optimize and automate DevOps tasks.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">🌍</div>
+                    <h3>Global Scale</h3>
+                    <p>Provide infrastructure that scales seamlessly from startup to enterprise.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Our Team</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">
+                Meet the passionate team behind VibeCaaS
+            </p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">JC</div>
+                    <div class="member-name">John Carter</div>
+                    <div class="member-role">CEO & Co-Founder</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">SR</div>
+                    <div class="member-name">Sarah Rodriguez</div>
+                    <div class="member-role">CTO & Co-Founder</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">ML</div>
+                    <div class="member-name">Michael Lee</div>
+                    <div class="member-role">Head of Engineering</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">EP</div>
+                    <div class="member-name">Emma Parker</div>
+                    <div class="member-role">Head of AI/ML</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">DW</div>
+                    <div class="member-name">David Wilson</div>
+                    <div class="member-role">Head of Product</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">AT</div>
+                    <div class="member-name">Anna Thompson</div>
+                    <div class="member-role">Head of Customer Success</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Our Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Company Founded</h3>
+                        <p>VibeCaaS was born from the vision to simplify container deployment.</p>
+                    </div>
+                    <div class="timeline-date">Jan 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Beta Launch</h3>
+                        <p>Released our beta platform to 100 early adopters.</p>
+                    </div>
+                    <div class="timeline-date">Mar 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>AI Integration</h3>
+                        <p>Integrated GPT-4 to provide intelligent deployment assistance.</p>
+                    </div>
+                    <div class="timeline-date">Jun 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Public Launch</h3>
+                        <p>Officially launched VibeCaaS to the public with full feature set.</p>
+                    </div>
+                    <div class="timeline-date">Sep 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>10,000 Deployments</h3>
+                        <p>Reached milestone of 10,000 active deployments on our platform.</p>
+                    </div>
+                    <div class="timeline-date">Jan 2025</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" style="text-align: center;">
+            <h2>Join Our Journey</h2>
+            <p>
+                We're always looking for talented individuals who share our passion for innovation and simplification.
+            </p>
+            <a href="/careers" class="btn">View Open Positions</a>
+        </div>
+    </div>
+</body>
+</html>
