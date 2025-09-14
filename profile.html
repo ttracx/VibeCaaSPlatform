@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - VibeCaaS Platform</title>
+    <meta name="description" content="Manage your VibeCaaS profile, view statistics, and track your deployments.">
+    <link rel="icon" type="image/png" href="/VibeCaaS.png">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-color: #6c3aea;
+            --secondary-color: #a855f7;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --success-color: #10b981;
+            --warning-color: #fbbf24;
+            --error-color: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link.active {
+            color: var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .profile-header {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .profile-avatar {
+            position: relative;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--secondary-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid var(--primary-gradient);
+        }
+        
+        .avatar-upload:hover {
+            background: var(--primary-color);
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-email {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .profile-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--secondary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .badge.pro {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-change {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        
+        .stat-change.positive {
+            color: var(--success-color);
+        }
+        
+        .stat-change.negative {
+            color: var(--error-color);
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-radius: 10px;
+        }
+        
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .tab.active {
+            color: var(--secondary-color);
+            background: rgba(168, 85, 247, 0.2);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .deployments-list {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .deployment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s;
+        }
+        
+        .deployment-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .deployment-item:last-child {
+            border-bottom: none;
+        }
+        
+        .deployment-info {
+            flex: 1;
+        }
+        
+        .deployment-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .deployment-url {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .deployment-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-indicator.running {
+            background: var(--success-color);
+        }
+        
+        .status-indicator.stopped {
+            background: var(--error-color);
+        }
+        
+        .status-indicator.pending {
+            background: var(--warning-color);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .activity-feed {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(168, 85, 247, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            margin-bottom: 0.25rem;
+        }
+        
+        .activity-time {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .api-keys {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .api-key-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .api-key-name {
+            font-weight: 600;
+        }
+        
+        .api-key-value {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+        }
+        
+        .api-key-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-small {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.85rem;
+        }
+        
+        .btn-danger {
+            background: var(--error-color);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1001;
+        }
+        
+        .toast.show {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .toast.success {
+            border-color: var(--success-color);
+        }
+        
+        .toast.error {
+            border-color: var(--error-color);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">VibeCaaS</a>
+            <nav class="nav-menu">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/profile" class="nav-link active">Profile</a>
+                <a href="/settings" class="nav-link">Settings</a>
+                <a href="/" class="nav-link">Logout</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <div class="avatar" id="avatarDisplay">JD</div>
+                <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                    📷
+                </div>
+                <input type="file" id="avatarInput" style="display: none;" accept="image/*">
+            </div>
+            <div class="profile-info">
+                <h1 class="profile-name" id="profileName">John Doe</h1>
+                <p class="profile-email" id="profileEmail">john.doe@example.com</p>
+                <div class="profile-badges">
+                    <span class="badge pro">PRO Member</span>
+                    <span class="badge">Early Adopter</span>
+                    <span class="badge">Verified</span>
+                </div>
+            </div>
+            <button class="btn" onclick="openEditProfile()">Edit Profile</button>
+        </div>
+        
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Deployments</div>
+                <div class="stat-value" id="totalDeployments">24</div>
+                <div class="stat-change positive">↑ 12% from last month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Containers</div>
+                <div class="stat-value" id="activeContainers">8</div>
+                <div class="stat-change positive">↑ 3 this week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Resource Usage</div>
+                <div class="stat-value" id="resourceUsage">62%</div>
+                <div class="stat-change negative">↓ 5% from yesterday</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">API Calls</div>
+                <div class="stat-value" id="apiCalls">1.2K</div>
+                <div class="stat-change positive">↑ 200 today</div>
+            </div>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('deployments')">Deployments</button>
+            <button class="tab" onclick="switchTab('activity')">Activity</button>
+            <button class="tab" onclick="switchTab('api-keys')">API Keys</button>
+            <button class="tab" onclick="switchTab('billing')">Billing</button>
+        </div>
+        
+        <!-- Tab Contents -->
+        <div id="deployments" class="tab-content active">
+            <div class="deployments-list">
+                <h2 style="margin-bottom: 1.5rem;">Recent Deployments</h2>
+                <div id="deploymentsList">
+                    <div class="deployment-item">
+                        <div class="deployment-info">
+                            <div class="deployment-name">my-web-app</div>
+                            <div class="deployment-url">https://my-web-app.vibecaas.com</div>
+                        </div>
+                        <div class="deployment-status">
+                            <span class="status-indicator running"></span>
+                            <span>Running</span>
+                        </div>
+                    </div>
+                    <div class="deployment-item">
+                        <div class="deployment-info">
+                            <div class="deployment-name">api-service</div>
+                            <div class="deployment-url">https://api-service.vibecaas.com</div>
+                        </div>
+                        <div class="deployment-status">
+                            <span class="status-indicator running"></span>
+                            <span>Running</span>
+                        </div>
+                    </div>
+                    <div class="deployment-item">
+                        <div class="deployment-info">
+                            <div class="deployment-name">test-environment</div>
+                            <div class="deployment-url">https://test-env.vibecaas.com</div>
+                        </div>
+                        <div class="deployment-status">
+                            <span class="status-indicator stopped"></span>
+                            <span>Stopped</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="activity" class="tab-content">
+            <div class="activity-feed">
+                <h2 style="margin-bottom: 1.5rem;">Recent Activity</h2>
+                <div id="activityFeed">
+                    <div class="activity-item">
+                        <div class="activity-icon">🚀</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Deployed my-web-app</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">⚙️</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Updated environment variables for api-service</div>
+                            <div class="activity-time">5 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📊</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Scaled my-web-app to 3 replicas</div>
+                            <div class="activity-time">1 day ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">🔑</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Generated new API key</div>
+                            <div class="activity-time">2 days ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="api-keys" class="tab-content">
+            <div class="api-keys">
+                <h2 style="margin-bottom: 1.5rem;">API Keys</h2>
+                <button class="btn" onclick="generateApiKey()" style="margin-bottom: 1.5rem;">Generate New Key</button>
+                <div id="apiKeysList">
+                    <div class="api-key-item">
+                        <div>
+                            <div class="api-key-name">Production Key</div>
+                            <div class="api-key-value">vk_prod_************************3a4f</div>
+                        </div>
+                        <div class="api-key-actions">
+                            <button class="btn btn-small btn-secondary" onclick="copyApiKey('vk_prod_************************3a4f')">Copy</button>
+                            <button class="btn btn-small btn-danger" onclick="revokeApiKey('prod')">Revoke</button>
+                        </div>
+                    </div>
+                    <div class="api-key-item">
+                        <div>
+                            <div class="api-key-name">Development Key</div>
+                            <div class="api-key-value">vk_dev_************************7b2c</div>
+                        </div>
+                        <div class="api-key-actions">
+                            <button class="btn btn-small btn-secondary" onclick="copyApiKey('vk_dev_************************7b2c')">Copy</button>
+                            <button class="btn btn-small btn-danger" onclick="revokeApiKey('dev')">Revoke</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="billing" class="tab-content">
+            <div class="api-keys">
+                <h2 style="margin-bottom: 1.5rem;">Billing Information</h2>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">Current Plan</div>
+                                <div style="color: var(--text-secondary);">Professional - $49/month</div>
+                            </div>
+                            <button class="btn btn-small">Upgrade</button>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">Next Billing Date</div>
+                                <div style="color: var(--text-secondary);">February 15, 2025</div>
+                            </div>
+                            <div style="color: var(--secondary-color); font-size: 1.5rem; font-weight: bold;">$49</div>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 10px;">
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Payment Method</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="color: var(--text-secondary);">•••• •••• •••• 4242</div>
+                            <button class="btn btn-small btn-secondary">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <button class="modal-close" onclick="closeEditProfile()">×</button>
+            </div>
+            <form onsubmit="saveProfile(event)">
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-input" id="editName" value="John Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="editEmail" value="john.doe@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bio</label>
+                    <textarea class="form-input" id="editBio" rows="3">Full-stack developer passionate about cloud technologies.</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Company</label>
+                    <input type="text" class="form-input" id="editCompany" value="TechCorp Inc.">
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditProfile()">Cancel</button>
+                    <button type="submit" class="btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage">Notification message</span>
+    </div>
+    
+    <script>
+        // Profile Data (simulated)
+        let profileData = {
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            initials: 'JD',
+            stats: {
+                deployments: 24,
+                containers: 8,
+                usage: 62,
+                apiCalls: 1200
+            }
+        };
+        
+        // Tab Switching
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Edit Profile Modal
+        function openEditProfile() {
+            document.getElementById('editProfileModal').classList.add('active');
+            document.getElementById('editName').value = profileData.name;
+            document.getElementById('editEmail').value = profileData.email;
+        }
+        
+        function closeEditProfile() {
+            document.getElementById('editProfileModal').classList.remove('active');
+        }
+        
+        function saveProfile(event) {
+            event.preventDefault();
+            
+            // Update profile data
+            profileData.name = document.getElementById('editName').value;
+            profileData.email = document.getElementById('editEmail').value;
+            
+            // Update UI
+            document.getElementById('profileName').textContent = profileData.name;
+            document.getElementById('profileEmail').textContent = profileData.email;
+            
+            // Update initials
+            const names = profileData.name.split(' ');
+            profileData.initials = names.map(n => n[0]).join('').toUpperCase();
+            document.getElementById('avatarDisplay').textContent = profileData.initials;
+            
+            // Close modal and show success message
+            closeEditProfile();
+            showToast('Profile updated successfully', 'success');
+        }
+        
+        // Avatar Upload
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // In a real app, this would upload to server
+                    showToast('Avatar updated successfully', 'success');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // API Key Management
+        function generateApiKey() {
+            // Generate a mock API key
+            const key = 'vk_' + Math.random().toString(36).substring(2, 15);
+            
+            // Add to list (in real app, this would be server-side)
+            const keysList = document.getElementById('apiKeysList');
+            const newKeyHtml = `
+                <div class="api-key-item">
+                    <div>
+                        <div class="api-key-name">New Key</div>
+                        <div class="api-key-value">${key}</div>
+                    </div>
+                    <div class="api-key-actions">
+                        <button class="btn btn-small btn-secondary" onclick="copyApiKey('${key}')">Copy</button>
+                        <button class="btn btn-small btn-danger" onclick="revokeApiKey('${key}')">Revoke</button>
+                    </div>
+                </div>
+            `;
+            keysList.insertAdjacentHTML('afterbegin', newKeyHtml);
+            
+            showToast('New API key generated', 'success');
+        }
+        
+        function copyApiKey(key) {
+            // Create temporary input to copy
+            const tempInput = document.createElement('input');
+            tempInput.value = key;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            showToast('API key copied to clipboard', 'success');
+        }
+        
+        function revokeApiKey(keyId) {
+            if (confirm('Are you sure you want to revoke this API key? This action cannot be undone.')) {
+                // In real app, this would call server API
+                showToast('API key revoked', 'success');
+                
+                // Remove from UI
+                event.target.closest('.api-key-item').remove();
+            }
+        }
+        
+        // Toast Notifications
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.className = 'toast show ' + type;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Simulate real-time updates
+        function updateStats() {
+            // Randomly update stats
+            const stats = ['totalDeployments', 'activeContainers', 'resourceUsage', 'apiCalls'];
+            const randomStat = stats[Math.floor(Math.random() * stats.length)];
+            const element = document.getElementById(randomStat);
+            
+            if (element) {
+                let value = element.textContent;
+                if (randomStat === 'resourceUsage') {
+                    value = Math.floor(Math.random() * 100) + '%';
+                } else if (randomStat === 'apiCalls') {
+                    value = (Math.random() * 2 + 1).toFixed(1) + 'K';
+                } else {
+                    value = parseInt(value) + Math.floor(Math.random() * 3 - 1);
+                }
+                element.textContent = value;
+            }
+        }
+        
+        // Update stats every 5 seconds
+        setInterval(updateStats, 5000);
+        
+        // Add new activity item
+        function addActivity(title, icon) {
+            const activityFeed = document.getElementById('activityFeed');
+            const newActivity = document.createElement('div');
+            newActivity.className = 'activity-item';
+            newActivity.innerHTML = `
+                <div class="activity-icon">${icon}</div>
+                <div class="activity-content">
+                    <div class="activity-title">${title}</div>
+                    <div class="activity-time">Just now</div>
+                </div>
+            `;
+            activityFeed.insertBefore(newActivity, activityFeed.firstChild);
+        }
+        
+        // Simulate new deployment
+        setTimeout(() => {
+            addActivity('New deployment started: demo-app', '🚀');
+            showToast('New deployment started', 'success');
+        }, 10000);
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // ESC to close modals
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
