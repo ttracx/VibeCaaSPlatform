@@ -41,10 +41,8 @@ import {
   Cloud,
   Monitor,
   Smartphone,
-  Tablet,
-  ExternalLink
+  Tablet
 } from 'lucide-react';
-import Link from 'next/link';
 
 interface Agent {
   id: string;
@@ -58,11 +56,36 @@ interface Agent {
   description: string;
 }
 
-const DemoPage: React.FC = () => {
+interface MicroVM {
+  id: string;
+  name: string;
+  status: 'creating' | 'running' | 'stopped' | 'error';
+  runtime: string;
+  cpu: number;
+  memory: number;
+  region: string;
+  devUrl: string;
+  createdAt: string;
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  status: 'available' | 'purchased' | 'connected' | 'active';
+  price: number;
+  currency: string;
+  expiresAt?: string;
+  appId?: string;
+}
+
+const ComprehensiveDemo: React.FC = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
+  const [microvms, setMicroVMs] = useState<MicroVM[]>([]);
+  const [domains, setDomains] = useState<Domain[]>([]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('agents');
+  const [demoMode, setDemoMode] = useState<'overview' | 'interactive' | 'live'>('overview');
 
   const agentData: Agent[] = [
     {
@@ -234,11 +257,81 @@ const DemoPage: React.FC = () => {
 
   useEffect(() => {
     setAgents(agentData);
+    initializeDemoData();
   }, []);
+
+  const initializeDemoData = () => {
+    // Initialize MicroVMs
+    setMicroVMs([
+      {
+        id: 'vm-1',
+        name: 'React Dashboard',
+        status: 'running',
+        runtime: 'Node.js 18',
+        cpu: 2,
+        memory: 4096,
+        region: 'us-east-1',
+        devUrl: 'https://react-dashboard-abc123.vibecaas.com',
+        createdAt: '2025-01-14T10:30:00Z'
+      },
+      {
+        id: 'vm-2',
+        name: 'API Service',
+        status: 'running',
+        runtime: 'Python 3.11',
+        cpu: 1,
+        memory: 2048,
+        region: 'us-west-2',
+        devUrl: 'https://api-service-xyz789.vibecaas.com',
+        createdAt: '2025-01-14T11:15:00Z'
+      },
+      {
+        id: 'vm-3',
+        name: 'ML Model Server',
+        status: 'creating',
+        runtime: 'Python 3.11 + CUDA',
+        cpu: 4,
+        memory: 8192,
+        region: 'us-east-1',
+        devUrl: 'https://ml-server-def456.vibecaas.com',
+        createdAt: '2025-01-14T12:00:00Z'
+      }
+    ]);
+
+    // Initialize Domains
+    setDomains([
+      {
+        id: 'domain-1',
+        name: 'myapp.ai',
+        status: 'active',
+        price: 5999,
+        currency: 'USD',
+        expiresAt: '2026-01-14T00:00:00Z',
+        appId: 'vm-1'
+      },
+      {
+        id: 'domain-2',
+        name: 'apiserver.dev',
+        status: 'connected',
+        price: 1299,
+        currency: 'USD',
+        expiresAt: '2026-01-14T00:00:00Z',
+        appId: 'vm-2'
+      },
+      {
+        id: 'domain-3',
+        name: 'mlplatform.com',
+        status: 'available',
+        price: 8999,
+        currency: 'USD'
+      }
+    ]);
+  };
 
   const startDemo = () => {
     setIsRunning(true);
     setCurrentStep(0);
+    setDemoMode('interactive');
     runDemoStep(0);
   };
 
@@ -246,11 +339,13 @@ const DemoPage: React.FC = () => {
     setIsRunning(false);
     setCurrentStep(0);
     setAgents(agentData);
+    setDemoMode('overview');
   };
 
   const runDemoStep = (stepIndex: number) => {
     if (stepIndex >= demoSteps.length) {
       setIsRunning(false);
+      setDemoMode('live');
       return;
     }
 
@@ -310,6 +405,26 @@ const DemoPage: React.FC = () => {
     }
   };
 
+  const getVMStatusColor = (status: string) => {
+    switch (status) {
+      case 'running': return 'text-green-500 bg-green-100';
+      case 'creating': return 'text-blue-500 bg-blue-100';
+      case 'stopped': return 'text-gray-500 bg-gray-100';
+      case 'error': return 'text-red-500 bg-red-100';
+      default: return 'text-gray-500 bg-gray-100';
+    }
+  };
+
+  const getDomainStatusColor = (status: string) => {
+    switch (status) {
+      case 'active': return 'text-green-500 bg-green-100';
+      case 'connected': return 'text-blue-500 bg-blue-100';
+      case 'purchased': return 'text-yellow-500 bg-yellow-100';
+      case 'available': return 'text-gray-500 bg-gray-100';
+      default: return 'text-gray-500 bg-gray-100';
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -317,14 +432,18 @@ const DemoPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-purple-600">🎵 VibeCaaS Demo</h1>
-              <Badge variant="secondary" className="ml-3">Live AI Agent Simulation</Badge>
+              <h1 className="text-2xl font-bold text-purple-600">🎵 VibeCaaS Comprehensive Demo</h1>
+              <Badge variant="secondary" className="ml-3">
+                {demoMode === 'overview' && 'Overview Mode'}
+                {demoMode === 'interactive' && 'Interactive Demo'}
+                {demoMode === 'live' && 'Live Platform'}
+              </Badge>
             </div>
             <div className="flex items-center space-x-4">
               {!isRunning ? (
                 <Button onClick={startDemo} className="bg-green-600 hover:bg-green-700">
                   <Play className="w-4 h-4 mr-2" />
-                  Start Demo
+                  Start Interactive Demo
                 </Button>
               ) : (
                 <Button onClick={stopDemo} variant="outline">
@@ -332,59 +451,23 @@ const DemoPage: React.FC = () => {
                   Stop Demo
                 </Button>
               )}
-              <Link href="/demo/comprehensive">
-                <Button variant="outline">
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Full Demo
-                </Button>
-              </Link>
             </div>
           </div>
         </div>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Demo Tabs */}
+        {/* Demo Mode Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="agents">AI Agents</TabsTrigger>
-            <TabsTrigger value="features">Features</TabsTrigger>
+            <TabsTrigger value="microvms">MicroVMs</TabsTrigger>
+            <TabsTrigger value="domains">Domains</TabsTrigger>
             <TabsTrigger value="platform">Platform</TabsTrigger>
           </TabsList>
 
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-6">
-            {/* Hero Section */}
-            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
-              <CardContent className="p-8">
-                <div className="text-center">
-                  <h2 className="text-3xl font-bold mb-4">
-                    Experience VibeCaaS in Action
-                  </h2>
-                  <p className="text-xl mb-6 opacity-90">
-                    Watch AI agents build, test, and deploy applications in real-time
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button 
-                      onClick={startDemo} 
-                      className="bg-white text-purple-600 hover:bg-gray-100"
-                      size="lg"
-                    >
-                      <Play className="w-5 h-5 mr-2" />
-                      Start Interactive Demo
-                    </Button>
-                    <Link href="/demo/comprehensive">
-                      <Button variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600" size="lg">
-                        <ExternalLink className="w-5 h-5 mr-2" />
-                        Explore Full Platform
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
+          {/* AI Agents Tab */}
+          <TabsContent value="agents" className="space-y-6">
             {/* Current Phase */}
             {isRunning && currentStep < demoSteps.length && (
               <Card className="border-blue-200 bg-blue-50">
@@ -407,49 +490,6 @@ const DemoPage: React.FC = () => {
               </Card>
             )}
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Brain className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">6</h3>
-                  <p className="text-gray-600">AI Agents</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Zap className="w-6 h-6 text-green-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">&lt;45s</h3>
-                  <p className="text-gray-600">MicroVM Boot</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Globe className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">∞</h3>
-                  <p className="text-gray-600">Domains</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Rocket className="w-6 h-6 text-orange-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">1-Click</h3>
-                  <p className="text-gray-600">Deploy</p>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* AI Agents Tab */}
-          <TabsContent value="agents" className="space-y-6">
             {/* Agent Status Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {agents.map((agent) => (
@@ -494,8 +534,143 @@ const DemoPage: React.FC = () => {
             </div>
           </TabsContent>
 
-          {/* Features Tab */}
-          <TabsContent value="features" className="space-y-6">
+          {/* MicroVMs Tab */}
+          <TabsContent value="microvms" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">Firecracker MicroVMs</h2>
+              <Button className="bg-purple-600 hover:bg-purple-700">
+                <Zap className="w-4 h-4 mr-2" />
+                Create New MicroVM
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {microvms.map((vm) => (
+                <Card key={vm.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{vm.name}</CardTitle>
+                      <Badge className={getVMStatusColor(vm.status)}>
+                        {vm.status}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <p className="text-gray-600">Runtime</p>
+                          <p className="font-medium">{vm.runtime}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-600">Region</p>
+                          <p className="font-medium">{vm.region}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-600">CPU</p>
+                          <p className="font-medium">{vm.cpu} cores</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-600">Memory</p>
+                          <p className="font-medium">{vm.memory}MB</p>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <p className="text-gray-600 text-sm mb-1">Dev URL</p>
+                        <div className="flex items-center space-x-2">
+                          <code className="text-xs bg-gray-100 px-2 py-1 rounded flex-1 truncate">
+                            {vm.devUrl}
+                          </code>
+                          <Button size="sm" variant="outline">
+                            <Link className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex space-x-2">
+                        <Button size="sm" className="flex-1">
+                          <Eye className="w-3 h-3 mr-1" />
+                          View
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Settings className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          {/* Domains Tab */}
+          <TabsContent value="domains" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">Domain Management</h2>
+              <Button className="bg-purple-600 hover:bg-purple-700">
+                <Search className="w-4 h-4 mr-2" />
+                Search Domains
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {domains.map((domain) => (
+                <Card key={domain.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{domain.name}</CardTitle>
+                      <Badge className={getDomainStatusColor(domain.status)}>
+                        {domain.status}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Price</span>
+                        <span className="font-bold">
+                          ${(domain.price / 100).toFixed(2)} {domain.currency}
+                        </span>
+                      </div>
+                      
+                      {domain.expiresAt && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600">Expires</span>
+                          <span className="text-sm">
+                            {new Date(domain.expiresAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      )}
+
+                      {domain.appId && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600">Connected to</span>
+                          <span className="text-sm font-medium">{domain.appId}</span>
+                        </div>
+                      )}
+
+                      <div className="flex space-x-2">
+                        <Button size="sm" className="flex-1">
+                          <Globe className="w-3 h-3 mr-1" />
+                          Manage
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Settings className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          {/* Platform Tab */}
+          <TabsContent value="platform" className="space-y-6">
+            <h2 className="text-2xl font-bold text-gray-900">Platform Overview</h2>
+            
+            {/* Platform Features Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
@@ -677,11 +852,8 @@ const DemoPage: React.FC = () => {
                 </CardContent>
               </Card>
             </div>
-          </TabsContent>
 
-          {/* Platform Tab */}
-          <TabsContent value="platform" className="space-y-6">
-            {/* Code Editor Simulation */}
+            {/* Live Code Editor Simulation */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
@@ -820,40 +992,6 @@ export default VibeCaaSDashboard;`}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Platform Architecture */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Cloud className="w-5 h-5 mr-2" />
-                  Platform Architecture
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <Monitor className="w-8 h-8 mx-auto mb-2 text-blue-600" />
-                    <h3 className="font-semibold text-sm">Frontend</h3>
-                    <p className="text-xs text-gray-600">Next.js + React</p>
-                  </div>
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <Server className="w-8 h-8 mx-auto mb-2 text-green-600" />
-                    <h3 className="font-semibold text-sm">Backend</h3>
-                    <p className="text-xs text-gray-600">FastAPI + Python</p>
-                  </div>
-                  <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <Database className="w-8 h-8 mx-auto mb-2 text-purple-600" />
-                    <h3 className="font-semibold text-sm">Database</h3>
-                    <p className="text-xs text-gray-600">PostgreSQL + Redis</p>
-                  </div>
-                  <div className="text-center p-4 bg-orange-50 rounded-lg">
-                    <Zap className="w-8 h-8 mx-auto mb-2 text-orange-600" />
-                    <h3 className="font-semibold text-sm">Runtime</h3>
-                    <p className="text-xs text-gray-600">Firecracker MicroVMs</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
         </Tabs>
       </div>
@@ -861,4 +999,4 @@ export default VibeCaaSDashboard;`}
   );
 };
 
-export default DemoPage;
+export default ComprehensiveDemo;
