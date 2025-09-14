@@ -1,0 +1,24 @@
+{
+  "annotations": {"list": []},
+  "panels": [
+    {
+      "type": "graph",
+      "title": "HTTP Requests",
+      "targets": [
+        {"expr": "sum(rate(vibecaas_requests_total[5m])) by (status)", "refId": "A"}
+      ],
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}
+    },
+    {
+      "type": "stat",
+      "title": "Active WS Connections",
+      "targets": [
+        {"expr": "vibecaas_ws_active_connections", "refId": "B"}
+      ],
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8}
+    }
+  ],
+  "schemaVersion": 38,
+  "title": "VibeCaaS",
+  "version": 1
+}

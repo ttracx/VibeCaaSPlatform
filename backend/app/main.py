@@ -1,3 +1,122 @@
+from __future__ import annotations
+
+import asyncio
+import logging
+import os
+import uuid
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional
+
+from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
+from prometheus_client import CONTENT_TYPE_LATEST, Counter, Gauge, generate_latest
+from starlette.responses import JSONResponse, PlainTextResponse, Response
+
+from .config import settings
+from .db import AsyncSessionLocal, get_db
+from sqlalchemy.ext.asyncio import AsyncEngine
+from sqlalchemy import text
+from .models.user import Base as ModelBase  # ensures Base import
+from . import models  # noqa: F401 - import to register models
+from .api.routers.auth import router as auth_router
+from .api.routers.apps import router as apps_router
+from .api.routers.resources import router as resources_router
+
+logger = logging.getLogger("vibecaas.backend")
+logging.basicConfig(level=logging.INFO)
+
+
+app = FastAPI(title="VibeCaaS API", version="0.1.0")
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_origins_list,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Routers
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["auth"])
+app.include_router(apps_router, prefix="/api/v1", tags=["apps"])
+app.include_router(resources_router, prefix="/api/v1", tags=["resources"])
+
+
+# Prometheus metrics
+REQUEST_COUNT = Counter("vibecaas_requests_total", "Total HTTP requests", ["method", "endpoint", "status"])
+ACTIVE_CONNECTIONS = Gauge("vibecaas_ws_active_connections", "Active WebSocket connections")
+
+
+@app.middleware("http")
+async def metrics_middleware(request, call_next):
+    response = await call_next(request)
+    try:
+        REQUEST_COUNT.labels(request.method, request.url.path, str(response.status_code)).inc()
+    except Exception:  # pragma: no cover
+        pass
+    return response
+
+
+@app.get("/metrics")
+async def metrics() -> Response:
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+
+@app.get("/healthz")
+async def healthz() -> Dict[str, str]:
+    return {"status": "ok", "time": datetime.utcnow().isoformat()}
+
+
+# Simple WS manager
+class ConnectionManager:
+    def __init__(self) -> None:
+        self.active: Dict[str, List[WebSocket]] = {}
+
+    async def connect(self, app_id: str, websocket: WebSocket) -> None:
+        await websocket.accept()
+        ACTIVE_CONNECTIONS.inc()
+        self.active.setdefault(app_id, []).append(websocket)
+
+    def disconnect(self, app_id: str, websocket: WebSocket) -> None:
+        connections = self.active.get(app_id, [])
+        if websocket in connections:
+            connections.remove(websocket)
+        ACTIVE_CONNECTIONS.dec()
+
+    async def broadcast(self, app_id: str, message: Dict[str, Any]) -> None:
+        for ws in list(self.active.get(app_id, [])):
+            try:
+                await ws.send_json(message)
+            except Exception:
+                self.disconnect(app_id, ws)
+
+
+manager = ConnectionManager()
+
+
+@app.websocket("/ws/{app_id}")
+async def websocket_endpoint(websocket: WebSocket, app_id: str):
+    await manager.connect(app_id, websocket)
+    try:
+        while True:
+            # Heartbeat and simple echo for now
+            data = await websocket.receive_text()
+            await websocket.send_json({"event": "echo", "data": data, "app_id": app_id, "ts": datetime.utcnow().isoformat()})
+    except WebSocketDisconnect:
+        manager.disconnect(app_id, websocket)
+
+
+@app.on_event("startup")
+async def on_startup() -> None:
+    # Create tables in dev/local environments for convenience
+    from .db import engine
+
+    async with engine.begin() as conn:
+        await conn.run_sync(ModelBase.metadata.create_all)
+
 import os
 import uuid
 from datetime import datetime, timedelta
