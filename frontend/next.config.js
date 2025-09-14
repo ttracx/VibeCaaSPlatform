@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone', // Enable standalone output for Docker
   experimental: {
     // appDir is enabled by default in Next.js 13.4+, no need to specify
   },
