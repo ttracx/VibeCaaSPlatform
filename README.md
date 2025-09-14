@@ -1,355 +1,309 @@
-# 🎵 VibeCaaS.com
-
-**Powered by AI - Multi-Agent Development Platform**
-
-# Code at the Speed of Thought
-
-VibeCaaS is the complete AI-powered development platform with integrated container as a service - from domain registration to deployment. Watch AI agents build, test, and deploy your projects on custom domains in real-time using isolated containerized environments.
-
-[![Start Building](https://img.shields.io/badge/Start%20Building-Purple?style=for-the-badge&logo=arrow-right)](https://vibecaas.com)
-[![Learn More](https://img.shields.io/badge/Learn%20More-Black?style=for-the-badge)](https://docs.vibecaas.com)
-
----
-
-## 🌐 Integrated Domain Management
-
-**Seamlessly integrated domain purchasing and DNS management. No need to leave your development workflow.**
-
-### Domain Management Features
-
-> **🌐 Integrated Domain Management**  
-> Search, purchase, and manage domains directly from your development workflow.
-
-[![Login to Account](https://img.shields.io/badge/Login%20to%20Account-Black?style=for-the-badge)](https://vibecaas.com/login)
-[![Sign Up Free](https://img.shields.io/badge/Sign%20Up%20Free-Purple?style=for-the-badge)](https://vibecaas.com/signup)
-
-*New users get a free trial with 200 build minutes*
-
-### Domain Management Flow
-
-1. **🔍 Find perfect domains in seconds** - AI-powered domain search with instant availability checking
-2. **⚡ Buy and configure automatically** - One-click domain purchase with automatic DNS configuration  
-3. **🚀 Live on your custom domain instantly** - Deploy directly to your custom domain with SSL certificates
-
----
-
-## Complete Development Lifecycle
-
-### 🧠 AI-Powered Development
-Watch AI agents plan, code, test, and deploy applications in real-time with advanced AI models using containerized environments.
-
-### 🌐 Integrated Domain Management  
-Buy domains directly in your deployment workflow, just like Replit. Seamless Name.com integration with instant DNS configuration.
-
-### ☁️ Multi-Cloud Container Deployment
-Deploy to Vercel, Netlify, AWS, Google Cloud, and Azure with custom domain support using our container as a service platform.
-
-### 🔗 30+ Integrations
-Connect with GitHub, GitLab, Slack, Jira, and dozens of other development tools through our containerized microservices.
-
-### 🛡️ Enterprise Security
-Built-in security scanning with Snyk, Checkmarx, and OWASP integration plus domain SSL management across all containers.
-
-### 👥 Team Collaboration
-Real-time collaboration with integrated chat, video calls, and code sharing across projects in isolated container environments.
-
-### ⚡ Instant Preview
-See your changes live with hot reload and instant deployment preview on custom domains using containerized development environments.
-
-### 🎯 End-to-End Platform
-From domain registration to deployment - complete application lifecycle management in one platform with full container as a service support.
-
----
-
-## Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     VibeCaaS Frontend                        │
-│                   (React/Next.js Web IDE)                    │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────────────┐
-│                   VibeCaaS API Gateway                       │
-│                  (Kong/NGINX + Auth0/JWT)                    │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-        ┌────────────┴────────────┬─────────────────┐
-        │                         │                 │
-┌───────▼────────┐  ┌─────────────▼──────┐  ┌──────▼─────────┐
-│ Provisioning   │  │   App Management   │  │    Billing     │
-│   Service      │  │      Service       │  │    Service     │
-└───────┬────────┘  └─────────────┬──────┘  └────────────────┘
-        │                         │
-┌───────▼─────────────────────────▼──────────────────────────┐
-│              NVIDIA Cloud Infrastructure                    │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │         Kubernetes Cluster (DGX Cloud/NGC)         │    │
-│  ├────────────────────────────────────────────────────┤    │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐        │    │
-│  │  │ User App │  │ User App │  │ User App │  ...   │    │
-│  │  │Container │  │Container │  │Container │        │    │
-│  │  └──────────┘  └──────────┘  └──────────┘        │    │
-│  └────────────────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────────────┘
-```
-
-## 🚀 Container as a Service Features
-
-### 🐳 **Multi-tenant Container Provisioning**
-Isolated, secure containers for each user application with automatic resource allocation and scaling.
-
-### 💻 **Web-based IDE with Container Support**
-Full-featured code editor with syntax highlighting, integrated terminal, and direct container access.
-
-### 🤝 **Real-time Collaboration**
-Multiple users can work on the same project with live code sharing and container environment synchronization.
-
-### 🚀 **GPU-Accelerated Containers**
-NVIDIA GPU acceleration for AI/ML workloads with optimized container images and CUDA support.
-
-### 📈 **Auto-scaling Container Orchestration**
-Dynamic resource allocation based on usage with intelligent container lifecycle management.
-
-### 💳 **Usage-based Container Billing**
-Transparent pricing with NVIDIA Cloud integration for container resource consumption tracking.
-
-### 🔒 **Enterprise Container Security**
-Namespace isolation, network policies, and security scanning across all containerized environments.
-
----
-
-## 🚀 Ready to Start Building?
-
-**Join thousands of developers who are building faster with AI-powered development and container as a service. Start your free trial today.**
-
-[![Get Started Free](https://img.shields.io/badge/Get%20Started%20Free-White?style=for-the-badge&logo=rocket&labelColor=purple)](https://vibecaas.com/signup)
-
----
-
-## 🚀 Live Demo
-
-**Experience the VibeCaaS platform**: [https://demo.vibecaas.com](https://demo.vibecaas.com)
-
-The demo showcases the complete frontend interface with:
-- Interactive application management
-- Real-time resource monitoring
-- Application creation workflow
-- Responsive design for all devices
-
-## Quick Start
-
-### Prerequisites
-
-- Node.js 18+
-- Docker & Docker Compose
-- Kubernetes cluster (minikube for local development)
-- NVIDIA Cloud account (for production)
-
-### Local Development
-
-1. **Clone and Install**
-   ```bash
-   git clone <repository-url>
-   cd vibecaas-platform
-   npm install
-   ```
-
-2. **Start Development Environment**
-   ```bash
-   npm run dev
-   ```
-
-3. **Access the Application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000
-   - API Gateway: http://localhost:8080
-
-### Docker Deployment
-
-1. **Build and Start**
-   ```bash
-   npm run docker:build
-   npm run docker:up
-   ```
-
-2. **Access Services**
-   - Web App: http://localhost:3000
-   - API: http://localhost:8000
-
-### Kubernetes Deployment
-
-1. **Deploy to Kubernetes**
-   ```bash
-   npm run k8s:deploy
-   ```
-
-2. **Access via Ingress**
-   - Web App: http://vibecaas.local
-   - API: http://api.vibecaas.local
-
-## Project Structure
-
-```
-vibecaas-platform/
-├── frontend/                 # React/Next.js frontend
-│   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/          # Application pages
-│   │   ├── services/       # API service layer
-│   │   └── utils/          # Utility functions
-│   └── public/             # Static assets
-├── backend/                 # Node.js/Express backend
-│   ├── src/
-│   │   ├── services/       # Microservices
-│   │   ├── middleware/     # Express middleware
-│   │   ├── models/         # Data models
-│   │   └── utils/          # Utility functions
-│   └── config/             # Configuration files
-├── k8s/                    # Kubernetes manifests
-│   ├── namespaces/         # Namespace definitions
-│   ├── deployments/        # Application deployments
-│   ├── services/           # Service definitions
-│   └── ingress/            # Ingress configurations
-├── terraform/              # Infrastructure as Code
-│   ├── nvidia-cloud/       # NVIDIA Cloud resources
-│   └── kubernetes/         # K8s cluster setup
-├── docker/                 # Docker configurations
-│   ├── frontend/           # Frontend Dockerfile
-│   ├── backend/            # Backend Dockerfile
-│   └── nginx/              # Nginx configuration
-└── scripts/                # Deployment scripts
-    ├── deploy.sh           # Main deployment script
-    └── cleanup.sh          # Cleanup script
-```
-
-## Services
-
-### Frontend (React/Next.js)
-- Web-based IDE with Monaco Editor
-- Real-time collaboration features
-- Project management interface
-- Resource monitoring dashboard
-
-### Backend Services
-- **Provisioning Service**: Container lifecycle management
-- **App Management Service**: Application CRUD operations
-- **Billing Service**: Usage tracking and billing
-- **Auth Service**: User authentication and authorization
-
-### Infrastructure
-- **Kubernetes**: Container orchestration
-- **NVIDIA Cloud**: GPU resources and compute
-- **MongoDB**: Application data storage
-- **Redis**: Caching and session management
-
-## Configuration
-
-### Environment Variables
-
-Create `.env` files in both `frontend/` and `backend/` directories:
-
-**Frontend (.env.local)**
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXT_PUBLIC_WS_URL=ws://localhost:8000
-NEXT_PUBLIC_APP_NAME=VibeCaaS
-```
-
-**Backend (.env)**
-```env
-PORT=8000
-MONGODB_URI=mongodb://localhost:27017/vibecaas
-REDIS_URL=redis://localhost:6379
-JWT_SECRET=your-jwt-secret
-NVIDIA_CLOUD_API_KEY=your-nvidia-api-key
-KUBECONFIG_PATH=/path/to/kubeconfig
-```
-
-## Development
-
-### Adding New Features
-
-1. **Frontend**: Add components in `frontend/src/components/`
-2. **Backend**: Add services in `backend/src/services/`
-3. **API**: Define routes in `backend/src/routes/`
-4. **K8s**: Add manifests in `k8s/`
-
-### Testing
-
+# VibeCaaS - Multi-Agent AI Development Platform
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.0+-black.svg)](https://nextjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)
+
+**VibeCaaS** is a revolutionary multi-tenant development platform that combines the power of AI agents with containerized cloud deployment. Think Replit meets Cursor, but with autonomous AI agents that plan, code, test, and deploy your applications in real-time.
+
+## 🚀 **What is VibeCaaS?**
+
+VibeCaaS is a **vibe coding as a service** application that provides:
+
+- **🤖 AI Agent Orchestration**: Multi-agent system with specialized agents for planning, coding, testing, and deployment
+- **☁️ Container as a Service**: Isolated Docker containers for each project with GPU support
+- **🔄 Live Preview**: Real-time preview with custom subdomains (`project.vibecaas.com`)
+- **💳 Usage-Based Billing**: Stripe integration with transparent pricing
+- **🔐 Enterprise Security**: Multi-tenant RBAC, secrets vault, and audit logging
+- **📊 Full Observability**: Prometheus, Grafana, and OpenTelemetry integration
+
+## 🏗️ **Architecture**
+
+### **Frontend (Next.js/React)**
+- Modern IDE interface with Monaco Editor
+- Real-time collaboration with Yjs
+- Live preview pane with WebSocket updates
+- Usage dashboard and billing management
+- Agent activity monitoring
+
+### **Backend (FastAPI/Python)**
+- RESTful API with automatic OpenAPI documentation
+- JWT authentication and RBAC
+- Multi-tenant project management
+- AI agent orchestration with Celery
+- Stripe billing integration
+
+### **Agent Orchestration**
+- **Planning Agent**: Breaks down tasks and assigns work
+- **Frontend Agent**: Handles UI/UX development
+- **Backend Agent**: Manages server-side logic
+- **Integration Agent**: Connects systems and deploys
+- **Testing Agent**: Ensures quality and performance
+- **AI Feature Agent**: Implements intelligent features
+
+### **Infrastructure**
+- **Database**: PostgreSQL with Neon (multi-tenant schema)
+- **Cache**: Redis for sessions and task queues
+- **Storage**: S3-compatible object store (MinIO/AWS)
+- **Containers**: Docker with Kubernetes support
+- **Monitoring**: Prometheus, Grafana, Loki
+- **Security**: Per-tenant isolation, secrets vault
+
+## 🚀 **Quick Start**
+
+### **Prerequisites**
+- Docker and Docker Compose
+- Node.js 18+ and Python 3.11+
+- Git
+
+### **1. Clone and Setup**
 ```bash
-# Frontend tests
-cd frontend && npm test
-
-# Backend tests
-cd backend && npm test
-
-# Integration tests
-npm run test:integration
+git clone https://github.com/ttracx/VibeCaaSPlatform.git
+cd VibeCaaSPlatform
+cp .env.example .env
 ```
 
-## Deployment
-
-### Local Development
+### **2. Configure Environment**
+Edit `.env` with your API keys:
 ```bash
+# Required: Get these from your providers
+OPENAI_API_KEY="your_openai_key_here"
+STRIPE_SECRET_KEY="sk_live_your_stripe_key_here"
+VITE_STRIPE_PUBLIC_KEY="pk_live_your_stripe_key_here"
+
+# Optional: For domain management
+DEV_NAMECOM_USERNAME="your_namecom_username"
+DEV_NAMECOM_API_TOKEN="your_namecom_token"
+```
+
+### **3. Start Development Environment**
+```bash
+# Start all services
+docker-compose up -d
+
+# Or start individual services
+docker-compose up postgres redis minio -d
+docker-compose up backend frontend -d
+```
+
+### **4. Access the Platform**
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://api.localhost:8000
+- **API Docs**: http://api.localhost:8000/docs
+- **Traefik Dashboard**: http://traefik.localhost:8080
+- **Grafana**: http://localhost:3001 (admin/admin)
+
+## 🎯 **Core Features**
+
+### **AI Agent Workflow**
+1. **User creates project** → Planning Agent analyzes requirements
+2. **Planning Agent** → Breaks down into tasks, assigns to specialized agents
+3. **Coding Agents** → Write code in parallel (frontend + backend)
+4. **Testing Agent** → Runs tests, validates functionality
+5. **Integration Agent** → Deploys to container, configures preview
+6. **Live Preview** → User sees real-time updates at `project.vibecaas.com`
+
+### **Multi-Tenant Architecture**
+- **Tenant Isolation**: Each user gets isolated namespace
+- **RBAC**: Role-based access control (Admin, Developer, Viewer)
+- **Resource Quotas**: CPU, memory, storage limits per tier
+- **Secrets Vault**: Encrypted storage for API keys and credentials
+
+### **Billing & Usage**
+- **Transparent Pricing**: Pay only for what you use
+- **Usage Metering**: Track compute time, storage, agent hours
+- **Stripe Integration**: Secure payment processing
+- **Quota Management**: Automatic limits and notifications
+
+## 📊 **Monitoring & Observability**
+
+### **Metrics (Prometheus)**
+- Application performance metrics
+- Container resource usage
+- AI agent task completion rates
+- API response times and error rates
+
+### **Logs (Loki)**
+- Centralized logging across all services
+- Structured JSON logs with correlation IDs
+- Real-time log streaming to frontend
+
+### **Dashboards (Grafana)**
+- System health overview
+- User activity and usage patterns
+- AI agent performance analytics
+- Billing and cost analysis
+
+## 🔒 **Security Features**
+
+- **JWT Authentication**: Secure token-based auth
+- **RBAC**: Fine-grained permission system
+- **Secrets Vault**: Encrypted storage for sensitive data
+- **Container Isolation**: Sandboxed execution environments
+- **Audit Logging**: Complete activity trail
+- **Input Validation**: Pydantic schemas for all inputs
+- **Rate Limiting**: API protection against abuse
+
+## 🛠️ **Development**
+
+### **Backend Development**
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+### **Frontend Development**
+```bash
+cd frontend
+npm install
 npm run dev
 ```
 
-### Production (NVIDIA Cloud)
+### **Database Migrations**
 ```bash
-# Deploy infrastructure
-cd terraform/nvidia-cloud
-terraform init
-terraform plan
-terraform apply
+# Create migration
+alembic revision --autogenerate -m "Description"
 
-# Deploy application
-npm run k8s:deploy
+# Apply migrations
+alembic upgrade head
 ```
 
-## Monitoring
+### **Testing**
+```bash
+# Backend tests
+cd backend && python -m pytest
 
-- **Application Metrics**: Prometheus + Grafana
-- **Logs**: ELK Stack (Elasticsearch, Logstash, Kibana)
-- **Tracing**: Jaeger for distributed tracing
-- **Alerts**: AlertManager for critical issues
+# Frontend tests
+cd frontend && npm test
 
-## Security
+# E2E tests
+npm run test:e2e
+```
 
-- **Authentication**: JWT tokens with refresh mechanism
-- **Authorization**: Role-based access control (RBAC)
-- **Network**: Kubernetes network policies
-- **Secrets**: Kubernetes secrets management
-- **Container**: Non-root containers with security contexts
+## 🚀 **Deployment**
 
-## Contributing
+### **Local Development**
+```bash
+docker-compose up -d
+```
 
+### **Production (Kubernetes)**
+```bash
+# Deploy to Kubernetes
+kubectl apply -f k8s/
+
+# Or use Helm
+helm install vibecaas ./helm/vibecaas
+```
+
+### **Cloud Deployment**
+- **AWS**: EKS with RDS and S3
+- **GCP**: GKE with Cloud SQL and Cloud Storage
+- **Azure**: AKS with Azure Database and Blob Storage
+
+## 📈 **Pricing Tiers**
+
+### **Starter** - $9/month
+- 10 projects
+- 50 hours compute/month
+- 5GB storage
+- Basic AI agents
+
+### **Pro** - $29/month
+- 50 projects
+- 200 hours compute/month
+- 50GB storage
+- Advanced AI agents
+- Custom domains
+
+### **Team** - $99/month
+- Unlimited projects
+- 1000 hours compute/month
+- 500GB storage
+- All AI agents
+- Priority support
+- Team collaboration
+
+## 🤝 **Contributing**
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### **Development Setup**
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
 4. Add tests
 5. Submit a pull request
 
-## License
+### **Code Standards**
+- **Python**: Black formatting, type hints, docstrings
+- **TypeScript**: ESLint, Prettier, strict mode
+- **Tests**: 90%+ coverage required
+- **Documentation**: Update docs for new features
 
-MIT License - see LICENSE file for details
+## 📚 **Documentation**
+
+- [API Documentation](http://api.localhost:8000/docs) - Interactive API docs
+- [Deployment Guide](DEPLOYMENT_GUIDE.md) - Production deployment
+- [Contributing Guide](CONTRIBUTING.md) - Development guidelines
+- [Architecture Overview](docs/ARCHITECTURE.md) - System design
+
+## 🐛 **Troubleshooting**
+
+### **Common Issues**
+
+**Backend won't start:**
+```bash
+# Check database connection
+docker-compose logs postgres
+
+# Reset database
+docker-compose down -v
+docker-compose up -d postgres
+```
+
+**Frontend build fails:**
+```bash
+# Clear node modules
+rm -rf frontend/node_modules
+cd frontend && npm install
+```
+
+**Agent tasks not processing:**
+```bash
+# Check Celery workers
+docker-compose logs celery_worker
+
+# Restart workers
+docker-compose restart celery_worker celery_beat
+```
+
+## 📄 **License**
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 **Acknowledgments**
+
+- **Replit** for inspiration on the IDE interface
+- **Cursor** for AI-powered development concepts
+- **FastAPI** for the excellent Python web framework
+- **Next.js** for the powerful React framework
+- **Docker** for containerization
+- **Stripe** for payment processing
+
+## 📞 **Support**
+
+- **Documentation**: [docs.vibecaas.com](https://docs.vibecaas.com)
+- **Issues**: [GitHub Issues](https://github.com/ttracx/VibeCaaSPlatform/issues)
+- **Discord**: [Join our community](https://discord.gg/vibecaas)
+- **Email**: support@vibecaas.com
 
 ---
 
-## 🎵 VibeCaaS.com
+**Built with ❤️ by the VibeCaaS Team**
 
-**© 2025 VibeCaaS.com, a division of NeuralQuantum.ai LLC. All rights reserved.**
-
-### 🏆 Proud Member Of
-
-[![NVIDIA Inception Program](https://img.shields.io/badge/NVIDIA-Inception%20Program-green?style=for-the-badge&logo=nvidia)](https://www.nvidia.com/en-us/startups/inception-program/)
-
-### 📚 Support & Resources
-
-- **Documentation**: [docs.vibecaas.com](https://docs.vibecaas.com)
-- **Issues**: [GitHub Issues](https://github.com/vibecaas/platform/issues)
-- **Community**: [Discord](https://discord.gg/vibecaas)
-- **About**: [About VibeCaaS](https://vibecaas.com/about)
-- **Support**: [Get Help](https://vibecaas.com/support)
-- **Privacy**: [Privacy Policy](https://vibecaas.com/privacy)
-- **Terms**: [Terms of Service](https://vibecaas.com/terms)
+*Transforming how developers build, deploy, and scale applications with AI-powered automation.*
