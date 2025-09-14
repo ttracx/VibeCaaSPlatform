@@ -20,8 +20,14 @@ EXPOSE 3000
 <<<<<<< Current (Your changes)
 <<<<<<< Current (Your changes)
 <<<<<<< Current (Your changes)
+<<<<<<< Current (Your changes)
 CMD ["npm", "run", "dev"]
 
+=======
+
+# Start the application
+CMD ["npm", "start"]
+>>>>>>> Incoming (Background Agent changes)
 =======
 
 # Start the application
