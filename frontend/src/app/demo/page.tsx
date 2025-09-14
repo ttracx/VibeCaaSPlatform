@@ -2,20 +2,36 @@
 
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import { PlusIcon, PlayIcon, StopIcon, TrashIcon, SparklesIcon, RocketLaunchIcon } from '@heroicons/react/24/outline'
+import { PlusIcon, PlayIcon, StopIcon, TrashIcon, SparklesIcon, RocketLaunchIcon, CodeBracketIcon, BookOpenIcon } from '@heroicons/react/24/outline'
 import { AppCard } from '@/components/AppCard'
 import { CreateAppModal } from '@/components/CreateAppModal'
 import { DashboardHeader } from '@/components/DashboardHeader'
 import { ResourceUsage } from '@/components/ResourceUsage'
 import { AIAssistant } from '@/components/AIAssistant'
+import { CodeEditor } from '@/components/CodeEditor'
+import { GitHubAuth } from '@/components/GitHubAuth'
+import { GitHubRepositorySelector } from '@/components/GitHubRepositorySelector'
+import { DeploymentSimulator } from '@/components/DeploymentSimulator'
+import { InteractiveTutorial } from '@/components/InteractiveTutorial'
+import { LivePreview } from '@/components/LivePreview'
 import { demoApiService } from '@/services/demoApi'
 import { App } from '@/types/app'
 import { AppSuggestion } from '@/services/openaiService'
+import { GitHubRepository, RepositoryAnalysis } from '@/types/app'
 import { toast } from 'react-hot-toast'
 
 export default function DemoDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false)
+  const [isCodeEditorOpen, setIsCodeEditorOpen] = useState(false)
+  const [isGitHubAuthOpen, setIsGitHubAuthOpen] = useState(false)
+  const [isGitHubRepoSelectorOpen, setIsGitHubRepoSelectorOpen] = useState(false)
+  const [isDeploymentSimulatorOpen, setIsDeploymentSimulatorOpen] = useState(false)
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false)
+  const [isLivePreviewOpen, setIsLivePreviewOpen] = useState(false)
+  const [previewApp, setPreviewApp] = useState<App | null>(null)
+  const [githubAccessToken, setGithubAccessToken] = useState<string>('')
+  const [pendingDeployment, setPendingDeployment] = useState<Partial<App> | null>(null)
 
   const { data: apps, isLoading, refetch } = useQuery<App[]>(
     'apps',
@@ -81,6 +97,67 @@ export default function DemoDashboard() {
     refetch()
   }
 
+  const handleGitHubAuth = (accessToken: string) => {
+    setGithubAccessToken(accessToken)
+    setIsGitHubAuthOpen(false)
+    setIsGitHubRepoSelectorOpen(true)
+  }
+
+  const handleGitHubRepoSelect = (repo: GitHubRepository, analysis: RepositoryAnalysis) => {
+    const appData: Partial<App> = {
+      name: repo.name,
+      description: repo.description || undefined,
+      image: analysis.hasDockerfile ? `${repo.name}:latest` : `base-${(repo.language || 'unknown').toLowerCase()}`,
+      port: analysis.suggestedPort,
+      resources: analysis.suggestedResources,
+      environment: analysis.environmentVariables,
+    }
+    
+    setPendingDeployment(appData)
+    setIsGitHubRepoSelectorOpen(false)
+    setIsDeploymentSimulatorOpen(true)
+  }
+
+  const handleDeploymentComplete = (app: App) => {
+    // Add the deployed app to the list
+    refetch()
+    setIsDeploymentSimulatorOpen(false)
+    setPendingDeployment(null)
+    toast.success(`${app.name} deployed successfully!`)
+  }
+
+  const handleCodeDeploy = (code: string, language: string) => {
+    const appData: Partial<App> = {
+      name: `code-app-${Date.now()}`,
+      description: `Application created from ${language} code`,
+      image: `base-${language.toLowerCase()}`,
+      port: language === 'python' ? 8000 : language === 'go' ? 8080 : 3000,
+      resources: {
+        cpu: '0.5',
+        memory: '512Mi',
+        gpu: '0'
+      },
+      environment: {
+        NODE_ENV: 'production',
+        PORT: language === 'python' ? '8000' : language === 'go' ? '8080' : '3000'
+      }
+    }
+    
+    setPendingDeployment(appData)
+    setIsCodeEditorOpen(false)
+    setIsDeploymentSimulatorOpen(true)
+  }
+
+  const handleTutorialComplete = () => {
+    setIsTutorialOpen(false)
+    toast.success('Tutorial completed! You\'re ready to start deploying.')
+  }
+
+  const handleLivePreview = (app: App) => {
+    setPreviewApp(app)
+    setIsLivePreviewOpen(true)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <DashboardHeader />
@@ -133,12 +210,33 @@ export default function DemoDashboard() {
                 Manage your containerized applications with AI-powered deployment
               </p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 flex-wrap">
+              <button
+                onClick={() => setIsTutorialOpen(true)}
+                className="bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-lg font-medium hover:from-green-700 hover:to-teal-700 transition-all duration-200 flex items-center gap-2 shadow-lg"
+              >
+                <BookOpenIcon className="h-4 w-4" />
+                Tutorial
+              </button>
+              <button
+                onClick={() => setIsCodeEditorOpen(true)}
+                className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-4 py-2 rounded-lg font-medium hover:from-orange-700 hover:to-red-700 transition-all duration-200 flex items-center gap-2 shadow-lg"
+              >
+                <CodeBracketIcon className="h-4 w-4" />
+                Code Editor
+              </button>
+              <button
+                onClick={() => setIsGitHubAuthOpen(true)}
+                className="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 shadow-lg"
+              >
+                <CodeBracketIcon className="h-4 w-4" />
+                Deploy from GitHub
+              </button>
               <button
                 onClick={() => setIsAIAssistantOpen(true)}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 flex items-center gap-2 shadow-lg"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 flex items-center gap-2 shadow-lg"
               >
-                <SparklesIcon className="h-5 w-5" />
+                <SparklesIcon className="h-4 w-4" />
                 AI Assistant
               </button>
               <button
@@ -178,6 +276,7 @@ export default function DemoDashboard() {
                   key={app.id}
                   app={app}
                   onAction={handleAppAction}
+                  onPreview={handleLivePreview}
                 />
               ))}
             </div>
@@ -318,6 +417,44 @@ export default function DemoDashboard() {
         isOpen={isAIAssistantOpen}
         onClose={() => setIsAIAssistantOpen(false)}
         onDeploy={handleAIDeploy}
+      />
+
+      <CodeEditor
+        isOpen={isCodeEditorOpen}
+        onClose={() => setIsCodeEditorOpen(false)}
+        onDeploy={handleCodeDeploy}
+      />
+
+      <GitHubAuth
+        isOpen={isGitHubAuthOpen}
+        onClose={() => setIsGitHubAuthOpen(false)}
+        onAuthenticated={handleGitHubAuth}
+      />
+
+      <GitHubRepositorySelector
+        isOpen={isGitHubRepoSelectorOpen}
+        onClose={() => setIsGitHubRepoSelectorOpen(false)}
+        onSelect={handleGitHubRepoSelect}
+        accessToken={githubAccessToken}
+      />
+
+      <DeploymentSimulator
+        isOpen={isDeploymentSimulatorOpen}
+        onClose={() => setIsDeploymentSimulatorOpen(false)}
+        app={pendingDeployment || {}}
+        onComplete={handleDeploymentComplete}
+      />
+
+      <InteractiveTutorial
+        isOpen={isTutorialOpen}
+        onClose={() => setIsTutorialOpen(false)}
+        onComplete={handleTutorialComplete}
+      />
+
+      <LivePreview
+        isOpen={isLivePreviewOpen}
+        onClose={() => setIsLivePreviewOpen(false)}
+        app={previewApp || { name: '', port: 3000, status: 'stopped' }}
       />
 
       <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">

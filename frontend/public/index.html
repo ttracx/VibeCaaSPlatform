@@ -4,52 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VibeCaaS - Container as a Service Platform</title>
-    <meta name="description" content="Deploy and manage containerized applications on NVIDIA Cloud infrastructure">
-    <meta name="keywords" content="container,cloud,nvidia,kubernetes,deployment">
+    <meta name="description" content="Deploy and manage containerized applications on NVIDIA Cloud infrastructure with AI-powered assistance">
+    <meta name="keywords" content="container,cloud,nvidia,kubernetes,deployment,ai,github">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            height: 100vh;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .container {
-            text-align: center;
-            max-width: 800px;
+            position: relative;
             padding: 2rem;
         }
+        
+        .container {
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+            z-index: 2;
+        }
+        
         .logo {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #6c3aea;
+            background: linear-gradient(45deg, #6c3aea, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
         }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(108, 58, 234, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.8)); }
+        }
+        
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-bottom: 2rem;
             opacity: 0.9;
+            font-weight: 300;
         }
+        
         h1 {
-            font-size: 3rem;
-            margin: 0 0 1rem 0;
+            font-size: 3.5rem;
+            margin: 0 0 1.5rem 0;
             font-weight: 700;
+            line-height: 1.1;
         }
-        p {
-            font-size: 1.2rem;
-            margin: 1.5rem 0;
+        
+        .description {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 3rem 0;
             opacity: 0.9;
             line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
+        
         .btn {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 16px 32px;
+            padding: 18px 36px;
             text-decoration: none;
             border-radius: 12px;
             font-weight: 600;
@@ -57,104 +89,394 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.3);
             margin: 0.5rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
         .btn:hover {
             background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
+        
         .btn-primary {
-            background: #6c3aea;
+            background: linear-gradient(45deg, #6c3aea, #a855f7);
             color: white;
-            border-color: #6c3aea;
+            border: none;
+            box-shadow: 0 4px 15px rgba(108, 58, 234, 0.4);
         }
+        
         .btn-primary:hover {
-            background: #5a2dd1;
-            transform: translateY(-2px);
+            background: linear-gradient(45deg, #5a2dd1, #9333ea);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(108, 58, 234, 0.6);
         }
+        
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
         }
+        
         .feature {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 2rem;
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6c3aea, #a855f7, #ec4899);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .feature p {
+            font-size: 1rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        .demo-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .demo-preview h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #a855f7;
+        }
+        
+        .demo-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #a855f7;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+        
         .spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: #6c3aea;
             animation: spin 1s ease-in-out infinite;
             margin-right: 10px;
         }
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        
         .footer {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             padding: 1rem;
             text-align: center;
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.9;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1rem;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
         .footer-logo {
             height: 30px;
             width: auto;
         }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 40%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .interactive-demo {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            text-align: left;
+            border-left: 4px solid #6c3aea;
+        }
+        
+        .highlight {
+            color: #a855f7;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .logo { font-size: 3rem; }
+            h1 { font-size: 2.5rem; }
+            .description { font-size: 1.1rem; }
+            .features { grid-template-columns: 1fr; }
+            .btn { padding: 14px 28px; font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">VibeCaaS</div>
-        <div class="subtitle">Container as a Service Platform</div>
-        <h1>Welcome to the Future of Container Management</h1>
-        <p>Experience our powerful platform for deploying and managing containerized applications on NVIDIA Cloud infrastructure.</p>
-        
-        <div class="features">
-            <div class="feature">
-                <h3>🚀 Easy Deployment</h3>
-                <p>Deploy applications with a single click</p>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <div class="hero-section">
+        <div class="container">
+            <div class="logo">VibeCaaS</div>
+            <div class="subtitle">Container as a Service Platform</div>
+            <h1>Welcome to the Future of Container Management</h1>
+            <p class="description">
+                Experience our powerful platform for deploying and managing containerized applications on NVIDIA Cloud infrastructure. 
+                Deploy from GitHub, manage with AI, and scale automatically.
+            </p>
+            
+            <div class="interactive-demo">
+                <h3>🚀 Try Our Interactive Demo</h3>
+                <p>Experience the full power of VibeCaaS with our live demo featuring:</p>
+                <div class="code-snippet">
+                    <div><span class="highlight">✨ AI-Powered Deployment</span> - Deploy apps with natural language</div>
+                    <div><span class="highlight">🔗 GitHub Integration</span> - Deploy directly from your repositories</div>
+                    <div><span class="highlight">📊 Real-time Monitoring</span> - Track performance and resources</div>
+                    <div><span class="highlight">🔄 Live Code Editor</span> - Modify and redeploy instantly</div>
+                </div>
             </div>
-            <div class="feature">
-                <h3>📊 Real-time Monitoring</h3>
-                <p>Monitor resources and performance</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>🚀 One-Click Deployment</h3>
+                    <p>Deploy applications from GitHub with intelligent configuration and automatic optimization</p>
+                </div>
+                <div class="feature">
+                    <h3>🤖 AI Assistant</h3>
+                    <p>Get intelligent suggestions for deployment configuration powered by GPT-4</p>
+                </div>
+                <div class="feature">
+                    <h3>📊 Real-time Monitoring</h3>
+                    <p>Monitor CPU, memory, GPU, and storage usage with beautiful dashboards</p>
+                </div>
+                <div class="feature">
+                    <h3>🔧 Auto-scaling</h3>
+                    <p>Automatic resource management and scaling based on demand</p>
+                </div>
+                <div class="feature">
+                    <h3>💻 Live Code Editor</h3>
+                    <p>Edit and test your code with our integrated Monaco editor</p>
+                </div>
+                <div class="feature">
+                    <h3>🔄 Version Control</h3>
+                    <p>Track changes, rollback deployments, and manage multiple versions</p>
+                </div>
             </div>
-            <div class="feature">
-                <h3>🔧 Auto-scaling</h3>
-                <p>Automatic resource management</p>
+            
+            <div class="demo-preview">
+                <h3>🎮 Interactive Demo Preview</h3>
+                <p>Experience the full platform with realistic data and interactive features</p>
+                <div class="demo-stats">
+                    <div class="stat">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Sample Apps</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">AI</div>
+                        <div class="stat-label">Powered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Interactive</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Possibilities</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <div>
-            <a href="/demo" class="btn btn-primary">Launch Demo</a>
-            <a href="#features" class="btn">Learn More</a>
-        </div>
-        
-        <div style="margin-top: 2rem;">
-            <div class="spinner"></div>
-            <span>Redirecting to demo...</span>
+            
+            <div>
+                <a href="/demo" class="btn btn-primary">🚀 Launch Interactive Demo</a>
+                <a href="#features" class="btn">📚 Learn More</a>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <div class="spinner"></div>
+                <span>Preparing your demo experience...</span>
+            </div>
         </div>
     </div>
     
     <script>
-        // Redirect to demo after 2 seconds
-        setTimeout(() => {
+        // Enhanced redirect with user interaction
+        let redirectTimer = setTimeout(() => {
             window.location.href = '/demo';
-        }, 2000);
+        }, 3000);
+        
+        // Cancel redirect if user interacts
+        document.addEventListener('click', () => {
+            clearTimeout(redirectTimer);
+        });
+        
+        // Add some interactive effects
+        document.querySelectorAll('.feature').forEach(feature => {
+            feature.addEventListener('mouseenter', () => {
+                feature.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            feature.addEventListener('mouseleave', () => {
+                feature.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Animate stats on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const finalValue = stat.textContent;
+                        if (finalValue === '6') {
+                            let current = 0;
+                            const increment = 1;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                stat.textContent = current;
+                                if (current >= 6) {
+                                    clearInterval(timer);
+                                    stat.textContent = finalValue;
+                                }
+                            }, 100);
+                        }
+                    });
+                }
+            });
+        });
+        
+        document.querySelectorAll('.stat').forEach(stat => {
+            observer.observe(stat);
+        });
     </script>
     
     <footer class="footer">

@@ -6,11 +6,12 @@ import { githubApiService } from '@/services/githubApi'
 import { toast } from 'react-hot-toast'
 
 interface GitHubAuthProps {
+  isOpen: boolean
   onAuthenticated: (accessToken: string) => void
   onClose: () => void
 }
 
-export function GitHubAuth({ onAuthenticated, onClose }: GitHubAuthProps) {
+export function GitHubAuth({ isOpen, onAuthenticated, onClose }: GitHubAuthProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState<'auth' | 'callback'>('auth')
   const [authUrl, setAuthUrl] = useState<string>('')
@@ -79,8 +80,13 @@ export function GitHubAuth({ onAuthenticated, onClose }: GitHubAuthProps) {
     }
   }
 
+  if (!isOpen) return null
+
   return (
-    <div className="space-y-6">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md">
+        <div className="p-6">
+          <div className="space-y-6">
       <div className="text-center">
         <div className="mx-auto h-16 w-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
           <CodeBracketIcon className="h-8 w-8 text-gray-600 dark:text-gray-400" />
@@ -180,6 +186,9 @@ export function GitHubAuth({ onAuthenticated, onClose }: GitHubAuthProps) {
           </div>
         </div>
       )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
