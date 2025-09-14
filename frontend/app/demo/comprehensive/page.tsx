@@ -11,7 +11,7 @@ import {
   Code, 
   Server, 
   Bug, 
-  Magic, 
+  Sparkles as Magic, 
   Plug, 
   Play, 
   Square, 

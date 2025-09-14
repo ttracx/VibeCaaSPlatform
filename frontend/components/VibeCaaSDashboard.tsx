@@ -16,13 +16,18 @@ import {
   Server, 
   Brain, 
   Bug, 
-  Magic,
+  Sparkles as Magic,
   Plug,
   Activity,
   DollarSign,
   Users,
   Folder,
-  Zap
+  Zap,
+  ExternalLink,
+  Globe,
+  Search,
+  Link,
+  Shield
 } from 'lucide-react';
 
 interface Project {

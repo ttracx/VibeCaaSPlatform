@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { PlusIcon, PlayIcon, StopIcon, TrashIcon, SparklesIcon, RocketLaunchIcon, CodeBracketIcon, BookOpenIcon } from '@heroicons/react/24/outline'
 import { AppCard } from '@/components/AppCard'
 import { CreateAppModal } from '@/components/CreateAppModal'
@@ -33,21 +33,17 @@ export default function DemoDashboard() {
   const [githubAccessToken, setGithubAccessToken] = useState<string>('')
   const [pendingDeployment, setPendingDeployment] = useState<Partial<App> | null>(null)
 
-  const { data: apps, isLoading, refetch } = useQuery<App[]>(
-    'apps',
-    demoApiService.getApps,
-    {
-      refetchInterval: 5000, // Refetch every 5 seconds
-    }
-  )
+  const { data: apps, isLoading, refetch } = useQuery<App[]>({
+    queryKey: ['apps'],
+    queryFn: demoApiService.getApps,
+    refetchInterval: 5000, // Refetch every 5 seconds
+  })
 
-  const { data: usage } = useQuery(
-    'usage',
-    demoApiService.getResourceUsage,
-    {
-      refetchInterval: 10000, // Refetch every 10 seconds
-    }
-  )
+  const { data: usage } = useQuery({
+    queryKey: ['usage'],
+    queryFn: demoApiService.getResourceUsage,
+    refetchInterval: 10000, // Refetch every 10 seconds
+  })
 
   const handleAppAction = async (appId: string, action: 'start' | 'stop' | 'delete') => {
     try {

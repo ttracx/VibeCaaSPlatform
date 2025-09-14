@@ -14,7 +14,7 @@ import {
   Server, 
   Brain, 
   Bug, 
-  Magic,
+  Sparkles as Magic,
   Plug,
   Activity,
   Zap,
