@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vibecaas
+  labels:
+    name: vibecaas
+    managed-by: vibecaas
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vibecaas-apps
+  labels:
+    name: vibecaas-apps
+    managed-by: vibecaas
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vibecaas-monitoring
+  labels:
+    name: vibecaas-monitoring
+    managed-by: vibecaas
